@@ -1,0 +1,103 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+    USER
+    ADMIN
+}
+
+model User {
+    id        String    @id @default(uuid())
+    
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+
+    email     String    @unique
+    fullName  String?
+    password  String
+    role      Role      @default(USER)
+
+    orders    Order[]
+    refresh_token refresh_token[]
+}
+
+model refresh_token {
+    id              String           @id @default(uuid())
+
+    createdAt       DateTime         @default(now())
+    updatedAt       DateTime         @updatedAt
+
+    token           String           @unique
+    valid           Boolean          @default(true)
+
+    userId          String
+    User            User             @relation(fields: [userId], references: [id])
+
+    @@unique([userId, token])
+}
+
+model Product {
+    id                  String          @id @default(uuid())
+    
+    createdAt           DateTime        @default(now())
+    updatedAt           DateTime        @updatedAt
+
+    name                String
+    description         String
+    long_description    String
+    price               String
+    stripeProductId     String
+    image               String
+
+    orderItems          OrderItem[]
+}
+
+model OrderItem {
+    id              String          @id @default(uuid())
+
+    createdAt       DateTime        @default(now())
+    updatedAt       DateTime        @updatedAt
+
+
+    quantity        Int
+    Product         Product[]
+
+    orderId         String
+    Order           Order           @relation(fields: [orderId], references: [id])
+}
+
+enum status {
+    pending
+    processing
+    completed
+    cancelled
+}
+
+model Order {
+    id              String          @id @default(uuid())
+
+    createdAt       DateTime        @default(now())
+    updatedAt       DateTime        @updatedAt
+    
+    userId          String?
+    user            User?            @relation(fields: [userId], references: [id])
+    
+    orderItems      OrderItem[]
+    orderStatus     status          @default(pending)
+    
+    address         String
+    country         String
+    city            String
+    postalCode      String
+    phone           String
+    email           String
+}
