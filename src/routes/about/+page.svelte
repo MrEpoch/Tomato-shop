@@ -1,5 +1,7 @@
 <script>
 	import AboutCard from "components/about_card.svelte";
+	import Heading from "./Heading.svelte";
+	import Header from "../header.svelte";
 
     const about_cards = [
         {
@@ -15,10 +17,25 @@
         {
             title: "Sustainability in Every Seedling",
             content: "We believe that tending to our planet is as vital as nurturing our tomatoes. Guided by a steadfast commitment to sustainability, our farming practices are designed to minimize our ecological footprint. From efficient irrigation systems to responsible packaging choices, our dedication to the environment is an inherent part of our tomato journey.",
-            image: "/src/assets/tomato-cherry.jpg"
+            image: "/src/assets/tomato-hands.jpg"
         },
+        {
+            title: "Unveiling Nature's Palette",
+            content: "Witness the spectrum of nature's artistry as you explore our diverse tomato offering. The radiant reds, sunlit yellows, and deep, velvety purples mirror the vivid landscapes from which they hail. With [Company Name], you are not merely purchasing tomatoes; you are embracing the elegance of nature's palette, bringing the enchanting hues of the field to your plate.",
+            image: "/src/assets/tomato-plant.jpg"
+        },
+        {
+            title: "Cultivating Connections:",
+            content: "At [Company Name], our relationship with you goes beyond a transaction. We see ourselves as stewards of your culinary dreams, committed to empowering your gastronomic endeavors. Our team of experts is always on hand to provide insights, recipes, and tips to help you make the most of your tomato experience.",
+            image: "/src/assets/tomato-dressing.jpg"
+        },
+        {
+            title: "Embrace the Extraordinary:",
+            content: "Every tomato that graces your table has been lovingly nurtured and meticulously selected to elevate your dining experience. We invite you to savor the extraordinary in every bite, to relish the symphony of flavors that only nature's finest can provide. Join us on a journey that transcends mere sustenance, and embrace the art of indulgence with [Company Name].",
+            image: "/src/assets/tomato-big.jpg"
+        }
     ]
 </script>
 
-
+<Heading />
 <AboutCard {about_cards} />

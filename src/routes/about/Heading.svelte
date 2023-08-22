@@ -1,0 +1,39 @@
+<script>
+    import Tomatoes from "assets/tomato-bunch.jpg";
+
+</script>
+
+<div class="h-[70rem] w-full relative mt-[10rem] flex flex-col gap-[5rem]">
+    <h1 class="text-5xl text-center font-thin text-black">We love <span class="font-light">Tomatoes</span></h1>
+    <div class="flex flex-col items-center w-full relative">
+        <a href="/catalog" class="z-10"><img src={Tomatoes} alt="tomato" class="h-[30rem] w-fit object hover:translate-y-[-5px] hover:translate-x-[-5px] transition-all duration-700" /></a>
+        <img src={Tomatoes} alt="tomato" class="h-[30rem] w-fit object absolute blur-[25px] translate-x-20 -translate-y-[-35px]" />
+    </div>
+    <div class="custom-shape-divider-bottom-1692710190">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M600,112.77C268.63,112.77,0,65.52,0,7.23V120H1200V7.23C1200,65.52,931.37,112.77,600,112.77Z" class="shape-fill"></path>
+        </svg>
+    </div>
+</div>
+
+<style lang="postcss">
+    .custom-shape-divider-bottom-1692710190 {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+    }
+
+    .custom-shape-divider-bottom-1692710190 svg {
+        position: relative;
+        display: block;
+        width: calc(100% + 1.3px);
+        height: 135px;
+    }
+
+    .custom-shape-divider-bottom-1692710190 .shape-fill {
+        fill: #EF4444;
+    }
+</style>
