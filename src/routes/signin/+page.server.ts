@@ -2,6 +2,7 @@ import { comparePasswords } from "lib/auth";
 import { getUserByEmail } from "lib/user";
 import { REFRESH_TOKEN_COOKIE_NAME } from "$env/static/private";
 import { CreateRefreshToken } from "lib";
+import { redirect } from "@sveltejs/kit";
 
 export const actions = {
     default: async ({ cookies, request }) => {
@@ -25,12 +26,7 @@ export const actions = {
                 path: '/',
                 maxAge: 60 * 60 * 24 * 7,
             });
-            return {
-                status: 200,
-                body: {
-                    message: 'Logged in successfully',
-                },
-            };
+            throw redirect(300, '/account');
         } catch (error) {
             return {
                 status: 401,

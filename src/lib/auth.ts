@@ -106,3 +106,42 @@ export const isAdmin = async (request: Request, cookies: Cookies) => {
         return false;
     }
 }
+
+export const getUser = async (request: Request, cookies: Cookies) => {
+    try {
+        const refreshToken = cookies.get(REFRESH_TOKEN_COOKIE_NAME);
+        if (!refreshToken) {
+            return null;
+        }
+
+        const decoded = await verifyRefreshToken(refreshToken);
+        const user = await prisma.user.findUnique({
+            where: {
+                id: decoded.id
+            }
+        });
+        
+        if (!user) {
+            return null;
+        }
+
+        const refreshInDatabase = await prisma.refresh_token.findUnique({
+            where: {
+                userId_token: {
+                    userId: user.id,
+                    token: refreshToken
+                }
+            }
+        });
+
+        if (!refreshInDatabase) {
+            return null;
+        }
+
+        return user;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}
+
