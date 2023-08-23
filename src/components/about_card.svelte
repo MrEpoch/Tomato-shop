@@ -4,7 +4,7 @@
 </script>
 
 
-<div class="flex flex-col w-full bg-red-500 gap-[10rem] pb-[15rem] p-2">
+<div class="flex flex-col w-full dark:bg-red-700 bg-red-500 gap-[10rem] pb-[15rem] p-2">
     {#each about_cards as card}
         <div class="about__card items-center text-gray-100/90 flex flex-col gap-[3rem] w-full">
             <h2 class="text-5xl max-[800px]:text-3xl mt-[7rem] text-center">{card.title}</h2>
