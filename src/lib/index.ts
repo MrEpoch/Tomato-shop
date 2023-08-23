@@ -1,24 +1,24 @@
 import jwt from 'jsonwebtoken';
-import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from '$env/static/private';
+import { REFRESH_TOKEN_SECRET } from '$env/static/private';
 import { prisma } from './db';
 
-export const CreateRefreshToken = async (userId: string, email: string) => {
+export const CreateRefreshToken = async (userId: string) => {
     try {
         const refreshToken = await jwt.sign({
             id: userId,
-            email: email
         }, REFRESH_TOKEN_SECRET, {
             expiresIn: '7d'
         });
 
-        const refreshInDatabase = await prisma.refresh_token.create({
+        await prisma.refresh_token.create({
             data: {
                 token: refreshToken,
-                userId: userId
+                userId: userId,
+                expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
             }
         });
 
-        return refreshInDatabase;
+        return refreshToken;
     } catch (error) {
         console.log(error);
         return null;
@@ -42,30 +42,6 @@ export const DeleteRefreshToken = async (refreshToken: string) => {
         return deletedRefreshToken;
     } catch (error) {        
         console.log(error);
-        return null;
-    }
-}
-
-export const CreateAccessToken = async (refreshToken: string) => {
-    try {
-        const accessToken = await jwt.sign({
-            refreshToken: refreshToken
-        }, ACCESS_TOKEN_SECRET, {
-            expiresIn: '5m'
-        });
-
-        return accessToken;
-    } catch (error) {    
-        console.log(error);
-        return null;
-    }
-}
-
-export const verifyAccessToken = async (accessToken: string) => {
-    try {
-        const decoded = await jwt.verify(accessToken, ACCESS_TOKEN_SECRET);
-        return decoded;
-    } catch (error) {
         return null;
     }
 }

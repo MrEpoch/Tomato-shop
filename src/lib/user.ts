@@ -3,6 +3,7 @@ import isEmpty from 'validator/lib/isEmpty';
 import { prisma } from './db';
 import type { Prisma } from '@prisma/client';
 import { hashPassword } from './auth';
+import { verifyRefreshToken } from 'lib';
 
 export async function createUser(fullName: string, email: string, password: string): Promise<Prisma.UserCreateInput> {
     if (fullName === undefined) {
@@ -77,7 +78,7 @@ export async function getUserById(id: string): Promise<any> {
     }
 }
 
-export async function updateUserFullNameOrEmail(id: string, fullName: string, email: string, password: string): Promise<any> {
+export async function updateUserFullNameOrEmail(id: string, fullName: string, email: string): Promise<any> {
 
     if (fullName === undefined) {
         throw new Error('Name is required');
@@ -131,4 +132,25 @@ export async function updateUserPassword(id: string, password: string): Promise<
     }
 }
 
+export async function LogOut(refresh_token: string): Promise<any> {
+    try {
 
+        const decoded = await verifyRefreshToken(refresh_token);
+
+        const user = await prisma.refresh_token.update({
+            where: {
+                userId_token: {
+                    userId: decoded.id,
+                    token: refresh_token
+                }
+            },
+            data: {
+                valid: false
+            }
+        });
+        return user;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}

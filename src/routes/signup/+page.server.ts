@@ -1,7 +1,14 @@
 import { createUser } from "lib/user";
-import { REFRESH_TOKEN_COOKIE_NAME } from "$env/static/private";
+import { IS_LOGGED_COOKIE_NAME, REFRESH_TOKEN_COOKIE_NAME } from "$env/static/private";
 import { CreateRefreshToken } from "lib";
-import { redirect } from "@sveltejs/kit";
+import { redirect, type Cookies } from "@sveltejs/kit";
+import { isLogged } from "lib/auth";
+
+export async function load({ cookies, url, request }: { cookies: Cookies, url: URL, request: Request }) {
+    if (await isLogged(request, cookies)) {
+        throw redirect(303, `/account`);
+    }
+}
 
 export const actions = {
     default: async ({ cookies, request }) => {
@@ -12,16 +19,18 @@ export const actions = {
         try {
             const user = await createUser(fullName, email, password);
 
-            const refresh_token = await CreateRefreshToken(user.id, user.email); 
+            const refresh_token = await CreateRefreshToken(user.id); 
 
-            cookies.set(REFRESH_TOKEN_COOKIE_NAME, refresh_token, {
+            await cookies.set(REFRESH_TOKEN_COOKIE_NAME, refresh_token, {
                 httpOnly: true,
                 path: '/',
                 maxAge: 60 * 60 * 24 * 7,
             });
+            await cookies.delete(IS_LOGGED_COOKIE_NAME);
             
-            throw redirect(300, '/account');
+            return redirect(300, '/account');
         } catch (error) {
+            console.log(error);
             return {
                 status: 401,
                 body: {

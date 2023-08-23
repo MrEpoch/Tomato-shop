@@ -82,7 +82,7 @@ export const isAdmin = async (request: Request, cookies: Cookies) => {
         if (!user) {
             return false;
         }
-
+        
         const refreshInDatabase = await prisma.refresh_token.findUnique({
             where: {
                 userId_token: {
@@ -113,7 +113,7 @@ export const getUser = async (request: Request, cookies: Cookies) => {
         if (!refreshToken) {
             return null;
         }
-
+        
         const decoded = await verifyRefreshToken(refreshToken);
         const user = await prisma.user.findUnique({
             where: {
