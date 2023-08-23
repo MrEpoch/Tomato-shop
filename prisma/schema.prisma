@@ -54,8 +54,8 @@ model Product {
 
     name                String
     description         String
-    long_description    String
-    price               String
+    long_description    String          @db.Text
+    price               Float
     stripeProductId     String
     image               String
 

@@ -11,7 +11,7 @@
                     <button class="border-red-500 dark:border-red-700 dark:text-white/90 border-[2px] hover:text-white hover:bg-red-500 dark:hover:bg-red-700 transition-all text-black font-bold py-4 px-8 rounded-full">
                         <a href="/contact">Contact Us</a>
                     </button>
-                    <button class="bg-red-500 dark:bg-red-700 dark:border-red-700 border-red-500 border-[2px] hover:bg-red-600 transition-all text-white font-bold py-4 px-8 rounded-full">
+                    <button class="bg-red-500 dark:hover:bg-red-800 dark:hover:border-red-800 dark:bg-red-700 dark:border-red-700 border-red-500 border-[2px] hover:bg-red-600 transition-all text-white font-bold py-4 px-8 rounded-full">
                         <a href="/catalog">See Products</a>
                     </button>
                 </div>

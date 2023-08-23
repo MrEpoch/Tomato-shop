@@ -9,10 +9,10 @@
         <h1 class="text-6xl max-[800px]:text-4xl mt-[10rem] font-light">Contact Us</h1>
         <p class="text-xl dark:text-white/50 font-light text-gray-500/90">We are here to help you.</p>
         <div class="flex mt-[10rem] w-2/5 justify-around items-center">
-            <button class="border-red-500 border-[2px] dark:text-white/90 duration-500 hover:text-white hover:bg-red-500 transition-all text-black font-bold py-4 px-8 rounded-full">
+            <button class="dark:hover:bg-red-700 dark:border-red-700 border-red-500 border-[2px] dark:text-white/90 duration-500 hover:text-white hover:bg-red-500 transition-all text-black font-bold py-4 px-8 rounded-full">
                 <a href="/contact">Contact Us</a>
             </button>
-            <button class="bg-red-500 border-red-500 border-[2px] duration-500 hover:bg-red-600 transition-all text-white font-bold py-4 px-8 rounded-full">
+            <button class="dark:bg-red-700 dark:border-red-700 dark:hover:bg-red-800 dark:hover:border-red-800 bg-red-500 border-red-500 border-[2px] duration-500 hover:bg-red-600 transition-all text-white font-bold py-4 px-8 rounded-full">
                 <a href="/catalog">See Products</a>
             </button>
         </div>

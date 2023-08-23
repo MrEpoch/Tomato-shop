@@ -28,7 +28,7 @@ export const actions = {
             });
             await cookies.delete(IS_LOGGED_COOKIE_NAME);
             
-            return redirect(300, '/account');
+            throw redirect(300, '/account');
         } catch (error) {
             console.log(error);
             return {

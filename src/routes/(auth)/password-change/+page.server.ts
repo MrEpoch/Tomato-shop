@@ -6,15 +6,15 @@ export const actions = {
     default: async ({ cookies, request }) => {
         try {
             const data = await request.formData();
-            if (!data.has('password')) return redirect(303, `/`);
-            if (!data.has('newPassword')) return redirect(303, `/`);
-            if (data.get('newPassword') === data.get("password")) return redirect(303, `/`);
+            if (!data.has('password')) throw redirect(303, `/`);
+            if (!data.has('newPassword')) throw redirect(303, `/`);
+            if (data.get('newPassword') === data.get("password")) throw redirect(303, `/`);
             const user = await getUser(request, cookies);
-            if (!user) return redirect(303, `/signin?redirectTo=${request.url.pathname}`);
+            if (!user) throw redirect(303, `/signin?redirectTo=${request.url.pathname}`);
             
             await updateUserPassword(user.id, data.get('password'));
 
-            return redirect(303, `/`);
+            throw redirect(303, `/`);
         } catch (error) {
             console.log(error);
             return {

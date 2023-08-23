@@ -17,7 +17,7 @@
     <div class="flex items-center">
         <a href="/about" class="mr-6">About</a>
         <a href="/contact">Contact</a>
-        <a href="/catalog" class="ml-6 duration-300 transition-all dark:border-white/50 dark:hover:border-red-500 hover:bg-red-500 hover:text-white hover:border-red-500 rounded-2xl pr-3 pl-3 p-1 border-black/60 border-solid border-[2px]">Catalog</a>
+        <a href="/catalog" class="ml-6 duration-300 transition-all dark:hover:border-red-700 dark:hover:bg-red-700 dark:border-white/50 dark:hover:border-red-500 hover:bg-red-500 hover:text-white hover:border-red-500 rounded-2xl pr-3 pl-3 p-1 border-black/60 border-solid border-[2px]">Catalog</a>
     </div>
 </header>
 

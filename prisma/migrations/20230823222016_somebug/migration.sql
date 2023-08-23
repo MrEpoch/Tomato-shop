@@ -22,6 +22,7 @@ CREATE TABLE "refresh_token" (
     "id" STRING NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "expiresAt" TIMESTAMP(3) NOT NULL,
     "token" STRING NOT NULL,
     "valid" BOOL NOT NULL DEFAULT true,
     "userId" STRING NOT NULL,
@@ -37,7 +38,7 @@ CREATE TABLE "Product" (
     "name" STRING NOT NULL,
     "description" STRING NOT NULL,
     "long_description" STRING NOT NULL,
-    "price" STRING NOT NULL,
+    "price" FLOAT8 NOT NULL,
     "stripeProductId" STRING NOT NULL,
     "image" STRING NOT NULL,
 
@@ -83,6 +84,9 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "refresh_token_token_key" ON "refresh_token"("token");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "refresh_token_userId_token_key" ON "refresh_token"("userId", "token");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_OrderItemToProduct_AB_unique" ON "_OrderItemToProduct"("A", "B");
