@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Card from "./card.svelte";
     import CreateModal from "./create_modal.svelte";
+	import ProductModal from "./product_modal.svelte";
 
     export let data;
 
@@ -25,7 +26,7 @@
     <div class="flex flex-wrap gap-[3rem]"> 
     <CreateModal {user} />
     {#each products as product}
-        <Card {product} />
+        <ProductModal {product} />
     {/each}
     </div>
 </div>

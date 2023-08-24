@@ -3,6 +3,6 @@
 </script>
 
 
-<a href={`/catalog/tomato/${product.id}`} class="w-full max-w-[300px] h-[300px] flex items-center justify-center hover:scale-105 duration-500 cursor-pointer transition-transform">
-   <img src={product.image} alt={product.name} class="w-full h-full object-cover" /> 
-</a>
+<div class="w-full max-w-[250px] h-[250px] flex items-center justify-center rounded hover:scale-105 duration-500 cursor-pointer transition-transform">
+   <img src={product.image} alt={product.name} class="w-full h-full object-cover rounded-3xl" /> 
+</div>

@@ -81,6 +81,50 @@ export const deleteProduct = async (id: string) => {
     }
 };
 
+export const updateProduct = async (   
+        id: string, 
+        name: string,
+        description: string,
+        long_description: string,
+        price: string,
+        stripeProductId: string,
+        image: string
+    ) => {
+        try {
+            verifyItemString(name);
+            verifyItemString(description);
+            verifyItemString(long_description);
+            verifyItemString(price);
+            verifyItemString(stripeProductId);
+            verifyItemString(image);
+        } catch (err) {
+            console.log(err);
+            throw new Error(err);
+        }
+
+        try {
+            const new_price: number = parseFloat(parseFloat(price).toFixed(2));
+            const product = await prisma.product.update({
+                where: {
+                    id
+                },
+                data: {
+                    name,
+                    description,
+                    long_description,
+                    price: new_price,
+                    stripeProductId,
+                    image
+                }
+            });
+            return product;
+        } catch (err) {
+            console.log(err);
+            throw new Error(err);
+        }
+};
+
+
 export const verifyItemString = (item: string) => {
 	switch (true) {
 		case item.length < 3:

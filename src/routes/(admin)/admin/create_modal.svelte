@@ -19,15 +19,15 @@
 
 </script>
 
-<button on:click={openModal} class="w-full max-w-[300px] h-[300px] flex items-center justify-center from-red-300 to-rose-900  bg-gradient-to-br hover:scale-105 duration-500 cursor-pointer transition-transform">
+<button on:click={openModal} class="w-full rounded-3xl max-w-[250px] h-[250px] flex items-center justify-center from-red-300 to-rose-900  bg-gradient-to-br hover:scale-105 duration-500 cursor-pointer transition-transform">
         <svg class="w-16 dark:text-white/90 text-black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path fill="currentColor" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
 </button>
 
 {#if !hidden}
 
-<div tabindex="-1" aria-hidden="true" class={"fixed  top-0 left-0 flex justify-center right-0 z-50 w-full p-4 md:inset-0 max-h-full"}>
-    <button on:click={closeModal} class="h-full w-full fixed cursor-default"></button>
-    <div class="relative w-full max-w-lg max-h-full z-[51]">
+<div aria-hidden="true" class={"fixed overflow-x-hidden overflow-y-auto top-0 left-0 flex justify-center right-0 z-50 p-4 md:inset-0 h-[calc(100%-1rem)] max-h-full"}>
+    <button on:click={closeModal} tabindex="-5" class="h-screen w-screen fixed cursor-default"></button>
+    <div class="relative w-full scroll-element-modal max-w-lg max-h-full overflow-y-scroll z-[51]">
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
             <button on:click={closeModal} type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -88,3 +88,25 @@
     </div>
 </div> 
 {/if}
+
+<style lang="postcss">
+    .scroll-element-modal {
+      scrollbar-width: thin;
+      scrollbar-color: var(--secondary) var(--primary);
+    }
+
+    /* Chrome, Edge, and Safari */
+    .scroll-element-modal::-webkit-scrollbar {
+      width: 9px;
+    }
+
+    .scroll-element-modal::-webkit-scrollbar-track {
+      background:slategray;
+    }
+
+    .scroll-element-modal::-webkit-scrollbar-thumb {
+      background-color: black;
+      border-radius: 14px;
+      border: 3px solid var(--primary);
+    }
+</style>
