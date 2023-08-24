@@ -18,6 +18,7 @@ const config = {
             lib: './src/lib',
             assets: './src/assets',
             types: './src/types',
+            images: './src/images',
         }
 	}
 };

@@ -1,6 +1,34 @@
 import isEmpty from 'validator/lib/isEmpty';
 import { prisma } from './db';
 
+export const getProduct = async (id: string) => {
+    try {
+        const product = await prisma.product.findUnique({
+            where: {
+                id
+            }
+        });
+        return product;
+    } catch (err) {
+        console.log(err);
+        return;
+    }
+};
+
+export const getProducts = async (take: number, skip: number) => {
+    try {
+        const products = await prisma.product.findMany({
+            take,
+            skip
+        });
+        return products;
+    } catch (err) {
+        console.log(err);
+        return;
+    }
+};
+
+
 export const CreateProduct = async (
 	name: string,
 	description: string,
@@ -19,12 +47,12 @@ export const CreateProduct = async (
 			throw new Error('Price cannot be negative');
 		}
 	} catch (err) {
-		return err;
+        console.log(err);
+		throw new Error(err);
 	}
 
-	const new_price = parseFloat(price.toFixed(2));
-
 	try {
+	    const new_price = parseFloat(price.toFixed(2));
 		const product = await prisma.product.create({
 			data: {
 				name,
@@ -38,8 +66,22 @@ export const CreateProduct = async (
 		return product;
 	} catch (err) {
 		console.log(err);
-		return err;
+		throw new Error(err);
 	}
+};
+
+export const deleteProduct = async (id: string) => {
+    try {
+        const product = await prisma.product.delete({
+            where: {
+                id
+            }
+        });
+        return product;
+    } catch (err) {
+        console.log(err);
+        return;
+    }
 };
 
 export const verifyItemString = (item: string) => {

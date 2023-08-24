@@ -94,7 +94,7 @@ export const isAdmin = async (request: Request, cookies: Cookies) => {
 		}
 
 		if (user.role === 'ADMIN') {
-			return true;
+			return user;
 		} else {
 			return false;
 		}
