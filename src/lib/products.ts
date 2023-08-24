@@ -33,7 +33,7 @@ export const CreateProduct = async (
 	name: string,
 	description: string,
 	long_description: string,
-	price: number,
+	price: string,
 	stripeProductId: string,
 	imageName: string
 ) => {
@@ -43,16 +43,13 @@ export const CreateProduct = async (
 		verifyItemString(long_description);
 		verifyItemString(stripeProductId);
 		verifyItemString(imageName);
-		if (typeof price !== 'number' || price < 0) {
-			throw new Error('Price cannot be negative');
-		}
 	} catch (err) {
         console.log(err);
 		throw new Error(err);
 	}
 
 	try {
-	    const new_price = parseFloat(price.toFixed(2));
+        const new_price: number = parseFloat(parseFloat(price).toFixed(2));
 		const product = await prisma.product.create({
 			data: {
 				name,
