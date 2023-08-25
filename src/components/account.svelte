@@ -30,16 +30,16 @@
 
 </script>
 
-<div class="fixed top-5 right-5 flex flex-col gap-10 z-[100]">
+<div class="fixed bottom-5 md:top-5 md:bottom-0 right-5 flex flex-col gap-5 md:gap-10  z-[100]">
     <button on:click={handleClick}>
-        <svg class="w-10 dark:text-white/90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>account-circle</title><path fill="currentColor" d="M12,19.2C9.5,19.2 7.29,17.92 6,16C6.03,14 10,12.9 12,12.9C14,12.9 17.97,14 18,16C16.71,17.92 14.5,19.2 12,19.2M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z" /></svg>
+        <svg class="w-8 md:w-10 dark:text-white/90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>account-circle</title><path fill="currentColor" d="M12,19.2C9.5,19.2 7.29,17.92 6,16C6.03,14 10,12.9 12,12.9C14,12.9 17.97,14 18,16C16.71,17.92 14.5,19.2 12,19.2M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z" /></svg>
     </button>
     <button on:click={handleTheme}>
-        <svg class="w-10 dark:text-white/90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>brightness-4</title><path fill="currentColor" d="M12,18C11.11,18 10.26,17.8 9.5,17.45C11.56,16.5 13,14.42 13,12C13,9.58 11.56,7.5 9.5,6.55C10.26,6.2 11.11,6 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31L23.31,12L20,8.69Z" /></svg>
+        <svg class="w-8 md:w-10 dark:text-white/90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>brightness-4</title><path fill="currentColor" d="M12,18C11.11,18 10.26,17.8 9.5,17.45C11.56,16.5 13,14.42 13,12C13,9.58 11.56,7.5 9.5,6.55C10.26,6.2 11.11,6 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31L23.31,12L20,8.69Z" /></svg>
     </button>
     {#if shown}
         <button class="fixed h-screen w-screen top-0 left-0 z-5 cursor-default bg-black/50" on:click={handleClick}></button>
-        <div class="z-10 absolute top-10 right-14">
+        <div class="z-10 absolute bottom-10 md:top-10 right-14">
             <div class="bg-white dark:bg-black/90 rounded-[5px] shadow-lg">
                 <div class="flex flex-col">
                     <div class="flex flex-row justify-between">

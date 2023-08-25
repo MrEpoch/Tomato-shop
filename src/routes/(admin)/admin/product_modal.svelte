@@ -1,11 +1,10 @@
 <script lang="ts">
-	import Card from "./card.svelte";
+	import Card from "components/card.svelte";
     import { products } from "lib/local_storage";
 
     let updateMode = false;
     let hidden = true;
     export let product;
-    console.log(product);
     let file = product.image;
     function handleHideModal() {
         hidden = !hidden;
