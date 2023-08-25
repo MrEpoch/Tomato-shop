@@ -15,12 +15,53 @@ export const getProduct = async (id: string) => {
     }
 };
 
+export const getProductCount = async () => {
+    try {
+        const productCount = await prisma.product.count();
+        return productCount;
+    } catch (err) {
+        console.log(err);
+        return;
+    }
+};
+
+export const getProductsForSearch = async (search: string) => {
+    try {
+        const products = await prisma.product.findMany({
+            where: {
+                OR: [
+                    {
+                        name: {
+                            contains: search,
+                            mode: 'insensitive'
+                        }
+                    },
+                    {
+                        description: {
+                            contains: search,
+                            mode: 'insensitive'
+                        }
+                    }
+                ]
+            }
+        });
+        return products;
+    } catch (err) {
+        console.log(err);
+        return;
+    }
+};
+
 export const getProducts = async (take: number, skip: number) => {
     try {
         const products = await prisma.product.findMany({
             take,
-            skip
+            skip,
+            orderBy: {
+                createdAt: 'desc'
+            }
         });
+
         return products;
     } catch (err) {
         console.log(err);

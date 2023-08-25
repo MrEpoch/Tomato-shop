@@ -3,6 +3,11 @@ import { isAdmin } from "lib/auth";
 import { CreateProduct, deleteProduct, getProduct, updateProduct } from "lib/products";
 import { writeFile, unlink } from "fs/promises";
 
+export async function load({ cookies }) {
+
+};
+
+
 export const actions = {
     create: async ({ cookies, request }) => { 
         try {

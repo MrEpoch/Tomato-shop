@@ -2,15 +2,32 @@
 	import Card from "./card.svelte";
     import CreateModal from "./create_modal.svelte";
 	import ProductModal from "./product_modal.svelte";
+    import { products } from "lib/local_storage";
 
     export let data;
 
-    const products = data.products;
+    let product_data = [];
     const user = data.user;
+
+    async function getMore() {
+        const res = await fetch("/admin/api-product/" + $products.items.length);
+        const json = await res.json();
+        products.update(value => {
+            return {
+                ...value,
+                items: [...value.items, ...json.data]
+            }
+        });
+    }
+
+    products.subscribe(value => {
+        if (value.items.length > 0) product_data = value.items;
+    });
+
 </script>
 
 
-<div class="h-screen dark:bg-black/90 p-[4rem]">
+<div class="min-h-screen dark:bg-black/90 p-[4rem]">
     <form class="w-full flex justify-center items-center mb-[5rem]">   
         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
         <div class="relative w-2/4">
@@ -23,10 +40,13 @@
             <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
         </div>
     </form>
-    <div class="flex flex-wrap gap-[3rem]"> 
-    <CreateModal {user} />
-    {#each products as product}
-        <ProductModal {product} />
-    {/each}
+    <div class="flex justify-center flex-wrap gap-[3rem]"> 
+        <CreateModal {user} />
+        {#each product_data as product}
+            <ProductModal {product} />
+        {/each}
+        <button on:click={getMore} class="w-full rounded-3xl max-w-[250px] h-[250px] flex items-center justify-center from-blue-300 to-sky-900  bg-gradient-to-br hover:scale-105 duration-500 cursor-pointer transition-transform">
+            <svg class="w-16 dark:text-white/90 text-black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path fill="currentColor" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
+        </button>
     </div>
 </div>
