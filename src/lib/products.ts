@@ -48,7 +48,7 @@ export const getProductsForSearch = async (search: string) => {
         return products;
     } catch (err) {
         console.log(err);
-        return;
+        return [];
     }
 };
 

@@ -11,7 +11,7 @@ export async function GET({ cookies, params }) {
 
         const skip = await params.id;
 
-        const data = await getProducts(10, parseInt(skip));
+        const data = await getProducts(50, parseInt(skip));
         return json({ data }, { status: 201 });
     } catch (err) {
         console.log(err);

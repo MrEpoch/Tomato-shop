@@ -1,12 +1,60 @@
 <script lang="ts">
 	import Card from "./card.svelte";
+    import { products } from "lib/local_storage";
 
     let updateMode = false;
     let hidden = true;
     export let product;
+    console.log(product);
     let file = product.image;
     function handleHideModal() {
         hidden = !hidden;
+    }
+
+    async function handleDelete(event) {
+        try {
+            const data = new FormData(this);
+            
+            await fetch(this.action, {
+                method: "POST",
+                body: data
+            });
+
+            products.update(value => {
+                return {
+                    ...value,
+                    items: value.items.filter(item => item.id !== product.id)
+                }
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async function handleUpdate(event) {
+        try {
+            const data = new FormData(this);
+            
+            const res = await fetch(this.action, {
+                method: "POST",
+                body: data
+            });
+            const json = await res.json();
+
+            products.update(value => {
+                return {
+                    ...value,
+                    items: value.items.map(item => {
+                        if (item.id === product.id) {
+                            return json.data;
+                        }
+                        return item;
+                    })
+                }
+            });
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     function handleFileInput(event) {
@@ -24,13 +72,13 @@
     <div id="staticModal" data-modal-backdrop="static" aria-hidden="true" class="top-0  left-0 right-0 z-50 flex justify-center p-4 fixed w-screen h-[calc(100%-5rem)] max-h-full">
         <button on:click={() => hidden = true} class="h-screen w-screen fixed cursor-default"></button>
         <div class="relative scroll-element-modal overflow-y-auto w-full max-w-2xl h-full">
-            <form method="POST" enctype="multipart/form-data" action={`?/${updateMode ? "update" : "delete"}`} class="relative   bg-white rounded-lg shadow  dark:bg-gray-700">
+            <form method="POST" on:submit|preventDefault={updateMode ? handleUpdate : handleDelete} enctype="multipart/form-data" action={`?/${updateMode ? "update" : "delete"}`} class="relative   bg-white rounded-lg shadow  dark:bg-gray-700">
                 <input type="hidden" name="id" value={product.id} />
                 <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                         {product.name}
                     </h3>
-                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="staticModal">
+                    <button on:click={() => hidden = false} type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="staticModal">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                         </svg>
