@@ -19,10 +19,11 @@ export const actions = {
         const password = data.get('password');
         try {
             const user = await getUserByEmail(email);
-            const isPasswordValid = await comparePasswords(password, user.password);
             if (user === null) {
                 throw new Error('User not found');
             }
+            const isPasswordValid = await comparePasswords(password, user.password);
+            
             if (!isPasswordValid) {
                 throw new Error('Password is invalid');
             }

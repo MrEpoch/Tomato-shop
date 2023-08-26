@@ -90,6 +90,9 @@ export const CreateProduct = async (
 	}
 
 	try {
+        if (Number.isNaN(Number.parseFloat(price))) {
+            return 0;
+        }
         const new_price: number = parseFloat(parseFloat(price).toFixed(2));
 		const product = await prisma.product.create({
 			data: {

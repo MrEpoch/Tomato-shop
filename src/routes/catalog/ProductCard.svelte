@@ -18,9 +18,6 @@ import Card from "components/card.svelte";
             await fetch(this.action, {
                 method: "POST",
                 body: data,
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                }
             });
 
             cart.update((items) => {
@@ -40,6 +37,7 @@ import Card from "components/card.svelte";
             console.log(e);
         }
     }
+    
 
 </script>
 

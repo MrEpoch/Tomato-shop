@@ -2,7 +2,6 @@ import { fail, json, redirect } from "@sveltejs/kit";
 import { isAdmin } from "lib/auth";
 import { CreateProduct, deleteProduct, getProduct, updateProduct } from "lib/products";
 import { writeFile, unlink } from "fs/promises";
-import { products } from "lib/local_storage";
 
 export const actions = {
     create: async ({ cookies, request }) => { 
@@ -44,18 +43,13 @@ export const actions = {
 
             const product = await CreateProduct(name, description, long_description, price, stripeProductId, "src/images/" + newFileName);
             if (product === null) {
-                throw new Error('User not found');
+                return fail(400, {
+                    error: true,
+                    message: 'User not found'}
+                );
             }
-            products.update((value) => {
-                return {
-                    ...value,
-                    items: [
-                        ...value.items,
-                        product
-                    ]
-                }
-            });
-
+            
+            return { success: true, product: product };
         } catch (error) {
             console.log(error);
             return {
@@ -112,7 +106,7 @@ export const actions = {
             await unlink(`${product.image}`);
 
             const product_update = await updateProduct(id, name, description, long_description, price.toString(), stripeProductId, newImage);
-            return json({ data: product_update });
+            return { success: true, product: product_update };
         } catch (error) {
             console.log(error);
             return fail(400, {
@@ -125,21 +119,27 @@ export const actions = {
     delete: async ({ cookies, request }) => {
         const data = await request.formData();
         const id = data.get('id');
+        
+        let isAdmin_res = await isAdmin(request, cookies);
         try {
-            const isAdmin_res = await isAdmin(request, cookies);
-            if (!isAdmin_res) throw redirect(303, `/signup`);
-            if (isAdmin_res.role !== 'ADMIN') throw redirect(303, `/signup`);
+            isAdmin_res = await isAdmin(request, cookies);
+        } catch (error) {
+            throw redirect(303, `/signup`);
+        }
 
+        if (!isAdmin_res) throw redirect(303, `/signup`);
+        if (isAdmin_res.role !== 'ADMIN') throw redirect(303, `/signup`);
+
+        try {
             const product = await deleteProduct(id);
             await unlink(`${product.image}`);
+            return { status: 200, body: { message: 'Product deleted' }, success: true };
         } catch (error) {
             console.log(error);
-            return {
-                status: 401,
-                body: {
-                    message: error.message,
-                },
-            };
+            return fail(400, {
+                error: true,
+                message: error.message
+            });
         }
     }
 }

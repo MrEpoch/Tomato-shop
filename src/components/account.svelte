@@ -50,10 +50,10 @@
     <svg class="w-8 md:w-10 dark:text-white/90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>cart-outline</title><path fill="currentColor" d="M17,18A2,2 0 0,1 19,20A2,2 0 0,1 17,22C15.89,22 15,21.1 15,20C15,18.89 15.89,18 17,18M1,2H4.27L5.21,4H20A1,1 0 0,1 21,5C21,5.17 20.95,5.34 20.88,5.5L17.3,11.97C16.96,12.58 16.3,13 15.55,13H8.1L7.2,14.63L7.17,14.75A0.25,0.25 0 0,0 7.42,15H19V17H7C5.89,17 5,16.1 5,15C5,14.65 5.09,14.32 5.24,14.04L6.6,11.59L3,4H1V2M7,18A2,2 0 0,1 9,20A2,2 0 0,1 7,22C5.89,22 5,21.1 5,20C5,18.89 5.89,18 7,18M16,11L18.78,6H6.14L8.5,11H16Z" /></svg>
 </button>
 {#if !hiddenCart}
-    <div id="staticModal" data-modal-backdrop="static" aria-hidden="true" class="top-0  left-0 right-0 z-50 flex justify-center p-4 fixed w-screen h-[calc(100%-5rem)] max-h-full">
+    <div id="staticModal" data-modal-backdrop="static" aria-hidden="true" class="top-0  left-0 right-0 z-50 flex justify-center fixed w-screen h-[calc(100%-5rem)] max-h-full">
         <button on:click={showCart} class="h-screen w-screen fixed cursor-default"></button>
         <div class="relative scroll-element-modal overflow-y-auto w-full max-w-2xl h-full">
-            <form class="relative   bg-white rounded-lg shadow  dark:bg-gray-700">
+            <form class="relative bg-white rounded-lg shadow  dark:bg-gray-700">
                 <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                         Cart
@@ -65,15 +65,14 @@
                         <span class="sr-only">Close modal</span>
                     </button>
                 </div>
-                <div class="flex flex-col p-6 h-full space-y-6 ">
+                <div class="flex flex-col p-6 h-full space-y-6">
                     {#each $cart.items as order}
                         <CartItems {order} />                    
                     {/each}
                 </div>
-                <div class="flex items-center justify-between p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <button on:click={showCart} class="text-white bg-gray-500 hover:bg-gray-800 py-2 px-5 font-medium rounded-lg text-sm">Continue Shopping</button>
-                    <a href="/payment" on:click={showCart} class="bg-blue-700 text-white hover:bg-blue-800 dark:text-white/90 rounded-lg py-2 px-5">Proceed to Pay</a>
-                    
+                <div class="flex flex-wrap gap-3 items-center justify-between p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                    <button on:click={showCart} class="text-white text-start bg-gray-500 hover:bg-gray-800 sm:py-2 py-2 px-3 sm:px-5 font-medium rounded-lg text-xs sm:text-sm">Continue Shopping</button>
+                    <a href="/payment" on:click={showCart} class="bg-blue-700 text-white hover:bg-blue-800 dark:text-white/90 rounded-lg sm:text-sm sm:py-2 py-2 px-3 text-xs sm:px-5">Proceed to Pay</a>
                 </div>
             </form>
         </div>

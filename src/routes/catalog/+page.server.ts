@@ -1,10 +1,12 @@
 import { CART_MAIN_INFO } from "$env/static/private";
 
-const actions = {
+
+export const actions = {
     cartcookie: async ({ cookies, request }) => {
         try {
             const data = await request.formData();
             const cart = data.get('cart');
+            console.log("runned");
 
             cookies.set(CART_MAIN_INFO, JSON.stringify({
                 total_quantity: cart.reduce((acc, item) => acc + item.quantity, 0),
