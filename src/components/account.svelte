@@ -1,5 +1,7 @@
 <script lang="ts">
     import { cart, preferences } from "lib/local_storage";
+	import CartItems from "./cart_items.svelte";
+	import { goto } from "$app/navigation";
 
     function handleTheme() {
         preferences.update(pref => {
@@ -15,7 +17,7 @@
 
     function handleClick() {
         if (user.isLogged) return shown = !shown;
-        window.location.href = "/signin";
+        goto("/signin");
     }
 
     async function handleLogOut() {
@@ -25,7 +27,7 @@
                 "Content-Type": "application/json"
             }
         });
-        window.location.href = "/";
+        goto("/");
         shown = false;
     }
 
@@ -65,18 +67,7 @@
                 </div>
                 <div class="flex flex-col p-6 h-full space-y-6 ">
                     {#each $cart.items as order}
-                        <div class="w-full gap-5 items-center justify-around h-16 flex">
-                            <img src={order.image} alt="" class="w-16 h-16 object-cover rounded-lg">
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                {order.name}
-                            </h3>
-                            <p class="text-gray-500 dark:text-gray-300">
-                                ${order.price}
-                            </p>
-                            <p class="text-gray-500 dark:text-gray-300">
-                                {order.quantity}x
-                            </p>
-                        </div>
+                        <CartItems {order} />                    
                     {/each}
                 </div>
                 <div class="flex items-center justify-between p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">

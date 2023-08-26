@@ -1,25 +1,44 @@
 <script lang="ts">
-	import Card from "components/card.svelte";
+	import { goto } from "$app/navigation";
+import Card from "components/card.svelte";
 	import { cart } from "lib/local_storage";
 
     let hidden = true;
+    let navigateWith = false;
     export let product;
 
     function handleHideModal() {
         hidden = !hidden;
     }
 
-    function addToCart() {
-        cart.update((items) => {
-            const item = items.items.find((item) => item.id === product.id);
-            if (item) {
-                item.quantity += 1;
-            } else {
-                items.items.push({ ...product, quantity: 1 });
+    async function addToCart(event) {
+        try {
+            const data = new FormData(this);
+
+            await fetch(this.action, {
+                method: "POST",
+                body: data,
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            });
+
+            cart.update((items) => {
+                const item = items.items.find((item) => item.id === product.id);
+                if (item) {
+                    item.quantity += 1;
+                } else {
+                    items.items.push({ ...product, quantity: 1 });
+                }
+                return items;
+            });
+            if (navigateWith) {
+                goto("/payment");
             }
-            return items;
-        });
-        hidden = true;
+            return hidden = true;
+        } catch (e) {
+            console.log(e);
+        }
     }
 
 </script>
@@ -32,8 +51,8 @@
     <div id="staticModal" data-modal-backdrop="static" aria-hidden="true" class="top-0 left-0 right-0 z-50 flex justify-center p-4 fixed w-screen h-[calc(100%-5rem)] max-h-full">
         <button on:click={() => hidden = true} class="min-h-screen w-screen fixed cursor-default"></button>
         <div class="relative scroll-element-modal overflow-y-auto w-full max-w-2xl h-full">
-            <form method="POST" action="?/payment" class="relative bg-white rounded-lg shadow  dark:bg-gray-700">
-                <input type="hidden" name="id" value={product.id} />
+            <form method="POST" on:submit|preventDefault={addToCart} action="?/cartcookie" class="relative bg-white rounded-lg shadow  dark:bg-gray-700">
+                <input type="hidden" name="cart" value={$cart.items} />
                 <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                         {product.name}
@@ -61,8 +80,8 @@
                         </p>
                 </div>
                 <div class="flex items-center justify-between p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <button on:click={addToCart} type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add To Cart</button>
-                    <a href="/payment" on:click={addToCart}  data-modal-hide="staticModal" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Proceed to pay</a>
+                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add To Cart</button>
+                    <button type="submit" on:click={() => navigateWith = true} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Proceed to pay</button>
                 </div>
             </form>
         </div>
