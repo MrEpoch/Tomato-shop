@@ -6,6 +6,7 @@ export async function POST({ url, request }) {
         const { products, searchTerm } = await request.json();
         let products_data: any[];
 
+        console.log("here");
         if (!searchTerm || searchTerm === '') {
             products_data = products;
         } else {

@@ -85,9 +85,11 @@
         {#each $products.items as product}
             <ProductModal {product} />
         {/each}
-        <button on:click={getMore} class="w-full rounded-3xl max-w-[250px] h-[250px] flex items-center justify-center from-blue-300 to-sky-900  bg-gradient-to-br hover:scale-105 duration-500 cursor-pointer transition-transform">
-            <svg class="w-16 dark:text-white/90 text-black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path fill="currentColor" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
-        </button>
+        <div class="w-full h-full mt-5 flex justify-center">
+                <button on:click={getMore} class="w-full rounded-3xl max-w-[30px] h-[30px] bg-blue-500 flex items-center justify-center hover:scale-105 duration-500 cursor-pointer transition-transform">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Load More</title><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>
+                </button>
+        </div>
         {:else}
             {#each searchData as product}
                 <ProductModal {product} />

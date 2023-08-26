@@ -25,7 +25,7 @@
 {#if !hidden}
 
 <div aria-hidden="true" class={"fixed overflow-x-hidden overflow-y-auto top-0 left-0 flex justify-center right-0 z-50 p-4 md:inset-0 h-[calc(100%-1rem)] max-h-full"}>
-    <button on:click={closeModal} tabindex="-5" class="h-screen w-screen fixed cursor-default"></button>
+    <button on:click={closeModal} tabindex="-5" class="min-h-screen w-screen fixed cursor-default"></button>
     <div class="relative w-full scroll-element-modal max-w-lg max-h-full overflow-y-scroll z-[51]">
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
             <button on:click={closeModal} type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">

@@ -11,14 +11,15 @@
 
     function addToCart() {
         cart.update((items) => {
-            const item = items.find((item) => item.id === product.id);
+            const item = items.items.find((item) => item.id === product.id);
             if (item) {
                 item.quantity += 1;
             } else {
-                items.push({ ...product, quantity: 1 });
+                items.items.push({ ...product, quantity: 1 });
             }
             return items;
         });
+        hidden = true;
     }
 
 </script>
@@ -28,10 +29,10 @@
 </button>
 
 {#if !hidden}
-    <div id="staticModal" data-modal-backdrop="static" aria-hidden="true" class="top-0  left-0 right-0 z-50 flex justify-center p-4 fixed w-screen h-[calc(100%-5rem)] max-h-full">
-        <button on:click={() => hidden = true} class="h-screen w-screen fixed cursor-default"></button>
+    <div id="staticModal" data-modal-backdrop="static" aria-hidden="true" class="top-0 left-0 right-0 z-50 flex justify-center p-4 fixed w-screen h-[calc(100%-5rem)] max-h-full">
+        <button on:click={() => hidden = true} class="min-h-screen w-screen fixed cursor-default"></button>
         <div class="relative scroll-element-modal overflow-y-auto w-full max-w-2xl h-full">
-            <form method="POST" action="?/payment" class="relative   bg-white rounded-lg shadow  dark:bg-gray-700">
+            <form method="POST" action="?/payment" class="relative bg-white rounded-lg shadow  dark:bg-gray-700">
                 <input type="hidden" name="id" value={product.id} />
                 <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
@@ -60,7 +61,7 @@
                         </p>
                 </div>
                 <div class="flex items-center justify-between p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <button on:click={addToCart} data-modal-hide="staticModal" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add To Cart</button>
+                    <button on:click={addToCart} type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add To Cart</button>
                     <a href="/payment" on:click={addToCart}  data-modal-hide="staticModal" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Proceed to pay</a>
                 </div>
             </form>

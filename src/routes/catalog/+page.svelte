@@ -38,7 +38,7 @@
                 searching = false;
                 return;
             }
-            const res = await fetch(`/catalog/search`, {
+            const res = await fetch(`/catalog/search/`, {
                 method: "POST",
                 body: JSON.stringify({
                     products: $products.items,
@@ -68,9 +68,9 @@
     }
 </script>
 
-<div class="sm:px-[5rem] min-h-screen flex gap-[3rem] flex-col dark:bg-black/90">
+<div class="sm:px-[5rem] w-full min-h-screen flex gap-[3rem] flex-col dark:bg-black/90">
     <div class="flex mt-[5rem] mb-[5rem] xl:flex-row gap-[4rem] flex-col justify-between items-center w-full">
-        <h3 class="text-4xl sm:text-6xl font-thin text-center text-white">Enjoy Freshness!</h3>
+        <h3 class="text-4xl sm:text-6xl font-thin text-center text-black dark:text-white">Enjoy Freshness!</h3>
         <div class="flex items-center">   
             <div class="relative w-full min-w-[16rem] sm:min-w-[24rem] max-w-5xl">
                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -83,12 +83,22 @@
             </div>
         </div>
     </div>
-    <div class="flex justify-center gap-[3rem] flex-wrap">
+    {#if !searching}
+    <div class="flex mb-[5rem] justify-center gap-[3rem] flex-wrap">
         {#each $products.items as product}
             <ProductCard product={product} />
         {/each}
-        <button on:click={getMore} class="w-full rounded-3xl max-w-[250px] h-[250px] flex items-center justify-center from-red-300 to-rose-900  bg-gradient-to-br hover:scale-105 duration-500 cursor-pointer transition-transform">
-            <svg class="w-16 dark:text-white/90 text-black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path fill="currentColor" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
+    </div>
+    <div class="w-full flex justify-center">
+        <button on:click={getMore} class="w-full rounded-3xl max-w-[30px] h-[30px] bg-blue-500 flex items-center justify-center hover:scale-105 duration-500 cursor-pointer transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Load More</title><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>
         </button>
     </div>
+    {:else}
+    <div class="flex mb-[5rem] justify-center gap-[3rem] flex-wrap">
+        {#each searchData as product}
+            <ProductCard product={product} />
+        {/each}
+    </div>
+    {/if}
 </div>

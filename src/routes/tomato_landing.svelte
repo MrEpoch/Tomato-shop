@@ -4,10 +4,10 @@
 
 
 <div class="flex dark:bg-black/90 dark:text-white/90 flex-col w-full items-center gap-3 relative top_div_landing">
-    <h5 class="text-6xl max-[800px]:text-4xl mt-[10rem] font-light">Tradition, action, care.</h5>
-    <p class="text-2xl font-light dark:text-gray-400 text-gray-500">Expert's choice of year</p>
+    <h5 class="text-6xl max-[800px]:text-4xl max-[400px]:text-2xl mt-[10rem] font-light">Tradition, action, care.</h5>
+    <p class="text-2xl font-light dark:text-gray-400 max-[400px]:text-xl text-gray-500">Expert's choice of year</p>
     <div class="h-[24rem] w-fit mb-[20rem]">
-        <img src={Tomato} alt="tomate" class="h-full w-fit" />
+        <img src={Tomato} alt="tomate" class="h-full object-cover" />
     </div>
     <div class=" custom-shape-divider-bottom-1692700371">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">

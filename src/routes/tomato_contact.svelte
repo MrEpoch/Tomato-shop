@@ -5,14 +5,14 @@
             <path d="M0,0V7.23C0,65.52,268.63,112.77,600,112.77S1200,65.52,1200,7.23V0Z" class="fill-[#EF4444] dark:fill-red-700"></path>
         </svg>
     </div>
-    <div class="flex mb-[10rem] flex-col w-full mt-[10rem] items-center gap-6 relative">
+    <div class="flex mb-[10rem] px-5 flex-col w-full mt-[10rem] items-center gap-6 relative">
         <h1 class="text-6xl max-[800px]:text-4xl mt-[10rem] font-light">Contact Us</h1>
         <p class="text-xl dark:text-white/50 font-light text-gray-500/90">We are here to help you.</p>
-        <div class="flex mt-[10rem] w-2/5 justify-around items-center">
-            <button class="dark:hover:bg-red-700 dark:border-red-700 border-red-500 border-[2px] dark:text-white/90 duration-500 hover:text-white hover:bg-red-500 transition-all text-black font-bold py-4 px-8 rounded-full">
+        <div class="flex mt-[10rem] gap-[3rem] max-[400px]:gap-[1rem] justify-around items-center">
+            <button class="max-[500px]:text-sm max-[500px]:px-4 max-[500px]:py-3 dark:hover:bg-red-700 dark:border-red-700 border-red-500 border-[2px] dark:text-white/90 duration-500 hover:text-white hover:bg-red-500 transition-all text-black font-bold py-4 px-8 rounded-full">
                 <a href="/contact">Contact Us</a>
             </button>
-            <button class="dark:bg-red-700 dark:border-red-700 dark:hover:bg-red-800 dark:hover:border-red-800 bg-red-500 border-red-500 border-[2px] duration-500 hover:bg-red-600 transition-all text-white font-bold py-4 px-8 rounded-full">
+            <button class="max-[500px]:text-sm max-[500px]:px-4 max-[500px]:py-3 dark:bg-red-700 dark:border-red-700 dark:hover:bg-red-800 dark:hover:border-red-800 bg-red-500 border-red-500 border-[2px] duration-500 hover:bg-red-600 transition-all text-white font-bold py-4 px-8 rounded-full">
                 <a href="/catalog">See Products</a>
             </button>
         </div>

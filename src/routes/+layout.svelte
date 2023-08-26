@@ -4,6 +4,7 @@
 	import Footer from "./footer.svelte";
 	import Header from "./header.svelte";
     import { preferences } from "lib/local_storage";
+	import NavContainer from "components/nav-container.svelte";
 
     export let data;
     let dark = "";
@@ -18,7 +19,7 @@
 </script>
 
 <div class={"h-full w-full " + $preferences.theme}> 
-    <Account user={data}/>
+    <NavContainer user={data} />
     <Header />
     <slot />
     <Footer />

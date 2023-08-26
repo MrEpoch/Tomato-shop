@@ -4,7 +4,7 @@
 </script>
 
 
-<div class="h-screen dark:bg-black/90 dark:text-white/90 w-full flex flex-col">
+<div class="min-h-screen dark:bg-black/90 dark:text-white/90 w-full flex flex-col">
     <div class="flex flex-col mt-14 items-center gap-[5rem] w-full">
         <h2 class="text-5xl font-light dark:text-white/90 text-gray-800">Welcome, {user_data.fullName}</h2>
         <form method="POST" action="?/fullName" class="flex w-full flex-col items-center gap-4">
