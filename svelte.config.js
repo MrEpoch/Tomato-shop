@@ -19,7 +19,7 @@ const config = {
             assets: './src/assets',
             types: './src/types',
             images: './src/images',
-        }
+        },
 	}
 };
 

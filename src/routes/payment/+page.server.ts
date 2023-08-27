@@ -20,14 +20,20 @@ export const actions = {
         const address = data.get('address');
         const country = data.get('country');
         const city = data.get('city');
-        const postalcode = data.get('postalcode');
+        const postalcode = data.get('postal_code');
         const cart = data.get('cart');
 
         try {
-            const order = await makeOrder(request, cookies, cart, email, phone, address, country, city, postalcode);
+            const order = await makeOrder(request, cookies, JSON.parse(cart), email, phone, address, country, city, postalcode);
             if (!order) {
                 return fail(400, { message: 'Order failed', failed: true });
             }
+
+            return {
+                url: order,
+                failed: false,
+                success: true
+            };
         } catch (e) {
             console.log(e);
             return fail(400, { message: 'Order failed', failed: true });

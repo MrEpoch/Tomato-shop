@@ -2,8 +2,11 @@ import { STRIPE_SECRET_KEY } from "$env/static/private";
 import type { Cookies } from "@sveltejs/kit";
 import { getUser } from "./auth";
 import { prisma } from "./db";
-const Stripe = require("stripe");
-const stripe = Stripe(STRIPE_SECRET_KEY);
+import Stripe from 'stripe';
+
+const stripe = new Stripe(STRIPE_SECRET_KEY, {
+  apiVersion: '2023-08-16',
+});
 
 async function mapOverOrders(orders: any) {
     const ordersWithProducts = await Promise.all(
@@ -44,6 +47,9 @@ export const makeOrder = async (
             };
         });
 
+        console.log("products", products);
+        console.log("orders", orders);
+
         const session = await stripe.checkout.sessions.create({
             line_items: orders,
             mode: "payment",
@@ -62,10 +68,10 @@ export const makeOrder = async (
                 postalCode: postalcode,
                 phone,
                 orderItems: {
-                    create: orders.map((item: any) => {
+                    create: products.map((item: any) => {
                         return {
-                            quantity: item.quantity,
-                            product: {
+                            quantity: order.find((order: any) => order.id === item.id).quantity,
+                            Product: {
                                 connect: {
                                     id: item.id,
                                 },

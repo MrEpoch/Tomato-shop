@@ -3,8 +3,18 @@
     import { cart } from "lib/local_storage";
 	import Stepper from "./stepper.svelte";
 	import OrderInfo from "./order_info.svelte";
+	import { browser } from "$app/environment";
     
     let currentStep = 1;
+    export let form;
+    
+    if (form?.url) {
+        browser && window.location.replace(form.url);
+    }
+
+    if (form?.success) {
+        currentStep = 3;
+    }
     
 </script>
 
@@ -23,5 +33,10 @@
         <form action="?/order" method="POST">
             <OrderInfo />
         </form>
+    {:else if currentStep === 3}
+        <div class="flex flex-col items-center justify-center h-full">
+            <div class="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+            <p class="text-2xl font-bold mt-4">Redirecting to Stripe</p>
+        </div>
     {/if}
 </div>

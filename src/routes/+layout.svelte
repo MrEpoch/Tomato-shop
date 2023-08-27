@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Account from "components/account.svelte";
     import "../app.css";
 	import Footer from "./footer.svelte";
 	import Header from "./header.svelte";
