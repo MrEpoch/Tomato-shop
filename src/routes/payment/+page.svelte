@@ -9,7 +9,15 @@
     export let form;
     
     if (form?.url) {
-        browser && window.location.replace(form.url);
+        browser && (wait(2000).then(() => window.location.replace(form.url)));
+    }
+
+    async function wait(time) {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(time);
+            }, time);
+        });
     }
 
     if (form?.success) {
@@ -19,7 +27,9 @@
 </script>
 
 <div class="flex flex-col gap-[2rem] min-h-screen w-full dark:bg-black/90 px-10 dark:text-white/90">
-    <Stepper {currentStep} />
+    {#if currentStep < 3}
+        <Stepper {currentStep} />
+    {/if}
     {#if currentStep === 1}
         <div class="relative rounded-lg h-full shadow w-full dark:bg-black/50 mt-[5rem]">
             <div class="flex gap-[2rem] flex-col p-6 h-full space-y-6 ">
@@ -34,8 +44,8 @@
             <OrderInfo />
         </form>
     {:else if currentStep === 3}
-        <div class="flex flex-col items-center justify-center h-full">
-            <div class="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+        <div class="flex flex-col gap-[4rem] items-center justify-center w-full min-h-screen">
+            <div class="animate-spin text-black dark:text-white rounded-full h-32 w-32 border-b-2 border-gray-red"></div>
             <p class="text-2xl font-bold mt-4">Redirecting to Stripe</p>
         </div>
     {/if}
