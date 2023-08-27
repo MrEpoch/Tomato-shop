@@ -1,17 +1,15 @@
 import { json } from "@sveltejs/kit";
 import { getProductsForSearch } from "lib/products";
 
-export async function POST({ url, request }) {
+export async function GET({ url, request, setHeaders }) {
     try {
-        const { products, searchTerm } = await request.json();
-        let products_data: any[];
+        const searchTerm = url.searchParams.get("search") || "";
 
+        setHeaders({
+            "cache-control": "max-age=60",
+        });
 
-        if (!searchTerm || searchTerm === '') {
-            products_data = products;
-        } else {
-            products_data = await getProductsForSearch(searchTerm);
-        }
+        const products_data = await getProductsForSearch(searchTerm);
 
         return json({ data: products_data });
     } catch (error) {
