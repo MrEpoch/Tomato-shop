@@ -1,6 +1,13 @@
 <script>
-	import Stepper from "../stepper.svelte";
-
+	import { onDestroy, onMount } from "svelte";
+    import { cart } from "lib/local_storage";
+    onMount(() => {
+        cart.set({
+            items: [],
+            quantity: 0,
+            total: 0,
+        });
+    });
 </script>
 
 <div class="flex flex-col gap-[2rem] items-center justify-center min-h-screen w-full dark:bg-black/90 dark:text-white/90">

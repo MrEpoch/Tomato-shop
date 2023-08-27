@@ -13,6 +13,6 @@
         
     </button>
     {#if !hidden}
-        <Account {user} />    
+        <Account {hidden} {user} />    
     {/if}
 </div>

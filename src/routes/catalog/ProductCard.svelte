@@ -13,12 +13,7 @@ import Card from "components/card.svelte";
 
     async function addToCart(event) {
         try {
-            const data = new FormData(this);
-
-            await fetch(this.action, {
-                method: "POST",
-                body: data,
-            });
+            const data = new FormData();
 
             cart.update((items) => {
                 const item = items.items.find((item) => item.id === product.id);
@@ -29,7 +24,16 @@ import Card from "components/card.svelte";
                 }
                 return items;
             });
+
+            data.append("cart", JSON.stringify($cart.items));
+
+            await fetch(this.action, {
+                method: "POST",
+                body: data,
+            });
+
             if (navigateWith) {
+                console.log("tried");
                 goto("/payment");
             }
             return hidden = true;
@@ -37,8 +41,6 @@ import Card from "components/card.svelte";
             console.log(e);
         }
     }
-    
-
 </script>
 
 <button on:click={handleHideModal} data-modal-target="staticModal" data-modal-toggle="staticModal" class="" type="button">
@@ -50,7 +52,6 @@ import Card from "components/card.svelte";
         <button on:click={() => hidden = true} class="min-h-screen w-screen fixed cursor-default"></button>
         <div class="relative scroll-element-modal overflow-y-auto w-full max-w-2xl h-full">
             <form method="POST" on:submit|preventDefault={addToCart} action="?/cartcookie" class="relative bg-white rounded-lg shadow  dark:bg-gray-700">
-                <input type="hidden" name="cart" value={$cart.items} />
                 <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                         {product.name}

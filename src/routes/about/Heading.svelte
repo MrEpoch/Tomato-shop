@@ -3,11 +3,13 @@
 
 </script>
 
-<div class="h-[70rem] dark:bg-black/90 w-full dark:text-white/90 relative flex flex-col gap-[5rem] text-black">
-    <h1 class="text-5xl text-center font-thin mt-[10rem] ">We love <span class="font-light">Tomatoes</span></h1>
+<div class="h-[70rem] p-5 dark:bg-black/90 w-full dark:text-white/90 relative flex flex-col gap-[5rem] text-black">
+    <h1 class="text-3xl md:text-5xl text-center font-thin mt-[10rem]">We love <span class="font-light">Tomatoes</span></h1>
     <div class="flex flex-col items-center w-full relative">
-        <a href="/catalog" class="z-10"><img src={Tomatoes} alt="tomato" class="h-[30rem] w-fit object hover:translate-y-[-5px] hover:translate-x-[-5px] transition-all duration-700" /></a>
-        <img src={Tomatoes} alt="tomato" class="h-[30rem] w-fit object absolute blur-[25px] translate-x-20 -translate-y-[-35px]" />
+        <a href="/catalog" class="z-10">
+            <img src={Tomatoes} alt="tomato" class="sm:h-[15rem] h-[10rem] lg:h-[30rem] w-fit object hover:translate-y-[-5px] hover:translate-x-[-5px] transition-all duration-700" />
+        </a>
+        <img src={Tomatoes} alt="tomato" class="sm:h-[15rem] h-[10rem] lg:h-[30rem] w-fit object absolute blur-[25px] sm:translate-x-20 translate-y-[45px] sm:translate-y-[35px]" />
     </div>
     <div class="custom-shape-divider-bottom-1692710190">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">

@@ -160,3 +160,20 @@ export async function LogOut(refresh_token: string): Promise<any> {
 		return null;
 	}
 }
+
+export async function userToAdmin(email: string): Promise<any> {
+    try {
+        const user = await prisma.user.update({
+            where: {
+                email: email
+            },
+            data: {
+                role: 'ADMIN'
+            }
+        });
+        return user;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}
