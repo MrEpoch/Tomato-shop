@@ -5,8 +5,9 @@ import { CreateRefreshToken } from "lib/token";
 import { redirect, type Cookies } from "@sveltejs/kit";
 
 
-export async function load({ cookies, url, request }: { cookies: Cookies, url: URL, request: Request }) {
-    if (await isLogged(request, cookies)) {
+export async function load({ cookies, request }: { cookies: Cookies, url: URL, request: Request }) {
+    const res = await isLogged(request, cookies);
+    if (res.user) {
         throw redirect(303, `/account`);
     }
 }

@@ -5,7 +5,8 @@ import { redirect, type Cookies } from "@sveltejs/kit";
 import { isLogged } from "lib/auth";
 
 export async function load({ cookies, url, request }: { cookies: Cookies, url: URL, request: Request }) {
-    if (await isLogged(request, cookies)) {
+    const res = await isLogged(request, cookies);
+    if (res.user) {
         throw redirect(303, `/account`);
     }
 }
