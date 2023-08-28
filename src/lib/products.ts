@@ -1,8 +1,10 @@
 import isEmpty from 'validator/lib/isEmpty';
 import { prisma } from './db';
+import { wait } from 'lib';
 
 export const getProduct = async (id: string) => {
     try {
+        await wait(600);
         const product = await prisma.product.findUnique({
             where: {
                 id
@@ -17,6 +19,7 @@ export const getProduct = async (id: string) => {
 
 export const getProductCount = async () => {
     try {
+        await wait(600);
         const productCount = await prisma.product.count();
         return productCount;
     } catch (err) {
@@ -27,6 +30,7 @@ export const getProductCount = async () => {
 
 export const getProductsForSearch = async (search: string) => {
     try {
+        await wait(600);
         const products = await prisma.product.findMany({
             where: {
                 OR: [
@@ -54,6 +58,7 @@ export const getProductsForSearch = async (search: string) => {
 
 export const getProducts = async (take: number, skip: number) => {
     try {
+        await wait(600);
         const products = await prisma.product.findMany({
             take,
             skip,
@@ -113,6 +118,7 @@ export const CreateProduct = async (
 
 export const deleteProduct = async (id: string) => {
     try {
+        await wait(600);
         const product = await prisma.product.delete({
             where: {
                 id
@@ -134,6 +140,7 @@ export const updateProduct = async (
         stripeProductId: string,
         image: string
     ) => {
+        await wait(600);
         try {
             verifyItemString(name);
             verifyItemString(description);

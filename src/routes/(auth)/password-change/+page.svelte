@@ -12,7 +12,7 @@
        </div>
        <div class="flex flex-col gap-[1rem]">
            <label for="password">New Password</label>
-           <input type="password" name="newPassword" class="dark:bg-black/10 outline-none border-[1px] border-gray-600/50 rounded-[10px] p-3" id="password" placeholder="New Password" />
+           <input type="password" name="newPassword" class="dark:bg-black/10 outline-none border-[1px] border-gray-600/50 rounded-[10px] p-3" id="new-password" placeholder="New Password" />
        </div>
         <div class="flex justify-center">
             <button type="submit" class="py-2 p-8 rounded-[6px] bg-black text-white font-light text-sm sm:text-lg hover:bg-gray-800 transition-all">Update Password</button>

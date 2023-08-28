@@ -2,12 +2,16 @@
     import { cart, preferences } from "lib/local_storage";
 	import CartItems from "./cart_items.svelte";
 	import { goto } from "$app/navigation";
+	import { browser } from "$app/environment";
 
     function handleTheme() {
-        preferences.update(pref => {
-            pref.theme = pref.theme === "" ? "dark" : "";
-            return pref;
-        });
+        if (browser) {
+            document.cookie = `theme=${$preferences.theme === "dark" ? false : true};path=/`;
+            preferences.update((p) => {
+                p.theme = $preferences.theme === "dark" ? "light" : "dark";
+                return p;
+            });
+        }
     }
 
     export let user;
@@ -17,17 +21,12 @@
     let hiddenCart = true;
 
     function handleClick() {
-        if (user.isLogged) return shown = !shown;
+        if (user.user) return shown = !shown;
         goto("/signin");
     }
 
     async function handleLogOut() {
-        await fetch("/logout", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
+        await fetch("/logout");
         goto("/");
         shown = false;
         hidden = true;
@@ -44,9 +43,6 @@
 
 </script>
 
-
-
-
 <button on:click={handleClick}>
     <svg class="w-8 md:w-10 dark:text-white/90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>account-circle</title><path fill="currentColor" d="M12,19.2C9.5,19.2 7.29,17.92 6,16C6.03,14 10,12.9 12,12.9C14,12.9 17.97,14 18,16C16.71,17.92 14.5,19.2 12,19.2M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z" /></svg>
 </button>
@@ -59,13 +55,13 @@
 {#if !hiddenCart}
     <div id="staticModal" data-modal-backdrop="static" aria-hidden="true" class="top-0  left-0 right-0 z-50 flex justify-center fixed w-screen h-[calc(100%-5rem)] max-h-full">
         <button on:click={closeCart} class="min-h-screen w-screen z-[52] fixed cursor-default"></button>
-        <div class="relative scroll-element-modal overflow-y-auto w-full max-w-2xl h-full">
-            <form class="relative bg-white rounded-lg shadow  z-[53] dark:bg-gray-700">
+        <div class="relative scroll-element-modal overflow-y-auto w-full max-w-2xl">
+            <form class="relative bg-white rounded-lg shadow z-[53] dark:bg-gray-700">
                 <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                         Cart
                     </h3>
-                    <button on:click={closeCart} type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="staticModal">
+                    <button on:click={showCart} type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="staticModal">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                         </svg>
@@ -93,7 +89,7 @@
             <div class="flex flex-col">
                 <div class="flex flex-row justify-between">
                     <div class="flex flex-col">
-                        {#if user.isAdmin}
+                        {#if user.admin}
                             <a href="/admin" on:click={handleClick} class="flex justify-between cursor-pointer dark:text-white/90 hover:bg-gray-500/10 z-10 bg-gray-500/5 p-5 w-full text-gray-700 font-semibold gap-[1rem] transition-all duration-300">
                                 <span>Admin</span>
                                 <svg class="w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus</title><path fill="currentColor" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>

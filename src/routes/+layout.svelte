@@ -2,28 +2,22 @@
     import "../app.css";
 	import Footer from "./footer.svelte";
 	import Header from "./header.svelte";
-    import { preferences } from "lib/local_storage";
 	import NavContainer from "components/nav-container.svelte";
+	import { preferences } from "lib/local_storage";
+	import { browser } from "$app/environment";
 
     export let data;
-    let dark = "";
-    preferences.subscribe((value) => {
-        if (value) {
-            dark = value.theme;
-        } else {
-            dark = "";
-        }
-    });
+    export let dark = data.theme;
 
+    $: browser && (dark = $preferences.theme === "dark");
 </script>
 
-<div class={"h-full w-full " + $preferences.theme}> 
-    <NavContainer user={data} />
-    <Header />
+<div class="h-full w-full" class:dark> 
+    <NavContainer user={data.isLogged} />
+    <Header theme={dark} />
     <slot />
     <Footer />
 </div>
 
-<style>
-
+<style lang="postcss">
 </style>

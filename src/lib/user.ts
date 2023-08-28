@@ -3,7 +3,7 @@ import isEmpty from 'validator/lib/isEmpty';
 import { prisma } from './db';
 import type { Prisma } from '@prisma/client';
 import { hashPassword } from './auth';
-import { verifyRefreshToken } from 'lib';
+import { verifyRefreshToken } from 'lib/token';
 
 export async function createUser(
 	fullName: string,

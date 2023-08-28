@@ -1,27 +1,37 @@
 <script lang="ts">
-	import { onMount } from "svelte";
     import CreateModal from "./create_modal.svelte";
 	import ProductModal from "./product_modal.svelte";
     import { products } from "lib/local_storage";
 	import ErrorMessages from "./error-messages.svelte";
     import { page } from "$app/stores";
+	import { browser } from "$app/environment";
 
     let message;
 
     $: ({ products_search } = $page.data);
     $: searchTerm = $page.url.searchParams.get('search') || ''; 
 
-    onMount(async () => {
-        await getInitial();
-    });
+    $: now = 0;
 
-    async function getInitial() {
-        const res = await fetch("/admin/api-product/0");
-        const json = await res.json();
-        products.set({
-            items: json.data
+    $: if (browser && products_search) {
+        const image_cache = caches.open("cm-images")
+            .then(cached => {
+                cached.addAll(
+                    $products_search.data.map(product => product.image)
+                );
         });
     }
+
+    function setEmptySearch() {
+        searchTerm = '';
+    }
+
+    function searchChange(evt) {
+        if (now > 3) {
+            searchTerm = evt.target.value;
+        }
+    }
+
 
     async function getMore() {
         const res = await fetch("/admin/api-product/" + $products.items.length);
@@ -50,13 +60,13 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                     </svg>
                 </div>
-                <input  name="search" value={searchTerm} type="search" id="default-search" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Tomatoes">
+                <input name="search" on:change={searchChange} value={searchTerm} type="search" id="default-search" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Tomatoes">
                 <button type="button" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
             </form>
         </div>
     </div>
     <div class="flex justify-center flex-wrap gap-[3rem]">
-            <CreateModal on:loadcards={getInitial} {message} />
+            <CreateModal on:loadcards={setEmptySearch} {message} />
             {#each $products_search.data as product}
                 <ProductModal {product} {message} />
             {/each}

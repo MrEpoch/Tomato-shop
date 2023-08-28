@@ -1,8 +1,8 @@
 <script>
-	import { preferences } from "lib/local_storage";
     import logo from "assets/logo.png";
     import logoDark from "assets/logo-dark.png";
 
+    export let theme;
     let hidden = true;
 
 </script>
@@ -12,7 +12,7 @@
     <div class="flex h-full w-full items-center md:pt-0 md:pl-0 md:w-20">
         <a href="/" class="flex items-center gap-3 md:gap-5 italic font-thin text-xl md:text-2xl dark:text-white/90 text-black shadow-black">
             TomatoDream
-            <img src={$preferences.theme === "dark" ? logoDark : logo} alt="logo" class="h-10 md:h-16" />
+            <img src={theme ? logoDark : logo} alt="logo" class="h-10 md:h-16" />
         </a>
     </div>
     <button on:click={() => hidden = !hidden} type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">

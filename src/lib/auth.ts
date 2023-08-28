@@ -1,7 +1,7 @@
 import { REFRESH_TOKEN_COOKIE_NAME } from '$env/static/private';
 import type { Cookies } from '@sveltejs/kit';
 import bcrypt from 'bcrypt';
-import { verifyRefreshToken } from 'lib';
+import { verifyRefreshToken } from 'lib/token';
 import { prisma } from './db';
 
 export const comparePasswords = async (password: string, hashedPassword: string) => {
@@ -28,7 +28,10 @@ export const isLogged = async (request: Request, cookies: Cookies) => {
 	try {
 		const refreshToken = cookies.get(REFRESH_TOKEN_COOKIE_NAME);
 		if (!refreshToken) {
-			return false;
+            return {
+                user: false,
+                admin: false,
+            }
 		}
 
 		const decoded = await verifyRefreshToken(refreshToken);
@@ -39,7 +42,10 @@ export const isLogged = async (request: Request, cookies: Cookies) => {
 		});
 
 		if (!user) {
-			return false;
+            return {
+                user: false,
+                admin: false
+            };
 		}
 
 		const refreshInDatabase = await prisma.refresh_token.findUnique({
@@ -52,13 +58,22 @@ export const isLogged = async (request: Request, cookies: Cookies) => {
 		});
 
 		if (!refreshInDatabase) {
-			return false;
+            return {
+                user: false,
+                admin: false,
+            };
 		}
 
-		return true;
+        return {
+            user: true,
+            admin: user.role === "ADMIN"
+        };
 	} catch (error) {
 		console.log(error);
-		return false;
+        return {
+            user: false,
+            admin: false
+        };
 	}
 };
 
