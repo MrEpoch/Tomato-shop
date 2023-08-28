@@ -12,6 +12,9 @@ export async function load({ fetch }) {
             body: JSON.stringify({ skip: 0 })
         });
         const products_json = await products_data.json();
+
+        
+        
         products.update(value => {
             return {
                 ...value,

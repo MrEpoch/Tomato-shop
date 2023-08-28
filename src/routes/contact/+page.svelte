@@ -1,4 +1,5 @@
 <script>
+    import Tomato from "assets/tomate-full.png";
 
 </script>
 
@@ -17,5 +18,5 @@
                 </div>
             </div>
         </div>
-        <img src={"/src/assets/tomate-full.png"} alt="tomato" class="object-contain" />
+        <img src={Tomato} alt="tomato" class="object-contain" />
 </div>

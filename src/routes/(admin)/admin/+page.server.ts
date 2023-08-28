@@ -2,6 +2,7 @@ import { fail, json, redirect } from "@sveltejs/kit";
 import { isAdmin } from "lib/auth";
 import { CreateProduct, deleteProduct, getProduct, updateProduct } from "lib/products";
 import { writeFile, unlink } from "fs/promises";
+import { storeFile } from "lib/storage";
 
 export const actions = {
     create: async ({ cookies, request }) => { 
@@ -39,9 +40,10 @@ export const actions = {
                 message: 'You must provide a file to upload'
               });
             }
-            await writeFile(`src/images/${newFileName}`, new Uint8Array(await image.arrayBuffer()));
 
-            const product = await CreateProduct(name, description, long_description, price, stripeProductId, "src/images/" + newFileName);
+            await storeFile(image, newFileName);
+
+            const product = await CreateProduct(name, description, long_description, price, stripeProductId, newFileName);
             if (product === null) {
                 return fail(400, {
                     error: true,
