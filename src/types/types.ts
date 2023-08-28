@@ -1,6 +1,5 @@
-
 export interface AboutCardType {
-    title: string;
-    content: string;
-    image: any
+	title: string;
+	content: string;
+	image: any;
 }

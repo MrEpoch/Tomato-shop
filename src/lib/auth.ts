@@ -28,10 +28,10 @@ export const isLogged = async (request: Request, cookies: Cookies) => {
 	try {
 		const refreshToken = cookies.get(REFRESH_TOKEN_COOKIE_NAME);
 		if (!refreshToken) {
-            return {
-                user: false,
-                admin: false,
-            }
+			return {
+				user: false,
+				admin: false
+			};
 		}
 
 		const decoded = await verifyRefreshToken(refreshToken);
@@ -42,10 +42,10 @@ export const isLogged = async (request: Request, cookies: Cookies) => {
 		});
 
 		if (!user) {
-            return {
-                user: false,
-                admin: false
-            };
+			return {
+				user: false,
+				admin: false
+			};
 		}
 
 		const refreshInDatabase = await prisma.refresh_token.findUnique({
@@ -58,22 +58,22 @@ export const isLogged = async (request: Request, cookies: Cookies) => {
 		});
 
 		if (!refreshInDatabase) {
-            return {
-                user: false,
-                admin: false,
-            };
+			return {
+				user: false,
+				admin: false
+			};
 		}
 
-        return {
-            user: true,
-            admin: user.role === "ADMIN"
-        };
+		return {
+			user: true,
+			admin: user.role === 'ADMIN'
+		};
 	} catch (error) {
 		console.log(error);
-        return {
-            user: false,
-            admin: false
-        };
+		return {
+			user: false,
+			admin: false
+		};
 	}
 };
 

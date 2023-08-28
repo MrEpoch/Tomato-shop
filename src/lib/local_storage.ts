@@ -8,11 +8,11 @@ export const preferences = persisted('preferences', {
 });
 
 export const cart = persisted('cart', {
-    items: [],
-    quantity: 0,
-    total: 0
+	items: [],
+	quantity: 0,
+	total: 0
 });
 
 export const products = persisted('products', {
-    items: [],
+	items: []
 });
