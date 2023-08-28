@@ -1,6 +1,6 @@
 import { createUser } from "lib/user";
 import { IS_LOGGED_COOKIE_NAME, REFRESH_TOKEN_COOKIE_NAME } from "$env/static/private";
-import { CreateRefreshToken } from "lib";
+import { CreateRefreshToken } from "lib/token";
 import { redirect, type Cookies } from "@sveltejs/kit";
 import { isLogged } from "lib/auth";
 
