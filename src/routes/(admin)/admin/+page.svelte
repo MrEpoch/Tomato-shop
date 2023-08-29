@@ -13,12 +13,6 @@
 
 	$: now = 0;
 
-	$: if (browser && products_search) {
-		const image_cache = caches.open('cm-images').then((cached) => {
-			cached.addAll($products_search.data.map((product) => product.image));
-		});
-	}
-
 	function setEmptySearch() {
 		searchTerm = '';
 	}

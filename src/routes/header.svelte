@@ -1,6 +1,6 @@
 <script>
-	import logo from 'assets/logo.png';
-	import logoDark from 'assets/logo-dark.png';
+	import logo from 'assets/logo.webp';
+	import logoDark from 'assets/logo-dark.webp';
 
 	export let theme;
 	let hidden = true;

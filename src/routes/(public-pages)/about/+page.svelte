@@ -2,12 +2,12 @@
 	import AboutCard from 'components/about_card.svelte';
 	import Heading from './Heading.svelte';
 
-	import Hands from 'assets/tomato-hands.jpg';
-	import Green from 'assets/tomato-green.jpg';
-	import Cherry from 'assets/tomato-cherry.jpg';
-	import Plant from 'assets/tomato-plant.jpg';
-	import Dressing from 'assets/tomato-dressing.jpg';
-	import BigTomato from 'assets/tomato-big.jpg';
+	import Hands from 'assets/tomato-hands.webp';
+	import Green from 'assets/tomato-green.webp';
+	import Cherry from 'assets/tomato-cherry.webp';
+	import Plant from 'assets/tomato-plant.webp';
+	import Dressing from 'assets/tomato-dressing.webp';
+	import BigTomato from 'assets/tomato-big.webp';
 
 	const about_cards = [
 		{

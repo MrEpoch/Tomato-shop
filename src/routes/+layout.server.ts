@@ -40,7 +40,7 @@ export async function load({ cookies, request, isDataRequest }) {
 		}
 
 		if (!theme_cookie) {
-			cookies.set('theme', false, {
+			cookies.set('theme', 'false', {
 				httpOnly: false,
 				path: '/'
 			});

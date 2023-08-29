@@ -7,7 +7,7 @@
 	import { browser } from '$app/environment';
 
 	export let data;
-	export let dark = data.theme;
+	export let dark = data.theme === 'true';
 
 	$: browser && (dark = $preferences.theme === 'dark');
 </script>

@@ -2,9 +2,9 @@
 	import TomatoContact from './tomato_contact.svelte';
 	import TomatoLanding from './tomato_landing.svelte';
 	import AboutCard from 'components/about_card.svelte';
-	import Hands from 'assets/tomato-hands.jpg';
-	import Green from 'assets/tomato-green.jpg';
-	import Cherry from 'assets/tomato-cherry.jpg';
+	import Hands from 'assets/tomato-hands.webp';
+	import Green from 'assets/tomato-green.webp';
+	import Cherry from 'assets/tomato-cherry.webp';
 
 	const about_cards = [
 		{
