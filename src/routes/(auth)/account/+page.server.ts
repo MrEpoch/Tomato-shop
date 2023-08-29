@@ -4,6 +4,7 @@ import { updateUserFullNameOrEmail } from 'lib/user';
 
 export async function load({ cookies, request }) {
 	const user = await getUser(request, cookies);
+    console.log("hello world");
 
 	return {
 		user: user
