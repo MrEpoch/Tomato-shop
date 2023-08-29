@@ -8,12 +8,19 @@ export async function cacheProductResponse(key: string, product: any) {
     }
 }
 
+export async function cacheResponse(key: string, value, name: string) {
+    try {
+        await redis.setex(`${key}:${name}`, 24 * 60 * 60, value);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export async function getCachedProductResponse(key: string) {
     try {
         const cache = await redis.get(key);
         if (cache) {
             const parsed = JSON.parse(cache);
-            console.log("Cache hit " + key);
             return parsed;
         }
         return {};
@@ -43,21 +50,22 @@ export async function removeFromCachedProducts(key) {
     }
 }
 
-export async function getCachedProducts(key: string, value="", count=100) {
+export async function getCachedProducts(key: string, value="*", count=100) {
     try {
+        const products = [];
         const cache = redis.scanStream({
-            match: `${key}:${value}`,   
+            match: `${key}:${value}`,
             type: 'string',
             count
         });
-        cache.on('data', function (resultKeys) {
-            const products = [];
-            resultKeys.forEach(function (key) {
-                const product = redis.get(key);
-                products.push(product);
-            });
-            return products;
-        });
+        for await (const key of cache) {
+            await Promise.all(await key.map(async (product) => {
+                const product_redis = await redis.get(product);
+                const parsed = JSON.parse(product_redis);
+                products.push(parsed);
+            }));
+        }
+        return products;
     } catch (error) {
         console.log(error);
         return [];

@@ -3,7 +3,8 @@
 	import Card from 'components/card.svelte';
 	import { cart } from 'lib/local_storage';
 
-	let hidden = true;
+    let hidden = true;
+
 	let navigateWith = false;
 	export let product;
 
@@ -50,7 +51,7 @@
 	class=""
 	type="button"
 >
-	<Card {product} />
+    <Card {product} />
 </button>
 
 {#if !hidden}

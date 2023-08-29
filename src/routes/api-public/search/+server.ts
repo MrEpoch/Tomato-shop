@@ -5,7 +5,6 @@ import { downLoadFile } from 'lib/storage';
 export async function GET({ url, request, setHeaders }) {
 	try {
 		const searchTerm = url.searchParams.get('search') || '';
-
 		
 		const products_data = await getProductsForSearch(searchTerm);
 

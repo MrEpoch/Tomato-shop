@@ -9,7 +9,11 @@
 	export let data;
 	export let dark = data.theme === 'true';
 
-	$: browser && (dark = $preferences.theme === 'dark');
+    $: browser && (dark = $preferences.theme === 'dark');
+    preferences.update((items) => {
+        items.theme = data.theme.toString() === 'true' ? 'dark' : 'light';
+        return items;
+    });
 </script>
 
 <div class="h-full w-full" class:dark>

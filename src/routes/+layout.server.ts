@@ -1,5 +1,6 @@
-import { getUser, isLogged } from 'lib/auth';
+import { isLogged } from 'lib/auth';
 import { IS_LOGGED_COOKIE_NAME } from '$env/static/private';
+import { getProductCount } from 'lib/products';
 
 export async function load({ cookies, request, isDataRequest }) {
 	const initialRequest = !isDataRequest;
@@ -15,7 +16,10 @@ export async function load({ cookies, request, isDataRequest }) {
 		  };
 
 	const theme_cookie = cookies.get('theme');
-	const theme = theme_cookie ? theme_cookie : false;
+	const theme = theme_cookie ? theme_cookie : 'false';
+
+    const productCount_res = await getProductCount();
+    const productCount = productCount_res > 50 ? 50 : productCount_res;
 
 	if (initialRequest) {
 		cookies.set('product-cache', productCache, {
@@ -50,6 +54,7 @@ export async function load({ cookies, request, isDataRequest }) {
 	return {
 		isLogged: isLogged_val,
 		theme,
+        productCount,
 		cacheBust: productCache
 	};
 }
