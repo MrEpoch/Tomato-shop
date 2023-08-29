@@ -6,10 +6,7 @@ export async function GET({ url, request, setHeaders }) {
 	try {
 		const searchTerm = url.searchParams.get('search') || '';
 
-		setHeaders({
-			'cache-control': 'max-age=60'
-		});
-
+		
 		const products_data = await getProductsForSearch(searchTerm);
 
 		const products = await Promise.all(
@@ -19,6 +16,11 @@ export async function GET({ url, request, setHeaders }) {
 				return product;
 			})
 		);
+
+        setHeaders({
+			'cache-control': 'max-age=60'
+		});
+
 
 		return json({ data: products });
 	} catch (error) {

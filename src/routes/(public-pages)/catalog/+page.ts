@@ -23,3 +23,4 @@ export async function load({ fetch, parent, url }) {
         throw redirect(305, '/error');
     }
 }
+

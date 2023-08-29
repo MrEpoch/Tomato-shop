@@ -1,12 +1,8 @@
-import { fail, json, redirect } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { isAdmin } from 'lib/auth';
 import { CreateProduct, deleteProduct, getProduct, updateProduct } from 'lib/products';
 import { writeFile, unlink } from 'fs/promises';
 import { storeFile } from 'lib/storage';
-
-export async function load() {
-    
-}
 
 export const actions = {
 	create: async ({ cookies, request }) => {

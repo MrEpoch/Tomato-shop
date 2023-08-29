@@ -1,16 +1,20 @@
 <script lang="ts">
 	import { products } from 'lib/local_storage';
 	import ProductCard from './ProductCard.svelte';
+    import { page } from '$app/stores';
 
-	let searching = false;
-	let searchData = [];
-	let searchTerm = '';
-	let timer;
+	$: ({ products_search } = $page.data);
+	$: searchTerm = $page.url.searchParams.get('search') || '';
 
-	$: {
-		if (!(searchTerm.length > 0)) {
-			searchData = [];
-			searching = false;
+	$: now = 0;
+
+	function setEmptySearch() {
+		searchTerm = '';
+	}
+
+	function searchChange(evt) {
+		if (now > 3) {
+			searchTerm = evt.target.value;
 		}
 	}
 
@@ -30,42 +34,6 @@
 		});
 	}
 
-	async function getData() {
-		try {
-			searching = true;
-			if (!(searchTerm.length > 0)) {
-				searchData = [];
-				searching = false;
-				return;
-			}
-			const res = await fetch(`/catalog/search/`, {
-				method: 'POST',
-				body: JSON.stringify({
-					products: $products.items,
-					searchTerm
-				}),
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			});
-			const json = await res.json();
-			searchData = json.data;
-		} catch (err) {
-			console.log(err);
-		}
-	}
-
-	async function handleSearch() {
-		if (!(searchTerm.length > 0)) {
-			searchData = [];
-			searching = false;
-			return;
-		}
-		clearTimeout(timer);
-		timer = setTimeout(async () => {
-			await getData();
-		}, 500);
-	}
 </script>
 
 <div class="sm:px-[5rem] w-full min-h-screen flex gap-[3rem] flex-col dark:bg-black/90">
@@ -96,27 +64,23 @@
 				</div>
 
 				<input
-			        on:change={searchChange}
-                    name="search"
+			        name="search"
+					on:change={searchChange}
 					value={searchTerm}
-					type="search"
 					id="default-search"
 					class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 					placeholder="Search Tomatoes"
-					required
 				/>
 				<button
-					on:click={handleSearch}
-					type="button"
+					type="submit"
 					class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
 					>Search</button
 				>
 			</form>
 		</div>
 	</div>
-	{#if !searching}
 		<div class="flex mb-[5rem] justify-center gap-[3rem] flex-wrap">
-			{#each $products.items as product}
+			{#each $products_search.data as product}
 				<ProductCard {product} />
 			{/each}
 		</div>
@@ -132,11 +96,4 @@
 				>
 			</button>
 		</div>
-	{:else}
-		<div class="flex mb-[5rem] justify-center gap-[3rem] flex-wrap">
-			{#each searchData as product}
-				<ProductCard {product} />
-			{/each}
-		</div>
-	{/if}
 </div>
