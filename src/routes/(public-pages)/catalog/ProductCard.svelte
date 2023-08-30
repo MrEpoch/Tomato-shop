@@ -36,7 +36,6 @@
 			});
 
 			if (navigateWith) {
-				console.log('tried');
 				goto('/payment');
 			}
 			return (hidden = true);

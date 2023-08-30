@@ -37,6 +37,7 @@
 		"jsonwebtoken": "^9.0.1",
 		"mock-aws-s3": "^4.0.2",
 		"nock": "^13.3.3",
+		"nodemailer": "^6.9.4",
 		"postcss": "^8.4.28",
 		"prisma": "^5.2.0",
 		"stripe": "^13.3.0",

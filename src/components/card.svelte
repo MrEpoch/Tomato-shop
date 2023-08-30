@@ -3,7 +3,6 @@
     export let product;
 
     let isAnimating = true;
-    console.log(product.image);
     
 </script>
 

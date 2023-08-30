@@ -58,28 +58,33 @@
 		/></svg
 	>
 </button>
-<button on:click={showCart}>
+<button on:click={showCart} class="relative">
 	<svg class="w-8 md:w-10 dark:text-white/90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
 		><title>cart-outline</title><path
 			fill="currentColor"
 			d="M17,18A2,2 0 0,1 19,20A2,2 0 0,1 17,22C15.89,22 15,21.1 15,20C15,18.89 15.89,18 17,18M1,2H4.27L5.21,4H20A1,1 0 0,1 21,5C21,5.17 20.95,5.34 20.88,5.5L17.3,11.97C16.96,12.58 16.3,13 15.55,13H8.1L7.2,14.63L7.17,14.75A0.25,0.25 0 0,0 7.42,15H19V17H7C5.89,17 5,16.1 5,15C5,14.65 5.09,14.32 5.24,14.04L6.6,11.59L3,4H1V2M7,18A2,2 0 0,1 9,20A2,2 0 0,1 7,22C5.89,22 5,21.1 5,20C5,18.89 5.89,18 7,18M16,11L18.78,6H6.14L8.5,11H16Z"
 		/></svg
-	>
+    >
+    {#if $cart.items.length > 0}
+    <div class="absolute inline-flex items-center justify-center w-6 h-6 
+        text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full
+        -top-2 -right-2 dark:border-gray-900">{$cart.items.length}</div>
+    {/if}
 </button>
 {#if !hiddenCart}
 	<div
 		id="staticModal"
 		data-modal-backdrop="static"
 		aria-hidden="true"
-		class="top-0 left-0 right-0 z-50 flex justify-center fixed w-screen h-[calc(100%-5rem)] max-h-full"
+		class="top-0 left-0 right-0 z-50 items-center flex justify-center fixed w-screen h-[calc(100%-5rem)] max-h-full"
 	>
 		<button on:click={closeCart} class="min-h-screen w-screen z-[52] fixed cursor-default" />
-		<div class="relative scroll-element-modal overflow-y-auto w-full max-w-2xl">
+		<div class="relative scroll-element-modal min-h-32 overflow-y-auto w-full max-w-2xl">
 			<form class="relative bg-white rounded-lg shadow z-[53] dark:bg-gray-700">
 				<div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
 					<h3 class="text-xl font-semibold text-gray-900 dark:text-white">Cart</h3>
 					<button
-						on:click={showCart}
+						on:click={closeCart}
 						type="button"
 						class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
 						data-modal-hide="staticModal"

@@ -25,7 +25,7 @@
 	}
 </script>
 
-<div class="flex flex-col gap-[2rem] min-h-screen w-full dark:bg-black/90 px-10 dark:text-white/90">
+<div class="flex flex-col gap-[2rem] items-center min-h-screen w-full dark:bg-black/90 px-10 dark:text-white/90">
 	{#if currentStep < 3}
 		<Stepper {currentStep} />
 	{/if}
@@ -38,7 +38,7 @@
 			</div>
 		</div>
 		<button
-			class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+			class="bg-blue-500 w-fit  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
 			on:click={() => (currentStep = 2)}>Next</button
 		>
 	{:else if currentStep === 2}

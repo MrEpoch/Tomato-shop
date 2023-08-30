@@ -1,7 +1,10 @@
 <script lang="ts">
 	import type { AboutCardType } from 'types/types';
     import { lazyLoad } from 'lib';
-	export let about_cards: AboutCardType[] = [];
+    export let about_cards: AboutCardType[] = [];
+
+    let isAnimation = true;
+
 </script>
 
 <div class="flex flex-col w-full dark:bg-red-700 bg-red-500 gap-[10rem] pb-[15rem] p-2">
@@ -13,11 +16,16 @@
 			>
 				{card.content}
             </p>
-			<img
-				use:lazyLoad={card.image}
-				alt="tomate"
-				class="h-[30rem] opacity-0 transition-opacity max-[800px]:h-[15rem] aspect-video object-cover"
-            />
+            <div class={`h-[30rem] max-[800px]:h-[15rem]
+                bg-gray-200 dark:bg-gray-800 max-w-full aspect-video object-cover ${isAnimation ? "animate-pulse leading-relaxed" : ""}`}
+            >
+                <img
+                    on:load={() => isAnimation = false}
+                    use:lazyLoad={card.image}
+                    alt="tomate"
+                    class="opacity-0 transition-opacity h-full w-full object-cover"
+                />
+            </div>
 		</div>
 	{/each}
 </div>
