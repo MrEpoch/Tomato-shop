@@ -6,6 +6,7 @@ export async function GET({cookies, url}) {
         const cookie_updated = cookies.set('theme', value, {
             httpOnly: false,
             path: '/',
+            expires: new Date(Date.now() + 60 * 60 * 24 * 7)
         });
 
         return json({ cookie_updated });

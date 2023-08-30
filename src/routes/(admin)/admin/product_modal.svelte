@@ -177,15 +177,18 @@
 
 	/* Chrome, Edge, and Safari */
 	.scroll-element-modal::-webkit-scrollbar {
-		width: 9px;
+        width: 9px;
+
 	}
 
-	.scroll-element-modal::-webkit-scrollbar-track {
-		background: slategray;
-	}
+    .scroll-element-modal::-webkit-scrollbar-track {
+        background: #ddd;
+        border-radius: 50px;
+    }
 
-	.scroll-element-modal::-webkit-scrollbar-thumb {
+    .scroll-element-modal::-webkit-scrollbar-thumb {
 		background-color: black;
 		border: 3px solid var(--primary);
-	}
+        border-radius: 50px;
+    }
 </style>

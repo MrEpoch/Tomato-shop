@@ -2,6 +2,8 @@
 	import { products } from 'lib/local_storage';
 	import CreateModalForm from './create_modal-form.svelte';
 	import { createEventDispatcher } from 'svelte';
+	import { invalidate } from '$app/navigation';
+	import { browser } from '$app/environment';
 
 	const dispatch = createEventDispatcher();
 
@@ -37,13 +39,14 @@
 			dispatch('loadcards');
 			message = 'success';
 			file = null;
+            browser && invalidate('/admin');
 		} catch (e) {
 			message = 'failure';
 			console.log(e);
 		}
 	}
 
-	let file = null;
+	$: file = null;
 </script>
 
 <button
@@ -120,7 +123,7 @@
 			class="min-h-screen w-screen fixed cursor-default"
 		/>
 		<div class="relative w-full scroll-element-modal max-w-lg max-h-full overflow-y-scroll z-[51]">
-			<div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
+			<div class="relative bg-white rounded-3xl shadow dark:bg-gray-800">
 				<button
 					on:click={closeModal}
 					type="button"
@@ -169,15 +172,18 @@
 
 	/* Chrome, Edge, and Safari */
 	.scroll-element-modal::-webkit-scrollbar {
-		width: 9px;
+        width: 9px;
+
 	}
 
-	.scroll-element-modal::-webkit-scrollbar-track {
-		background: slategray;
-	}
+    .scroll-element-modal::-webkit-scrollbar-track {
+        background: #ddd;
+        border-radius: 50px;
+    }
 
-	.scroll-element-modal::-webkit-scrollbar-thumb {
+    .scroll-element-modal::-webkit-scrollbar-thumb {
 		background-color: black;
 		border: 3px solid var(--primary);
-	}
+        border-radius: 50px;
+    }
 </style>

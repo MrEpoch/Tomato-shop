@@ -142,7 +142,7 @@ export const CreateProduct = async (
 			}
 		});
 
-        setCachedProducts(product, `products`);
+        await cacheProductResponse(`products`, product);
 		return product;
 	} catch (err) {
 		console.log(err);

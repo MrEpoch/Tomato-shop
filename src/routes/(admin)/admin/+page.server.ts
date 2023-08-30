@@ -28,12 +28,15 @@ export const actions = {
 			}
 
 			const newFileName_ext = image.name.split('.').pop();
-			if (!['jpg', 'jpeg', 'png'].includes(newFileName_ext)) {
+			if (!['jpg', 'jpeg', 'png', 'webp'].includes(newFileName_ext)) {
 				return fail(400, {
 					error: true,
 					message: 'You must provide a valid image file'
 				});
 			}
+
+
+
 			const newFileName = `${crypto.randomUUID()}.${newFileName_ext}`;
 
 			if (!image.name || image.name === 'undefined') {

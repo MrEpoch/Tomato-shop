@@ -1,8 +1,10 @@
 import { getCurrentCookieValue } from 'lib/cookies';
 import { writable } from 'svelte/store';
 
-export async function load({ fetch, parent, url, setHeaders }) {
+export async function load({ fetch, parent, url, setHeaders, depends }) {
 	try {
+        depends('products:data');
+
 		const parentData = await parent();
 
 		const cacheBust = getCurrentCookieValue('product-cache') || parentData.cacheBust;

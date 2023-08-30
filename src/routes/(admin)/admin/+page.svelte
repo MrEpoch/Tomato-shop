@@ -5,7 +5,7 @@
 	import ErrorMessages from './error-messages.svelte';
 	import { page } from '$app/stores';
 
-	let message;
+	$: message = "";
 
 	$: ({ products_search } = $page.data);
 	$: searchTerm = $page.url.searchParams.get('search') || '';

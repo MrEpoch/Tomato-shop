@@ -47,13 +47,14 @@
 			class="flex flex-col w-full p-4 md:p-0 mt-4 gap-[1rem] items-center md:flex-row md:space-x-8"
 		>
 			<li>
-				<a href="/about" class="">About</a>
+				<a href="/about" class="" data-sveltekit-preload-data>About</a>
 			</li>
 			<li>
 				<a href="/contact" class="">Contact</a>
 			</li>
 			<li>
 				<a
+                    data-sveltekit-preload-data
 					href="/catalog"
 					class="
                 duration-300 transition-all dark:hover:border-0
@@ -72,13 +73,13 @@
 	>
 		<ul class="flex flex-col w-full p-4 md:p-0 mt-4 gap-[3rem] items-center">
 			<li>
-				<a href="/about" class="text-xl font-light">About</a>
+				<a data-sveltekit-preload-data href="/about" class="text-xl font-light">About</a>
 			</li>
 			<li>
 				<a href="/contact" class="text-xl font-light">Contact</a>
 			</li>
 			<li>
-				<a href="/catalog" class="text-xl mb-3 font-light">Catalog</a>
+				<a data-sveltekit-preload-data href="/catalog" class="text-xl mb-3 font-light">Catalog</a>
 			</li>
 		</ul>
 	</div>

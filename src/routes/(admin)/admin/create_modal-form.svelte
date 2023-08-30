@@ -1,6 +1,9 @@
 <script lang="ts">
+    import { lazyLoad } from "lib";
+
 	export let file;
 	export let handleFileInput;
+    let isAnimating = true;
 </script>
 
 <div class="flex items-center justify-center w-full relative">
@@ -34,8 +37,9 @@
 				</svg>
 				<span class="sr-only">Close modal</span>
 			</button>
-
-			<img class="w-full h-full" src={URL.createObjectURL(file)} alt="Product" />
+            <div class={`w-full h-full ${isAnimating ? "animate-pulse" : ""} transition-transform bg-gray-200 dark:bg-gray-800`}>
+                <img class="w-full h-full object-cover" on:load={() => isAnimating = false} use:lazyLoad={URL.createObjectURL(file)} alt="example" />
+            </div>
 		{:else}
 			<div class="flex flex-col items-center justify-center pt-5 pb-6">
 				<svg

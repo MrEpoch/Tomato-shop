@@ -21,7 +21,7 @@
 	let hiddenCart = true;
 
 	function handleClick() {
-		if (user.user) return (shown = !shown);
+        if (user.user) return (shown = !shown);
 		goto('/signin');
 	}
 
@@ -138,7 +138,8 @@
 				<div class="flex flex-row justify-between">
 					<div class="flex flex-col">
 						{#if user.admin}
-							<a
+                            <a
+                                data-sveltekit-preload-data
 								href="/admin"
 								on:click={handleClick}
 								class="flex justify-between cursor-pointer dark:text-white/90 hover:bg-gray-500/10 z-10 bg-gray-500/5 p-5 w-full text-gray-700 font-semibold gap-[1rem] transition-all duration-300"
@@ -152,7 +153,8 @@
 								>
 							</a>
 						{/if}
-						<a
+                        <a
+                            data-sveltekit-preload-data
 							href="/account"
 							on:click={handleClick}
 							class="flex justify-between cursor-pointer dark:text-white/90 hover:bg-gray-500/10 z-10 bg-gray-500/5 p-5 w-full text-gray-700 font-semibold gap-[1rem] transition-all duration-300"
