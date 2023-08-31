@@ -1,19 +1,23 @@
 import { redirect } from '@sveltejs/kit';
-import type { Cookies } from '@sveltejs/kit';
-import { isLogged } from 'lib/auth';
 
-export async function load({ cookies, request }: { cookies: Cookies; url: URL; request: Request }) {
-	try {
-		const isAdmin_res = await isLogged(request, cookies);
-		if (!isAdmin_res && !isAdmin_res.admin) {
-			throw new Error('Not logged');
-		}
+export async function load({
+    locals,
+    url
+}: {
+    locals: any,
+	url: URL;
+}) {
+    const session = await locals.auth.validate();
 
-		return {
-			user: isAdmin_res
-		};
-	} catch (err) {
-		console.log(err);
-		throw redirect(303, `/signup`);
-	}
+	if (!session) {
+		throw redirect(303, `/signin?redirectTo=${url.pathname}`);
+    } else if (!session.user.email_verified) {
+        throw redirect(303, `/email/verify`);
+    } else if (session.user.role !== "ADMIN") {
+        throw redirect(303, `/account`);
+    }
+
+    return {
+        user: session.user
+    }
 }

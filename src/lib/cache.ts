@@ -8,9 +8,9 @@ export async function cacheProductResponse(key: string, product: any) {
     }
 }
 
-export async function cacheResponse(key: string, value, name: string) {
+export async function cacheResponse(key: string, value: string, name: string, expire = 24 * 60 * 60) {
     try {
-        await redis.setex(`${key}:${name}`, 24 * 60 * 60, value);
+        await redis.setex(`${key}:${name}`, expire, value);
     } catch (error) {
         console.log(error);
     }
@@ -27,6 +27,20 @@ export async function getCachedProductResponse(key: string) {
     } catch (error) {
         console.log(error);
         return {};
+    }
+}
+
+export async function getCachedEmailToken(key: string) {
+    try {
+        const cache = await redis.get(key);
+        if (cache) {
+            const parsed = JSON.parse(cache);
+            return parsed;
+        }
+        return null;
+    } catch (error) {
+        console.log(error);
+        return null;
     }
 }
 

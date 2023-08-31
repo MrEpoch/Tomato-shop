@@ -1,6 +1,5 @@
 <script lang="ts">
 	export let data;
-	console.log(data);
 	let user_data: any = data.user;
 </script>
 

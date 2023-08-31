@@ -1,5 +1,4 @@
 import { fail, redirect } from '@sveltejs/kit';
-import { isAdmin } from 'lib/auth';
 import { CreateProduct, deleteProduct, getProduct, updateProduct } from 'lib/products';
 import { writeFile, unlink } from 'fs/promises';
 import { storeFile } from 'lib/storage';
@@ -35,8 +34,6 @@ export const actions = {
 				});
 			}
 
-
-
 			const newFileName = `${crypto.randomUUID()}.${newFileName_ext}`;
 
 			if (!image.name || image.name === 'undefined') {
@@ -66,12 +63,9 @@ export const actions = {
 			return { success: true, product: product };
 		} catch (error) {
 			console.log(error);
-			return {
-				status: 401,
-				body: {
-					message: error.message
-				}
-			};
+			return fail(401, {
+                message: error.message
+			});
 		}
 	},
 
@@ -140,17 +134,6 @@ export const actions = {
 	delete: async ({ cookies, request }) => {
 		const data = await request.formData();
 		const id = data.get('id');
-
-		let isAdmin_res = await isAdmin(request, cookies);
-		try {
-			isAdmin_res = await isAdmin(request, cookies);
-		} catch (error) {
-			throw redirect(303, `/signup`);
-		}
-
-		if (!isAdmin_res) throw redirect(303, `/signup`);
-		if (isAdmin_res.role !== 'ADMIN') throw redirect(303, `/signup`);
-
 		try {
 			const product = await deleteProduct(id);
 			await unlink(`${product.image}`);

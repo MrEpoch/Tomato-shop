@@ -1,18 +1,21 @@
 import { redirect } from '@sveltejs/kit';
-import type { Cookies } from '@sveltejs/kit';
-import { isLogged } from 'lib/auth';
 
 export async function load({
-	cookies,
-	url,
-	request
+    locals,
+    url
 }: {
-	cookies: Cookies;
+    locals: any,
 	url: URL;
-	request: Request;
 }) {
-	const isLogged_res = await isLogged(request, cookies);
-	if (!isLogged_res || !isLogged_res.user) {
+    const session = await locals.auth.validate();
+
+	if (!session) {
 		throw redirect(303, `/signin?redirectTo=${url.pathname}`);
-	}
+    } else if (!session.user.email_verified) {
+        throw redirect(303, `/email/verify`);
+    }
+
+    return {
+        user: session.user
+    }
 }

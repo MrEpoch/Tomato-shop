@@ -2,15 +2,6 @@ import { redirect } from '@sveltejs/kit';
 import { getUser } from 'lib/auth';
 import { updateUserFullNameOrEmail } from 'lib/user';
 
-export async function load({ cookies, request }) {
-	const user = await getUser(request, cookies);
-    console.log("hello world");
-
-	return {
-		user: user
-	};
-}
-
 export const actions = {
 	fullName: async ({ cookies, request }) => {
 		try {

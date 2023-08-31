@@ -8,7 +8,8 @@ import { verifyRefreshToken } from 'lib/token';
 export async function createUser(
 	fullName: string,
 	email: string,
-	password: string
+    password: string,
+    googleVerified?: boolean
 ): Promise<Prisma.UserCreateInput> {
 	if (fullName === undefined) {
 		throw new Error('Name is required');
@@ -28,16 +29,20 @@ export async function createUser(
 		throw new Error('Name must be at least 3 characters');
 	}
 
-	try {
-		const user = await prisma.user.create({
-			data: {
-				fullName,
-				email,
-				password: await hashPassword(password)
-			}
-		});
+    try {
+        if (!googleVerified) {
+            const user = await prisma.user.create({
+                data: {
+                    fullName,
+                    email,
+                    isVerified: false,
+                    email_token: await generateEmailToken(email),
+                    password: await hashPassword(password)
+                }
+            });
 
-		return user;
+            return user;
+        }
 	} catch (error) {
 		console.log(error);
 		return null;

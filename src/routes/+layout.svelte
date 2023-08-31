@@ -17,7 +17,7 @@
 </script>
 
 <div class="h-full w-full" class:dark>
-	<NavContainer user={data.isLogged} />
+    <NavContainer user={data.session} />
 	<Header theme={dark} />
 	<slot />
 	<Footer />

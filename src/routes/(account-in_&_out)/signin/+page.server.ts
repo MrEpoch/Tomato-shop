@@ -1,49 +1,54 @@
-import { comparePasswords, isLogged } from 'lib/auth';
-import { getUserByEmail } from 'lib/user';
-import { IS_LOGGED_COOKIE_NAME, REFRESH_TOKEN_COOKIE_NAME } from '$env/static/private';
-import { CreateRefreshToken } from 'lib/token';
-import { redirect, type Cookies } from '@sveltejs/kit';
+import { redirect, type Actions, fail } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
+import { z } from 'zod';
+import { auth } from 'lib/lucia';
 
-export async function load({ cookies, request }: { cookies: Cookies; url: URL; request: Request }) {
-	const res = await isLogged(request, cookies);
-	if (res.user) {
-		throw redirect(303, `/account`);
-	}
+export const load: PageServerLoad = async ({ locals }) => {
+    const session = await locals.auth.validate();
+    if (session) {
+        throw redirect(302, "/account")
+    }
+	
 }
 
-export const actions = {
-	default: async ({ cookies, request }) => {
-		const data = await request.formData();
-		const email = data.get('email');
-		const password = data.get('password');
-		try {
-			const user = await getUserByEmail(email);
-			if (user === null) {
-				throw new Error('User not found');
-			}
-			const isPasswordValid = await comparePasswords(password, user.password);
+export const actions: Actions = {
+    default: async ({ request, locals }) => {
+        const data = await request.formData();
+        const email = data.get("email");
+        const password = data.get("password");
+        const emailZod = z.string().email();
+        const passwordZod = z.string().min(8);
 
-			if (!isPasswordValid) {
-				throw new Error('Password is invalid');
-			}
+        const emailError = emailZod.safeParse(email);
+        const passwordError = passwordZod.safeParse(password);
 
-			const refresh_token = await CreateRefreshToken(user.id);
+        if (!emailError.success) {
+            return fail(400, {
+                email: email,
+                error: "Invalid email"
+            })
+        } else if (!passwordError.success) {
+            return fail(400, {
+                password: password,
+                error: "Invalid password"
+            })
+        }
 
-			await cookies.set(REFRESH_TOKEN_COOKIE_NAME, refresh_token, {
-				httpOnly: true,
-				path: '/',
-				maxAge: 60 * 60 * 24 * 7
-			});
-			await cookies.delete(IS_LOGGED_COOKIE_NAME);
-			redirect(300, '/account');
-		} catch (error) {
-			console.log(error);
-			return {
-				status: 401,
-				body: {
-					message: error.message
-				}
-			};
-		}
-	}
-};
+        try {
+            const key = await auth.useKey('email', emailError.data.toLowerCase(), passwordError.data);
+            const session = await auth.createSession({
+                userId: key.userId,
+                attributes: {}
+            })
+            locals.auth.setSession(session);
+        } catch (error) {
+            console.log(error);
+            return fail(400, {
+                error: "Could not login user"
+            })
+        }
+
+        throw redirect(302, "/account")
+    }
+}
+

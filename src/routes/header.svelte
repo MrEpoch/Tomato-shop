@@ -42,7 +42,7 @@
 			/>
 		</svg>
 	</button>
-	<div class={`hidden items-center md:flex`}>
+    <div class={`hidden items-center md:flex`}>
 		<ul
 			class="flex flex-col w-full p-4 md:p-0 mt-4 gap-[1rem] items-center md:flex-row md:space-x-8"
 		>

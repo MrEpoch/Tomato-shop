@@ -14,14 +14,14 @@
 		}
 	}
 
-	export let user;
+    export let user;
 	export let hidden;
 
 	let shown = false;
 	let hiddenCart = true;
 
 	function handleClick() {
-        if (user.user) return (shown = !shown);
+        if (user && user.user.email_verified) return (shown = !shown);
 		goto('/signin');
 	}
 
@@ -142,7 +142,7 @@
 			<div class="flex flex-col">
 				<div class="flex flex-row justify-between">
 					<div class="flex flex-col">
-						{#if user.admin}
+						{#if user && user.user.role === 'admin'}
                             <a
                                 data-sveltekit-preload-data
 								href="/admin"
