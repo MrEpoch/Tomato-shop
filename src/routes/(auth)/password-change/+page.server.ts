@@ -1,28 +1,33 @@
-import { redirect } from '@sveltejs/kit';
-import { getUser } from 'lib/auth';
-import { updateUserPassword } from 'lib/user';
+import { fail, redirect } from '@sveltejs/kit';
+import { auth } from 'lib/lucia';
+import { z } from 'zod';
 
 export const actions = {
-	default: async ({ cookies, request }) => {
-		try {
-			const data = await request.formData();
-			if (!data.has('password')) throw redirect(303, `/`);
-			if (!data.has('newPassword')) throw redirect(303, `/`);
-			if (data.get('newPassword') === data.get('password')) throw redirect(303, `/`);
-			const user = await getUser(request, cookies);
-			if (!user) throw redirect(303, `/signin?redirectTo=${request.url.pathname}`);
+    default: async ({ request, locals }) => {
+        const data = await request.formData();
+        if (!data.has('password')) return fail(400);
+        if (!data.has('newPassword')) return fail(400);
+        if (data.get('newPassword') === data.get('password')) return fail(400);
+        
+        const passwordZod = z.string().min(8);
+        const passwordError = passwordZod.safeParse(data.get("newPassword"));
 
-			await updateUserPassword(user.id, data.get('password'));
+        if (!passwordError.success) {
+            return fail(400, {
+                data: data.get("newPassword"),
+                error: "Invalid password"
+            })
+        }
 
-			throw redirect(303, `/`);
-		} catch (error) {
-			console.log(error);
-			return {
-				status: 401,
-				body: {
-					message: error.message
-				}
-			};
-		}
+        try {
+            await auth.invalidateAllUserSessions(locals.auth.session);
+            await auth.updateUserAttributes(locals.auth.session.userId, {
+                password: data.get('newPassword')
+            });
+        } catch (e) {
+            throw redirect(302, "/account");
+        }
+
+        throw redirect(303, `/account`);
 	}
 };

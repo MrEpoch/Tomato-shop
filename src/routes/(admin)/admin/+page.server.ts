@@ -4,7 +4,7 @@ import { writeFile, unlink } from 'fs/promises';
 import { storeFile } from 'lib/storage';
 
 export const actions = {
-	create: async ({ cookies, request }) => {
+	create: async ({ request }) => {
 		try {
 			const data = await request.formData();
 			const name = data.get('name');
@@ -69,7 +69,7 @@ export const actions = {
 		}
 	},
 
-	update: async ({ cookies, request }) => {
+	update: async ({ request }) => {
 		try {
 			const data = await request.formData();
 			const id = data.get('id');
@@ -131,7 +131,7 @@ export const actions = {
 		}
 	},
 
-	delete: async ({ cookies, request }) => {
+	delete: async ({ request }) => {
 		const data = await request.formData();
 		const id = data.get('id');
 		try {

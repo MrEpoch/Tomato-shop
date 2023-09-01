@@ -122,4 +122,5 @@ model Order {
     postalCode      String
     phone           String
     email           String
+    FullName        String
 }

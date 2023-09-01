@@ -1,7 +1,6 @@
 <script>
 	import Tomatoes from 'assets/tomato-bunch.webp';
     import { lazyLoad } from 'lib';
-	import { onMount } from 'svelte';
 
     let isAnimation = true;
 
@@ -15,7 +14,7 @@
 	</h1>
 	<div class="flex flex-col items-center w-full relative">
         <a href="/catalog" class={`z-10 ${isAnimation ? "animate-pulse" : ""}  
-            bg-gray-200 sm:h-[15rem] h-[10rem] lg:h-[30rem] min-w-[40%] 
+            bg-gray-200 dark:bg-gray-800 sm:h-[15rem] h-[10rem] lg:h-[30rem] min-w-[40%] 
             transition-transform object hover:translate-y-[-5px] hover:translate-x-[-5px]
             rounded-2xl shadow
             duration-500`}>

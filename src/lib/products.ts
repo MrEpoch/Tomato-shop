@@ -34,7 +34,7 @@ export const getProductCount = async () => {
 
         const productCount = await prisma.product.count();
 
-        await cacheResponse(`products:count`, productCount, `count`);
+        await cacheResponse(`products`, JSON.stringify(productCount), "count");
 
 		return productCount;
 	} catch (err) {
@@ -142,7 +142,12 @@ export const CreateProduct = async (
 			}
 		});
 
+        const productCount = await prisma.product.count();
+
         await cacheProductResponse(`products`, product);
+
+        await cacheResponse(`products`, JSON.stringify(productCount), "count");
+
 		return product;
 	} catch (err) {
 		console.log(err);
@@ -157,7 +162,12 @@ export const deleteProduct = async (id: string) => {
 				id
 			}
 		});
+
+        const productCount = await prisma.product.count();
+
         await removeFromCachedProducts(`products:${product.name}`);
+
+        await cacheResponse(`products`, JSON.stringify(productCount), "count");
 
 		return product;
 	} catch (err) {

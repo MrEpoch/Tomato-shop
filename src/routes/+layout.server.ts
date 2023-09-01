@@ -20,12 +20,13 @@ export async function load({ cookies, locals, isDataRequest }) {
 
 		if (!theme_cookie) {
 			cookies.set('theme', 'false', {
-				httpOnly: false,
+				httpOnly: true,
                 path: '/',
-                expires: new Date(Date.now() + 60 * 60 * 24 * 7)
+                maxAge: 60 * 60 * 24 * 3
 			});
 		}
 	}
+
 
     return {
         session,

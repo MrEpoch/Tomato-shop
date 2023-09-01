@@ -2,6 +2,7 @@ import { redirect, type Actions, fail } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { z } from 'zod';
 import { auth } from 'lib/lucia';
+import { wait } from 'lib';
 
 export const load: PageServerLoad = async ({ locals }) => {
     const session = await locals.auth.validate();
@@ -12,7 +13,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 }
 
 export const actions: Actions = {
-    default: async ({ request, locals }) => {
+    default: async ({ request, locals, cookies }) => {
         const data = await request.formData();
         const email = data.get("email");
         const password = data.get("password");
@@ -34,7 +35,20 @@ export const actions: Actions = {
             })
         }
 
+        let load_speed = 0;
+        const slower = cookies.get("slower");
+        if (slower) {
+            load_speed = JSON.parse(slower);
+        }
+        cookies.set("slower", JSON.stringify(load_speed + 1), {
+            httpOnly: true,
+            sameSite: 'strict',
+            path: '/',
+            maxAge: 60 * 60 * 12
+        })
+
         try {
+            await wait(load_speed * 1000);
             const key = await auth.useKey('email', emailError.data.toLowerCase(), passwordError.data);
             const session = await auth.createSession({
                 userId: key.userId,

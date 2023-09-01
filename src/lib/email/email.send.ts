@@ -6,7 +6,7 @@ import ResetPassword from "$lib/email/templates/reset.svelte";
 
 const credentials = {
   host: MAIL_SMTP_HOST,
-  port: 2525,
+  port: 587,
   auth: {
       user: MAIL_USER,
       pass: MAIL_PASS
@@ -40,9 +40,19 @@ function EmailHTML(subject: string, email_token: string, name: string, email: st
 
 export async function SendMail(email: string, subject: string, email_token: string, name: string) {
   await transporter.sendMail({
-      from: MAIL_USER,
+      from: "alex@tomatodream.store",
       to: email,
       subject,
       html: EmailHTML(subject, email_token, name, email) 
   });
+}
+
+export const templateChecker = () => {
+    console.log(render({
+        template: ConfirmEmail,
+        props: {
+            token: "token",
+            name: "name",
+        }
+    }))
 }

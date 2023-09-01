@@ -13,7 +13,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 }
 
 export const actions: Actions = {
-    default: async ({ request }) => {
+    default: async ({ request, locals }) => {
         const data = await request.formData();
         const fullName = data.get('fullName');
         const email = data.get('email');
@@ -63,16 +63,22 @@ export const actions: Actions = {
                 }
             })
 
-            const token = await generateEmailVerificationToken(user.id);
+            const token = await generateEmailVerificationToken(user.userId);
 
             await SendMail(emailError.data.toString() as string, 'Confirm Email', token, user.fullName);
 
+            const session = await auth.createSession({
+                userId: user.userId,
+                attributes: {}
+            })
+
+            locals.auth.setSession(session);
         } catch (error) {
             console.log(error);
             return fail(500, {
                 error: "Could not login user"
             })
         }
-        throw redirect(302, "/signin")
+        throw redirect(302, "/account")
     }
 }

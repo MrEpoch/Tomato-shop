@@ -1,6 +1,4 @@
 import { STRIPE_SECRET_KEY } from '$env/static/private';
-import type { Cookies } from '@sveltejs/kit';
-import { getUser } from './auth';
 import { prisma } from './db';
 import Stripe from 'stripe';
 
@@ -23,15 +21,15 @@ async function mapOverOrders(orders: any) {
 }
 
 export const makeOrder = async (
-	request: Request,
-	cookies: Cookies,
+    locals: any,
 	order: any,
 	email: string,
 	phone: string,
 	address: string,
 	country: string,
 	city: string,
-	postalcode: string
+	postalcode: string,
+    name: string
 ) => {
 	try {
 		const products = await mapOverOrders(order);
@@ -69,6 +67,7 @@ export const makeOrder = async (
 				city,
 				postalCode: postalcode,
 				phone,
+                FullName: name,
 				orderItems: {
 					create: products.map((item: any) => {
 						return {
@@ -84,14 +83,14 @@ export const makeOrder = async (
 			}
 		});
 
-		const user = await getUser(request, cookies);
-		if (user) {
+        const session_auth = await locals.auth.validate();
+		if (session) {
 			await prisma.order.update({
 				where: {
 					id: order_db.id
 				},
 				data: {
-					userId: user.id
+					userId: session_auth.user.userId
 				}
 			});
 		}

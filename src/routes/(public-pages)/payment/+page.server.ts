@@ -12,7 +12,7 @@ export async function load({ cookies }) {
 }
 
 export const actions = {
-	order: async ({ request, cookies }) => {
+	order: async ({ request, locals }) => {
 		const data = await request.formData();
 		const email = data.get('email');
 		const phone = data.get('phone');
@@ -25,15 +25,15 @@ export const actions = {
 
 		try {
 			const order = await makeOrder(
-				request,
-				cookies,
+                locals,
 				JSON.parse(cart),
 				email,
 				phone,
 				address,
 				country,
 				city,
-				postalcode
+                postalcode,
+                name
 			);
 			if (!order) {
 				return fail(400, { message: 'Order failed', failed: true });

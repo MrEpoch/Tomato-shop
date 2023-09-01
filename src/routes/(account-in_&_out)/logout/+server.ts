@@ -1,14 +1,11 @@
-import { LogOut } from 'lib/user';
-import { IS_LOGGED_COOKIE_NAME, REFRESH_TOKEN_COOKIE_NAME } from '$env/static/private';
 import { json } from '@sveltejs/kit';
+import { auth } from 'lib/lucia';
 
-export async function GET({ cookies }) {
-	const refreshToken = cookies.get(REFRESH_TOKEN_COOKIE_NAME);
-	if (!refreshToken) {
-		return json({ data: false }, { status: 401 });
-	}
-	const data = await LogOut(refreshToken);
-	cookies.delete(REFRESH_TOKEN_COOKIE_NAME);
-	cookies.delete(IS_LOGGED_COOKIE_NAME);
-	return json({ data }, { status: 201 });
+export async function GET({ locals }) {
+    const session = await locals.auth.validate();
+    if (!session) {
+        return json({ error: 'Unauthorized' }); 
+    }
+
+    await auth.invalidateSession(session.sessionId)
 }

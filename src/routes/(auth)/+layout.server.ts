@@ -11,7 +11,7 @@ export async function load({
 
 	if (!session) {
 		throw redirect(303, `/signin?redirectTo=${url.pathname}`);
-    } else if (!session.user.email_verified) {
+    } else if (!session.user.emailVerified) {
         throw redirect(303, `/email/verify`);
     }
 

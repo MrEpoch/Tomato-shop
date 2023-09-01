@@ -7,11 +7,12 @@
 	import { browser } from '$app/environment';
 
 	export let data;
-	export let dark = data.theme === 'true';
+	$: dark = data.theme === 'true';
+    console.log(data.theme);
 
     $: browser && (dark = $preferences.theme === 'dark');
     preferences.update((items) => {
-        items.theme = data.theme.toString() === 'true' ? 'dark' : 'light';
+        items.theme = data.theme.toString() === 'true' ? 'dark' : '';
         return items;
     });
 </script>
