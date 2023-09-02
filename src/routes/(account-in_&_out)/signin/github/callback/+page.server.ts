@@ -1,15 +1,14 @@
 import { OAuthRequestError } from "@lucia-auth/oauth";
+import { redirect } from "@sveltejs/kit";
 import { auth, githubAuth } from "lib/lucia";
 
-export const GET = async ({ url, cookies, locals }) => {
+export const load = async ({ url, cookies, locals }) => {
     const storedState = cookies.get("github_oauth_state");
     const state = url.searchParams.get("state");
     const code = url.searchParams.get("code");
              
     if (!storedState || !state || storedState !== state || !code) {
-       return new Response(null, {
-            status: 400             
-       })
+        throw new Error("Something is missing"); 
     }
 
     try {
@@ -18,9 +17,10 @@ export const GET = async ({ url, cookies, locals }) => {
         const getUser = async () => {
             const existingUser = await getExistingUser();
             if (existingUser) return existingUser;
+            console.log("user", githubUser);
             const user = await createUser({
                 attributes: {
-                    githubUsername: githubUser.login,
+                    fullName: githubUser.login,
                 }
             })
             return user;
@@ -34,22 +34,15 @@ export const GET = async ({ url, cookies, locals }) => {
         });
 
         locals.auth.setSession(session);
-
-        return new Response(null, {
-            status: 302,
-            headers: {
-                Location: "/account"
-            }
-        })
+ 
     } catch (e) {
         if (e instanceof OAuthRequestError) {
-            return new Response(null, {
-                status: 400
-            })
+            throw redirect(302, "/error");
         }
-
-        return new Response(null, {
-            status: 500
-        })
+        
+        console.log(e);
+        throw redirect(302, "/");
     }
+
+    throw redirect(302, "/account");
 }

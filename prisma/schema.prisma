@@ -38,7 +38,7 @@ model User {
     updatedAt   DateTime    @updatedAt
 
     fullName    String?
-    email       String      @unique
+    email       String?      @unique
     email_verified Boolean?
     role        Role        @default(USER)
     orders      Order[]

@@ -16,16 +16,6 @@
 			/></svg
 		>
 		<div class="flex flex-col gap-[1rem]">
-			<label for="email">Email</label>
-			<input
-				type="email"
-				name="email"
-				class="dark:bg-black/10 outline-none border-[1px] border-gray-600/50 rounded-[10px] p-3"
-				id="email"
-				placeholder="Email"
-			/>
-		</div>
-		<div class="flex flex-col gap-[1rem]">
 			<label for="password">Current Password</label>
 			<input
 				type="password"

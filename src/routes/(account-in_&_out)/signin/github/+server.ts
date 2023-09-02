@@ -8,7 +8,7 @@ export const GET = async ({ locals, cookies }) => {
         httpOnly: true,
         secure: !dev,
         path: '/',
-        maxAge: 60 * 60
+        maxAge: 60 * 60 * 1
     });
 
     return new Response(null, {
