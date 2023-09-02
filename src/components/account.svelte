@@ -20,7 +20,6 @@
 	let shown = false;
 	let hiddenCart = true;
 
-console.log(user.user);
 	function handleClick() {
         if (user && (user.user.emailVerified || user.user.emailVerified === null)) return (shown = !shown);
 		goto('/signin');
