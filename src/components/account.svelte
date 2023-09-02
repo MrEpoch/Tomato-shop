@@ -21,7 +21,7 @@
 	let hiddenCart = true;
 
 	function handleClick() {
-        if (user && user.user.email_verified) return (shown = !shown);
+        if (user && user.user.emailVerified) return (shown = !shown);
 		goto('/signin');
 	}
 

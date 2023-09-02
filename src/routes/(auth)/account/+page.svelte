@@ -1,6 +1,7 @@
 <script lang="ts">
 	export let data;
-	let user_data: any = data.user;
+    let user_data: any = data.user;
+    let user_name: any = user_data.fullName ? user_data.fullName : user_data.githubUsername ? user_data.githubUsername : ''; 
 </script>
 
 <div class="min-h-screen dark:bg-black/90 dark:text-white/90 w-full flex flex-col">
@@ -16,7 +17,7 @@
 			>
 			<div class="flex p-6 w-full justify-center items-center gap-5">
 				<input
-					value={user_data.fullName}
+					value={user_name}
 					type="text"
 					id="email"
 					name="full_name"

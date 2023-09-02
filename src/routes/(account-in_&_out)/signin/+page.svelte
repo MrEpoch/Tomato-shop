@@ -43,6 +43,9 @@
 			>
 		</div>
 	</form>
+    <a href="/signin/github" class="text-black text-lg dark:text-white/90 font-light hover:underline"
+		>Sign in with GitHub</a
+	>
 	<a href="/signup" class="text-black text-lg dark:text-white/90 font-light hover:underline"
 		>Don't have an account? Register</a
 	>

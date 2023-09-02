@@ -613,6 +613,11 @@
   resolved "https://registry.yarnpkg.com/@lucia-auth/adapter-prisma/-/adapter-prisma-3.0.1.tgz#715c113c61fc994ac2558fa650fe70c4726fe7d9"
   integrity sha512-JZNl+721M5ApjtNiH+WUYstiC8cffcI/Y9IzKsa0uUhQMIHl2ObCrgO0R3fgHnjWHBjhQoK36g/r/iSJIDppBA==
 
+"@lucia-auth/oauth@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@lucia-auth/oauth/-/oauth-3.0.0.tgz#340b49591bdae95086b15a153cc66b72014b2de9"
+  integrity sha512-InjJ8ntwp3HB7tPCg7zfG3xxHgsMREq0ojT8IUuUS0UNdGFlk6ZJAymL+3P8o/U1fJgJA5kY1NxwNnYU+SuA3g==
+
 "@mapbox/node-pre-gyp@^1.0.11":
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/@mapbox/node-pre-gyp/-/node-pre-gyp-1.0.11.tgz#417db42b7f5323d79e93b34a6d7a2a12c0df43fa"

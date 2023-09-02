@@ -1,7 +1,6 @@
 // See https://kit.svelte.dev/docs/types#app
 
 import type { PrismaClient } from "@prisma/client";
-
 // for information about these interfaces
 declare global {
 	namespace App {
@@ -24,7 +23,11 @@ declare global {
                 fullName: string,
                 role: string
             };
-            type DatabaseUserAttributes = {};
+            type DatabaseUserAttributes = {
+                github_username: string;
+
+            };
+            type DatabaseSessionAttributes = {};
         }
 	}
 }

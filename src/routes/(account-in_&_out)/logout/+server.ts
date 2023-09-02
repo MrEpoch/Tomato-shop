@@ -8,4 +8,5 @@ export async function GET({ locals }) {
     }
 
     await auth.invalidateSession(session.sessionId)
+    locals.auth.setSession(null);
 }
