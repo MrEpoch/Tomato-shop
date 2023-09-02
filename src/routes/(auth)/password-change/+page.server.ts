@@ -2,6 +2,13 @@ import { fail, redirect } from '@sveltejs/kit';
 import { auth } from 'lib/lucia';
 import { z } from 'zod';
 
+export const load = async ({ locals }) => {
+    const session = await locals.auth.validate();
+    if (!session || typeof session.user.emailVerified !== "boolean") {
+        throw redirect(303, `/account`);
+    }
+}
+
 export const actions = {
     default: async ({ request, locals }) => {
         const data = await request.formData();

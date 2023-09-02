@@ -43,20 +43,20 @@
                     />
                 </div>
             </div>
+            <div class="flex w-full flex-col items-center gap-4">
+                <a
+                    href="/password-change"
+                    class="mt-4 flex items-center text-lg py-2 border-2 border-gray-800 rounded-lg p-4 text-center"
+                >
+                    Change Password
+                    <svg class="w-6 dark:text-white/90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        ><title>chevron-right</title><path
+                            fill="currentColor"
+                            d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
+                        /></svg
+                    >
+                </a>
+            </div>
         {/if}
-		<div class="flex w-full flex-col items-center gap-4">
-			<a
-				href="/password-change"
-				class="mt-4 flex items-center text-lg py-2 border-2 border-gray-800 rounded-lg p-4 text-center"
-			>
-				Change Password
-				<svg class="w-6 dark:text-white/90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-					><title>chevron-right</title><path
-						fill="currentColor"
-						d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
-					/></svg
-				>
-			</a>
-		</div>
 	</div>
 </div>
