@@ -11,7 +11,7 @@
 </script>
 
 <div
-	class="flex flex-col gap-[2rem] items-center justify-center min-h-screen w-full dark:bg-black/90 dark:text-white/90"
+	class="flex flex-col gap-[2rem] items-center justify-center min-h-screen w-full dark:bg-black/10 dark:text-white/90"
 >
 	<div
 		class="flex flex-col border-[3px] h-full aspect-square p-[2rem] sm:p-[4rem] rounded-[100%] border-green-300 gap-[2rem] md:gap-[4rem] items-center justify-center"

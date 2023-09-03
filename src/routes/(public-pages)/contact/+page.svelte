@@ -3,7 +3,7 @@
 </script>
 
 <div
-	class="min-h-screen dark:bg-black/90 dark:text-white/90 w-full flex items-center flex-col justify-center"
+	class="min-h-screen dark:bg-black/10 dark:text-white/90 w-full flex items-center flex-col justify-center"
 >
 	<div class="flex flex-col w-full items-center h-full">
 		<div class="flex flex-col gap-5 items-center w-full h-full">

@@ -7,7 +7,7 @@
 </script>
 
 <div
-	class="h-[70rem] p-5 dark:bg-black/90 w-full dark:text-white/90 relative flex flex-col gap-[5rem] text-black"
+	class="h-[70rem] p-5 dark:bg-black/10 w-full dark:text-white/90 relative flex flex-col gap-[5rem] text-black"
 >
 	<h1 class="text-3xl md:text-5xl text-center font-thin mt-[10rem]">
 		We love <span class="font-light">Tomatoes</span>

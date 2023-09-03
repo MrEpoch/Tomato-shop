@@ -17,10 +17,10 @@ export const load = async ({ url, cookies, locals }) => {
         const getUser = async () => {
             const existingUser = await getExistingUser();
             if (existingUser) return existingUser;
-            console.log("user", githubUser);
             const user = await createUser({
                 attributes: {
                     fullName: githubUser.login,
+                    IsPassword: false
                 }
             })
             return user;

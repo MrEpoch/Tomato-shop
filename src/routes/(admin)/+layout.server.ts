@@ -11,8 +11,6 @@ export async function load({
 
 	if (!session) {
 		throw redirect(303, `/signin?redirectTo=${url.pathname}`);
-    } else if (!session.user.email_verified) {
-        throw redirect(303, `/email/verify`);
     } else if (session.user.role !== "ADMIN") {
         throw redirect(303, `/account`);
     }

@@ -21,7 +21,7 @@
 	let hiddenCart = true;
 
 	function handleClick() {
-        if (user && (user.user.emailVerified || user.user.emailVerified === null)) return (shown = !shown);
+        if (user) return (shown = !shown);
 		goto('/signin');
 	}
 
@@ -138,7 +138,7 @@
 		on:click={handleClick}
 	/>
 	<div class="z-10 absolute bottom-10 md:top-10 right-14">
-		<div class="bg-white dark:bg-black/90 rounded-[5px] shadow-lg">
+		<div class="bg-white dark:bg-black/10 rounded-[5px] shadow-lg">
 			<div class="flex flex-col">
 				<div class="flex flex-row justify-between">
 					<div class="flex flex-col">

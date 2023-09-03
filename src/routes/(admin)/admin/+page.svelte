@@ -34,7 +34,7 @@
 	}
 </script>
 
-<div class="min-h-screen dark:bg-black/90 p-[4rem]">
+<div class="min-h-screen dark:bg-black/10 p-[4rem]">
 	<ErrorMessages bind:message />
 
 	<div class="w-full flex justify-center items-center mb-[5rem]">

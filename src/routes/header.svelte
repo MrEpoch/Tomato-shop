@@ -7,7 +7,7 @@
 </script>
 
 <header
-	class={`flex-row flex items-center justify-around px-[1rem] md:px-0 dark:bg-black/90 dark:text-white/90`}
+	class={`flex-row flex items-center justify-around px-[1rem] md:px-0 dark:bg-black/10 dark:text-white/90`}
 >
 	<div class="flex h-full w-full items-center md:pt-0 md:pl-0 md:w-20">
 		<a
@@ -69,7 +69,7 @@
 </header>
 {#if !hidden}
 	<div
-		class={`flex md:hidden w-full dark:bg-black/90 dark:text-white/90 items-center border-b-red-700 border-b-[2px]`}
+		class={`flex md:hidden w-full dark:bg-black/10 dark:text-white/90 items-center border-b-red-700 border-b-[2px]`}
 	>
 		<ul class="flex flex-col w-full p-4 md:p-0 mt-4 gap-[3rem] items-center">
 			<li>

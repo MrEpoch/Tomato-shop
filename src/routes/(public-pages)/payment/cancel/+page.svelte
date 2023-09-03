@@ -1,5 +1,5 @@
 <div
-	class="min-h-screen flex flex-col justify-center dark:bg-black/90 dark:text-white/90 items-center"
+	class="min-h-screen flex flex-col justify-center dark:bg-black/10 dark:text-white/90 items-center"
 >
 	<div
 		class="flex flex-col border-[3px] h-full aspect-square p-[2rem] sm:p-[4rem] rounded-[100%] border-red-300 gap-[2rem] md:gap-[4rem] items-center justify-center"

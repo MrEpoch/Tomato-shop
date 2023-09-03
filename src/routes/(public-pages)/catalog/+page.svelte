@@ -33,7 +33,7 @@
 
 </script>
 
-<div class="sm:px-[5rem] w-full min-h-screen flex gap-[3rem] flex-col dark:bg-black/90">
+<div class="sm:px-[5rem] w-full min-h-screen flex gap-[3rem] flex-col dark:bg-black/10">
 	<div
 		class="flex mt-[5rem] mb-[5rem] xl:flex-row gap-[4rem] flex-col justify-between items-center w-full"
 	>

@@ -3,7 +3,7 @@
 </script>
 
 <div
-	class="flex dark:bg-black/90 dark:text-white/90 flex-col w-full items-center gap-3 relative top_div_landing"
+	class="flex dark:bg-black/10 dark:text-white/90 flex-col w-full items-center gap-3 relative top_div_landing"
 >
 	<h5 class="text-6xl max-[800px]:text-4xl max-[400px]:text-2xl mt-[10rem] font-light">
 		Tradition, action, care.

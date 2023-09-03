@@ -17,6 +17,10 @@
     });
 </script>
 
+<svelte:head>
+    <meta name="color-scheme" content={dark ? 'dark' : 'light'} />
+</svelte:head>
+
 <div class="h-full w-full" class:dark>
     <NavContainer user={data.session} />
 	<Header theme={dark} />

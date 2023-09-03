@@ -1,5 +1,5 @@
 <div
-	class="flex dark:text-white/90 dark:bg-black/90 justify-center gap-[3rem] flex-col bg-gray-100/40 items-center h-screen"
+	class="flex dark:text-white/90 dark:bg-black/10 justify-center gap-[3rem] flex-col bg-gray-100/40 items-center min-h-screen"
 >
 	<h1 class="text-5xl mt-[5rem] mb-6 font-thin">Sign Up</h1>
 	<form
@@ -16,23 +16,15 @@
 			/></svg
 		>
 		<div class="flex flex-col gap-[1rem]">
-			<label for="name">Full Name</label>
+			<label for="name">Username</label>
 			<input
 				type="text"
 				name="fullName"
 				class="dark:bg-black/10 outline-none border-[1px] border-gray-600/50 rounded-[10px] p-3"
 				id="name"
 				placeholder="Full Name"
-			/>
-		</div>
-		<div class="flex flex-col gap-[1rem]">
-			<label for="email">Email</label>
-			<input
-				type="email"
-				name="email"
-				class="dark:bg-black/10 outline-none border-[1px] border-gray-600/50 rounded-[10px] p-3"
-				id="email"
-				placeholder="Email"
+                required
+                minlength="3"
 			/>
 		</div>
 		<div class="flex flex-col gap-[1rem]">
@@ -43,6 +35,7 @@
 				class="dark:bg-black/10 outline-none border-[1px] border-gray-600/50 rounded-[10px] p-3"
 				id="password"
 				placeholder="Password"
+                required
 			/>
 		</div>
 		<div class="flex flex-col gap-[1rem]">
@@ -53,6 +46,7 @@
 				class="dark:bg-black/10 outline-none border-[1px] border-gray-600/50 rounded-[10px] p-3"
 				id="password_confirmation"
 				placeholder="Confirm Password"
+                required
 			/>
 		</div>
 		<div class="flex justify-center">

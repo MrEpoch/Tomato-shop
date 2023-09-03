@@ -1,11 +1,11 @@
 <script lang="ts">
 	export let data;
+    console.log(data);
     let user_data: any = data.user;
     let user_name: any = user_data.fullName; 
-    let user_email: any = user_data.email ?? '';
 </script>
 
-<div class="min-h-screen dark:bg-black/90 dark:text-white/90 w-full flex flex-col">
+<div class="min-h-screen dark:bg-black/10 dark:text-white/90 w-full flex flex-col">
 	<div class="flex flex-col mt-14 items-center gap-[5rem] w-full">
 		<h2 class="sm:text-5xl text-center text-2xl font-light dark:text-white/90 text-gray-800">
 			Welcome, {user_data.fullName.length < 20
@@ -20,7 +20,6 @@
 				<input
 					value={user_name}
 					type="text"
-					id="email"
 					name="full_name"
 					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[80%] sm:w-[40%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 					placeholder="John Doe"
@@ -28,21 +27,7 @@
 				/>
 			</div>
         </div>
-        {#if user_email && user_email.length > 0}
-            <div class="flex w-full flex-col items-center gap-4">
-                <label for="name" class="text-2xl dark:text-white/90 font-light text-gray-800">Email</label>
-                <div class="flex p-6 w-full justify-center items-center gap-5">
-                    <input
-                        value={user_data.email}
-                        type="email"
-                        id="email"
-                        name="email"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[80%] sm:w-[40%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Johh@doe.com"
-                        required
-                    />
-                </div>
-            </div>
+        {#if user_data.IsPassword}
             <div class="flex w-full flex-col items-center gap-4">
                 <a
                     href="/password-change"

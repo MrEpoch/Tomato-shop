@@ -1,5 +1,5 @@
 <div
-	class="flex dark:bg-black/90 dark:text-white/90 justify-center gap-[3rem] flex-col bg-gray-100/40 items-center h-screen"
+	class="flex dark:bg-black/10 dark:text-white/90 justify-center gap-[3rem] flex-col bg-gray-100/40 items-center min-h-screen"
 >
 	<h1 class="text-5xl mb-6 font-thin">Log In</h1>
 	<form
@@ -16,13 +16,13 @@
 			/></svg
 		>
 		<div class="flex flex-col gap-[1rem]">
-			<label for="email">Email</label>
+			<label for="username">Username</label>
 			<input
-				type="email"
-				name="email"
+				type="text"
+                name="username"
+                minlength="3"
 				class="dark:bg-black/10 outline-none border-[1px] border-gray-600/50 rounded-[10px] p-3"
-				id="email"
-				placeholder="Email"
+				placeholder="Username"
 			/>
 		</div>
 		<div class="flex flex-col gap-[1rem]">

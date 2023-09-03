@@ -1,5 +1,5 @@
 <div
-	class="flex dark:bg-black/90 dark:text-white/90 justify-center gap-[3rem] flex-col bg-gray-100/40 p-3 items-center min-h-screen"
+	class="flex dark:bg-black/10 dark:text-white/90 justify-center gap-[3rem] flex-col bg-gray-100/40 p-3 items-center min-h-screen"
 >
 	<h1 class="sm:text-5xl text-2xl mb-6 font-thin">Update Password</h1>
 	<form

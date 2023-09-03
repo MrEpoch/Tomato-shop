@@ -1,4 +1,4 @@
-<div class="min-h-screen w-full dark:bg-black/90 dark:text-white/90">
+<div class="min-h-screen w-full dark:bg-black/10 dark:text-white/90">
 	<h1>Terms of Service</h1>
 
 	<section>

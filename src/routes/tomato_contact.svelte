@@ -1,4 +1,4 @@
-<div class="flex flex-col dark:text-white/90 relative dark:bg-black/90 h-full">
+<div class="flex flex-col dark:text-white/90 relative dark:bg-black/10 h-full">
 	<div class="custom-shape-divider-top-1692705552">
 		<svg
 			data-name="Layer 1"

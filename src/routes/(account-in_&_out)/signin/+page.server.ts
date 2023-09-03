@@ -15,22 +15,22 @@ export const load: PageServerLoad = async ({ locals }) => {
 export const actions: Actions = {
     default: async ({ request, locals, cookies }) => {
         const data = await request.formData();
-        const email = data.get("email");
+        const username = data.get("username");
         const password = data.get("password");
-        const emailZod = z.string().email();
+        const usernameZod = z.string().min(3);
         const passwordZod = z.string().min(8);
 
-        const emailError = emailZod.safeParse(email);
+        const usernameError = usernameZod.safeParse(username);
         const passwordError = passwordZod.safeParse(password);
 
-        if (!emailError.success) {
+        if (!usernameError.success) {
             return fail(400, {
-                email: email,
-                error: "Invalid email"
+                username,
+                error: "Invalid Username"
             })
         } else if (!passwordError.success) {
             return fail(400, {
-                password: password,
+                password,
                 error: "Invalid password"
             })
         }
@@ -49,7 +49,7 @@ export const actions: Actions = {
 
         try {
             await wait(load_speed * 1000);
-            const key = await auth.useKey('email', emailError.data.toLowerCase(), passwordError.data);
+            const key = await auth.useKey('username', usernameError.data.toLowerCase(), passwordError.data);
             const session = await auth.createSession({
                 userId: key.userId,
                 attributes: {}

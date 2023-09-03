@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 export const load = async ({ locals }) => {
     const session = await locals.auth.validate();
-    if (!session || typeof session.user.emailVerified !== "boolean") {
+    if (!session) {
         throw redirect(303, `/account`);
     }
 }
