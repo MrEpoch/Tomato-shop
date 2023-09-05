@@ -18,6 +18,7 @@ export async function downLoadFile(filename: string) {
 	    const file = await getDownloadURL(fileRef);
         return file;
     } catch (error) {
+        console.log(error);
         return await handle_storage_errors(error);
     }
 }
@@ -38,6 +39,7 @@ export async function handle_storage_errors(error, handler?: any) {
             handler(error.code);
             break;
         case 'storage/object-not-found':
+
             console.log('Object does not exist');
             handler(error.code);
             break;

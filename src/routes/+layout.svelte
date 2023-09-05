@@ -8,7 +8,6 @@
 
 	export let data;
 	$: dark = data.theme === 'true';
-    console.log(data.theme);
 
     $: browser && (dark = $preferences.theme === 'dark');
     preferences.update((items) => {

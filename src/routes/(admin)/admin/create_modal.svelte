@@ -33,8 +33,6 @@
 			});
 
 			const product = await product_res.json();
-			console.log(product);
-			console.log($products.items[0]);
 			hidden = true;
 			dispatch('loadcards');
 			message = 'success';

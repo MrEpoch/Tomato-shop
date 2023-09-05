@@ -44,9 +44,6 @@ export const makeOrder = async (
 			};
 		});
 
-		console.log('products', products);
-		console.log('orders', orders);
-
 		const session = await stripe.checkout.sessions.create(
 			{
 				line_items: orders,

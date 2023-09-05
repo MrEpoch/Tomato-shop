@@ -16,11 +16,6 @@ export async function GET({ url, request, setHeaders }) {
 			})
 		);
 
-        setHeaders({
-			'cache-control': 'max-age=60'
-		});
-
-
 		return json({ data: products });
 	} catch (error) {
 		console.log(error);

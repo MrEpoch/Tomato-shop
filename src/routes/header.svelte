@@ -57,11 +57,11 @@
                     data-sveltekit-preload-data
 					href="/catalog"
 					class="
-                duration-300 transition-all dark:hover:border-0
-                md:dark:hover:border-red-700 dark:hover:bg-red-700 dark:border-white/50
+                dark:hover:border-[2px] dark:hover:border-red-700
+                dark:hover:bg-red-700 dark:border-white/50
                 hover:border-red-500 hover:bg-red-500 hover:text-white
                 rounded-2xl pr-3 pl-3 p-1 border-black/60
-                border-solid border-[2px]">Catalog</a
+                border-solid hover:border-[2px] border-[2px]">Catalog</a
 				>
 			</li>
 		</ul>
