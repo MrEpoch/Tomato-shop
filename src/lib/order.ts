@@ -81,7 +81,7 @@ export const makeOrder = async (
 		});
 
         const session_auth = await locals.auth.validate();
-		if (session) {
+		if (session_auth) {
 			await prisma.order.update({
 				where: {
 					id: order_db.id
