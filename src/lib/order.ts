@@ -48,8 +48,8 @@ export const makeOrder = async (
 			{
 				line_items: orders,
 				mode: 'payment',
-				success_url: 'http://localhost:5173/payment/success',
-				cancel_url: 'http://localhost:5173/payment/cancel'
+				success_url: 'https://www.tomatodream.store/payment/success',
+				cancel_url: 'https://www.tomatodream.store/payment/cancel'
 			},
 			{
 				apiKey: STRIPE_SECRET_KEY
