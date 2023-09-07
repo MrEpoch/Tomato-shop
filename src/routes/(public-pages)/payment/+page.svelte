@@ -22,7 +22,8 @@
 
 	if (form?.success) {
 		currentStep = 3;
-	}
+    }
+
 </script>
 
 <div class="flex flex-col gap-[2rem] items-center min-h-screen w-full dark:bg-black/10 px-4 sm:px-10 dark:text-white/90">
@@ -30,12 +31,16 @@
 		<Stepper {currentStep} />
 	{/if}
 	{#if currentStep === 1}
-		<div class="relative rounded-lg h-full shadow w-full dark:bg-black/50 mt-[5rem]">
-			<div class="flex gap-[2rem] flex-col p-6 h-full space-y-6">
-				{#each $cart.items as order}
+		<div class="relative flex flex-col rounded-lg h-full shadow w-full dark:bg-black/50 mt-[5rem]">
+			<div class="flex gap-[2rem] flex-col shadow p-6 h-full space-y-6">
+				{#each $cart && $cart.items as order}
 					<CartItems {order} mini={false} />
 				{/each}
-			</div>
+            </div>
+            <div class="flex justify-between w-full p-6">
+                <p class="font-semibold">Subtotal:</p>
+                <p class="font-semibold">${$cart.items.reduce((acc, item) => acc + item.quantity * item.price, 0)}</p>
+            </div>
 		</div>
 		<button
 			class="bg-blue-500 w-fit  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

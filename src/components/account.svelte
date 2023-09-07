@@ -72,64 +72,63 @@
     {/if}
 </button>
 {#if !hiddenCart}
-	<div
-		id="staticModal"
-		data-modal-backdrop="static"
-		aria-hidden="true"
-		class="top-0 left-0 right-0 z-50 items-center flex justify-center fixed w-screen h-[calc(100%-5rem)] max-h-full"
-	>
-		<button on:click={closeCart} class="min-h-screen w-screen z-[52] fixed cursor-default" />
-		<div class="relative scroll-element-modal min-h-32 overflow-y-auto w-full max-w-2xl">
-			<form class="relative bg-white rounded-lg shadow z-[53] dark:bg-gray-700">
-				<div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-					<h3 class="text-xl font-semibold text-gray-900 dark:text-white">Cart</h3>
-					<button
-						on:click={closeCart}
-						type="button"
-						class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-						data-modal-hide="staticModal"
-					>
-						<svg
-							class="w-3 h-3"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 14 14"
-						>
-							<path
-								stroke="currentColor"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-							/>
-						</svg>
-						<span class="sr-only">Close modal</span>
-					</button>
-				</div>
-				<div class="flex flex-col p-6 justify-center items-center space-y-6">
-					{#each $cart.items as order}
-						<CartItems {order} />
-					{/each}
-				</div>
-				<div
-					class="flex flex-wrap gap-3 items-center justify-between p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600"
-				>
-					<button
-						on:click={closeCart}
-						class="text-white text-start bg-gray-500 hover:bg-gray-800 sm:py-2 py-2 px-3 sm:px-5 font-medium rounded-lg text-xs sm:text-sm"
-						>Continue Shopping</button
-					>
-					<a
-						href="/payment"
-						on:click={closeCart}
-						class="bg-blue-700 text-white hover:bg-blue-800 dark:text-white/90 rounded-lg sm:text-sm sm:py-2 py-2 px-3 text-xs sm:px-5"
-						>Proceed to Pay</a
-					>
-				</div>
-			</form>
-		</div>
-	</div>
+    <div class="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+      <div class="fixed inset-0 overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden">
+          <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+            <div class="pointer-events-auto w-screen max-w-md">
+              <div class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
+                <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+                  <div class="flex items-start justify-between">
+                    <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Shopping cart</h2>
+                    <div class="ml-3 flex h-7 items-center">
+                    <button on:click={closeCart} type="button" class="relative -m-2 p-2 text-gray-400 hover:text-gray-500">
+                        <span class="absolute -inset-0.5"></span>
+                        <span class="sr-only">Close panel</span>
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="mt-8">
+                    <div class="flow-root">
+                      <ul role="list" class="-my-6 divide-y divide-gray-200">
+                          {#each $cart.items as item}
+                              <CartItems order={item} />
+                          {/each}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
+                  <div class="flex justify-between text-base font-medium text-gray-900">
+                    <p>Subtotal</p>
+                    <p>${$cart.items.reduce((acc, item) => acc + item.quantity * item.price, 0)}</p>
+                  </div>
+                  <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+                  <div class="mt-6">
+                    <a href="/payment" class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</a>
+                  </div>
+                  <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
+                    <p>
+                      or
+                      <button type="button" on:click={closeCart} class="font-medium text-indigo-600 hover:text-indigo-500">
+                        Continue Shopping
+                        <span aria-hidden="true"> &rarr;</span>
+                      </button>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 {/if}
 
 {#if shown}

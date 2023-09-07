@@ -27,14 +27,14 @@ export const getProduct = async (id: string, name: string) => {
 export const getProductCount = async () => {
 	try {
         
-        const cachedProductCount = await getCachedProductResponse(`product:count`);
+        const cachedProductCount = await getCachedProductResponse(`count`);
         if (cachedProductCount) {
             return cachedProductCount;
         }
 
         const productCount = await prisma.product.count();
 
-        await cacheResponse(`product:count`, JSON.stringify(productCount), "count");
+        await cacheResponse(`count`, JSON.stringify(productCount), "count");
 
 		return productCount;
 	} catch (err) {

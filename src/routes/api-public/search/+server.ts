@@ -6,7 +6,11 @@ export async function GET({ url, request, setHeaders }) {
 	try {
 		const searchTerm = url.searchParams.get('search') || '';
 		
-		const products_data = await getProductsForSearch(searchTerm);
+		let products_data = await getProductsForSearch(searchTerm);
+
+        products_data = products_data.filter((product) => {
+            if (product && product.image && product.image !== null) return product;
+        })
 
 		const products = await Promise.all(
 			products_data.map(async (product) => {

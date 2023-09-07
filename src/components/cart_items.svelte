@@ -48,34 +48,26 @@
 	onDestroy(unsubscribe);
 </script>
 
-<div class="flex relative w-full justify-between min-h-[18rem] p-2">
-    <div class="min-h-full sm:w-1/4 min-w-1/5 items-center flex">
-        <img src={order.image} class="aspect-square w-full min-w-[100px] max-[380px]:min-w-[90px] max-w-[120px] object-cover" alt={order.name} />
+<li class="flex py-6">
+  <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+      <img src={order.image} alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." class="h-full w-full object-cover object-center">
+  </div>
+
+  <div class="ml-4 flex flex-1 flex-col">
+    <div>
+      <div class="flex justify-between text-base font-medium text-gray-900">
+        <h3>
+            {order.name}
+        </h3>
+        <p class="ml-4">${order.price}</p>
+      </div>
+      <p class="mt-1 text-sm text-gray-500">{order.description}</p>
     </div>
-    <div class="sm:min-w-1/2  w-full flex flex-col justify-center p-4 gap-3">
-        <p class="font-bold text-lg whitespace-nowrap">
-            {order.name.length < 20 ? order.name : order.name.substring(0, 20 - 3) + '-'}
-        </p>
-        <p class="text-sm text-gray-400">{order.description}</p>
-        <div class="flex items-center rounded border-black border-2 w-fit">
-            <button class="text-black border-black border-r-2 dark:text-white/90 mr-2" on:click={() => { quantity--; quantityUpdate() }}>
-                <svg class="w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <title>minus</title>
-                    <path fill="currentColor" d="M5,13V12H18V13H5Z" />
-                </svg>
-            </button>
-            <p class="font-normal text-lg text-center min-w-[2rem]">{order.quantity}</p>
-            <button class="ml-2 border-l-2 border-black" on:click={() => { quantity++; quantityUpdate() }}>
-                <svg class="w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <title>plus</title>
-                    <path fill="currentColor" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
-                </svg>
-            </button>
-        </div>
+    <div class="flex flex-1 items-end justify-between text-sm">
+      <input type="number" on:change={quantityUpdate} class="text-gray-500" bind:value={quantity} />
+      <div class="flex">
+          <button on:click={updateCart} type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+      </div>
     </div>
-    <div class="w-fit flex items-center bottom-5 gap-3 absolute right-10 
-        h-fit justify-center">
-        <p class="font-bold text-xl">${order.price}</p>
-        <button on:click={updateCart} class="text-blue-700 text-lg font-semibold">Remove</button>
-    </div>
-</div>
+  </div>
+</li>
