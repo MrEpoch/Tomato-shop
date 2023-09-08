@@ -5,8 +5,6 @@
 	export let order;
 	let quantity = order.quantity;
 
-	export let mini = true;
-
 	function updateCart() {
 		cart.update((value) => {
 			const index = value.items.findIndex((item) => item.id === order.id);
@@ -63,8 +61,9 @@
       </div>
       <p class="mt-1 text-sm text-gray-500">{order.description}</p>
     </div>
-    <div class="flex flex-1 items-end justify-between text-sm">
-      <input type="number" on:change={quantityUpdate} class="text-gray-500" bind:value={quantity} />
+    <div class="flex flex-1 gap-3 items-end justify-between text-sm">
+        <input type="number" on:change={quantityUpdate} class="text-gray-500 
+        dark:text-gray-200 max-w-[100px] w-full dark:bg-gray-800" bind:value={quantity} />
       <div class="flex">
           <button on:click={updateCart} type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
       </div>
