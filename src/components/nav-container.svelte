@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Account from './account.svelte';
-    export let user;
+	export let user;
 
 	let hidden = true;
 </script>
@@ -21,6 +21,6 @@
 		>
 	</button>
 	{#if !hidden}
-        <Account {hidden} {user} />
+		<Account {hidden} {user} />
 	{/if}
 </div>

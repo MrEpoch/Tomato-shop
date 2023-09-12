@@ -2,11 +2,11 @@
 	import { cart, preferences } from 'lib/local_storage';
 	import CartItems from './cart_items.svelte';
 	import { goto } from '$app/navigation';
-    import { browser } from '$app/environment';
+	import { browser } from '$app/environment';
 
 	async function handleTheme() {
 		if (browser) {
-            await fetch(`/api-public/theme?theme=${$preferences.theme === 'dark' ? false : true}`);
+			await fetch(`/api-public/theme?theme=${$preferences.theme === 'dark' ? false : true}`);
 			preferences.update((p) => {
 				p.theme = $preferences.theme === 'dark' ? 'light' : 'dark';
 				return p;
@@ -14,14 +14,14 @@
 		}
 	}
 
-    export let user;
+	export let user;
 	export let hidden;
 
 	let shown = false;
 	let hiddenCart = true;
 
 	function handleClick() {
-        if (user) return (shown = !shown);
+		if (user) return (shown = !shown);
 		goto('/signin');
 	}
 
@@ -64,73 +64,112 @@
 			fill="currentColor"
 			d="M17,18A2,2 0 0,1 19,20A2,2 0 0,1 17,22C15.89,22 15,21.1 15,20C15,18.89 15.89,18 17,18M1,2H4.27L5.21,4H20A1,1 0 0,1 21,5C21,5.17 20.95,5.34 20.88,5.5L17.3,11.97C16.96,12.58 16.3,13 15.55,13H8.1L7.2,14.63L7.17,14.75A0.25,0.25 0 0,0 7.42,15H19V17H7C5.89,17 5,16.1 5,15C5,14.65 5.09,14.32 5.24,14.04L6.6,11.59L3,4H1V2M7,18A2,2 0 0,1 9,20A2,2 0 0,1 7,22C5.89,22 5,21.1 5,20C5,18.89 5.89,18 7,18M16,11L18.78,6H6.14L8.5,11H16Z"
 		/></svg
-    >
-    {#if $cart.items.length > 0}
-    <div class="absolute inline-flex items-center justify-center w-6 h-6 
+	>
+	{#if $cart.items.length > 0}
+		<div
+			class="absolute inline-flex items-center justify-center w-6 h-6
         text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full
-        -top-2 -right-2 dark:border-gray-900">{$cart.items.length}</div>
-    {/if}
+        -top-2 -right-2 dark:border-gray-900"
+		>
+			{$cart.items.length}
+		</div>
+	{/if}
 </button>
 {#if !hiddenCart}
-    <div class="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
-      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-      <div class="fixed inset-0 overflow-hidden">
-        <div class="absolute inset-0 overflow-hidden">
-          <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full sm:pl-10">
-            <div class="pointer-events-auto w-screen sm:max-w-full max-w-md">
-                <div class="flex h-full flex-col overflow-y-scroll dark:text-white
-                    dark:bg-gray-900 bg-white p-2 shadow-xl">
-                <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
-                  <div class="flex items-start justify-between">
-                    <h2 class="text-lg font-medium dark:text-gray-100 text-gray-900" id="slide-over-title">Shopping cart</h2>
-                    <div class="ml-3 flex h-7 items-center">
-                        <button on:click={closeCart} type="button" class="relative -m-2 p-2 
-                          dark:text-gray-800  text-gray-400 hover:text-gray-500">
-                        <span class="absolute -inset-0.5"></span>
-                        <span class="sr-only">Close panel</span>
-                        <svg class="h-6 w-6 dark:text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
+	<div class="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+		<div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+		<div class="fixed inset-0 overflow-hidden">
+			<div class="absolute inset-0 overflow-hidden">
+				<div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full sm:pl-10">
+					<div class="pointer-events-auto w-screen sm:max-w-full max-w-md">
+						<div
+							class="flex h-full flex-col overflow-y-scroll dark:text-white
+                    dark:bg-gray-900 bg-white p-2 shadow-xl"
+						>
+							<div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+								<div class="flex items-start justify-between">
+									<h2
+										class="text-lg font-medium dark:text-gray-100 text-gray-900"
+										id="slide-over-title"
+									>
+										Shopping cart
+									</h2>
+									<div class="ml-3 flex h-7 items-center">
+										<button
+											on:click={closeCart}
+											type="button"
+											class="relative -m-2 p-2
+                          dark:text-gray-800 text-gray-400 hover:text-gray-500"
+										>
+											<span class="absolute -inset-0.5" />
+											<span class="sr-only">Close panel</span>
+											<svg
+												class="h-6 w-6 dark:text-white"
+												fill="none"
+												viewBox="0 0 24 24"
+												stroke-width="1.5"
+												stroke="currentColor"
+												aria-hidden="true"
+											>
+												<path
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													d="M6 18L18 6M6 6l12 12"
+												/>
+											</svg>
+										</button>
+									</div>
+								</div>
 
-                  <div class="mt-8">
-                    <div class="flow-root">
-                      <ul role="list" class="-my-6 divide-y divide-gray-200">
-                          {#each $cart.items as item}
-                              <CartItems order={item} />
-                          {/each}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
+								<div class="mt-8">
+									<div class="flow-root">
+										<ul role="list" class="-my-6 divide-y divide-gray-200">
+											{#each $cart.items as item}
+												<CartItems order={item} />
+											{/each}
+										</ul>
+									</div>
+								</div>
+							</div>
 
-                <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
-                  <div class="flex justify-between text-base font-medium dark:text-gray-100 text-gray-900">
-                    <p>Subtotal</p>
-                    <p>${$cart.items.reduce((acc, item) => acc + item.quantity * item.price, 0)}</p>
-                  </div>
-                  <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
-                  <div class="mt-6">
-                      <a href="/payment" on:click={closeCart} class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</a>
-                  </div>
-                  <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
-                    <p>
-                      or
-                      <button type="button" on:click={closeCart} class="font-medium text-indigo-600 hover:text-indigo-500">
-                        Continue Shopping
-                        <span aria-hidden="true"> &rarr;</span>
-                      </button>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+							<div class="border-t border-gray-200 px-4 py-6 sm:px-6">
+								<div
+									class="flex justify-between text-base font-medium dark:text-gray-100 text-gray-900"
+								>
+									<p>Subtotal</p>
+									<p>${$cart.items.reduce((acc, item) => acc + item.quantity * item.price, 0)}</p>
+								</div>
+								<p class="mt-0.5 text-sm text-gray-500">
+									Shipping and taxes calculated at checkout.
+								</p>
+								<div class="mt-6">
+									<a
+										href="/payment"
+										on:click={closeCart}
+										class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+										>Checkout</a
+									>
+								</div>
+								<div class="mt-6 flex justify-center text-center text-sm text-gray-500">
+									<p>
+										or
+										<button
+											type="button"
+											on:click={closeCart}
+											class="font-medium text-indigo-600 hover:text-indigo-500"
+										>
+											Continue Shopping
+											<span aria-hidden="true"> &rarr;</span>
+										</button>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 {/if}
 
 {#if shown}
@@ -144,8 +183,8 @@
 				<div class="flex flex-row justify-between">
 					<div class="flex flex-col">
 						{#if user && user.user.role === 'ADMIN'}
-                            <a
-                                data-sveltekit-preload-data
+							<a
+								data-sveltekit-preload-data
 								href="/admin"
 								on:click={handleClick}
 								class="flex justify-between cursor-pointer dark:text-white/90 hover:bg-gray-500/10 z-10 bg-gray-500/5 p-5 w-full text-gray-700 font-semibold gap-[1rem] transition-all duration-300"
@@ -159,8 +198,8 @@
 								>
 							</a>
 						{/if}
-                        <a
-                            data-sveltekit-preload-data
+						<a
+							data-sveltekit-preload-data
 							href="/account"
 							on:click={handleClick}
 							class="flex justify-between cursor-pointer dark:text-white/90 hover:bg-gray-500/10 z-10 bg-gray-500/5 p-5 w-full text-gray-700 font-semibold gap-[1rem] transition-all duration-300"

@@ -3,7 +3,7 @@ import { writable } from 'svelte/store';
 
 export async function load({ fetch, parent, url, setHeaders, depends }) {
 	try {
-        depends('products:data');
+		depends('products:data');
 
 		const parentData = await parent();
 

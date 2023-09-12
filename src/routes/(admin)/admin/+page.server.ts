@@ -64,7 +64,7 @@ export const actions = {
 		} catch (error) {
 			console.log(error);
 			return fail(401, {
-                message: error.message
+				message: error.message
 			});
 		}
 	},

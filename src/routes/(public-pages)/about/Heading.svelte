@@ -1,9 +1,8 @@
 <script>
 	import Tomatoes from 'assets/tomato-bunch.webp';
-    import { lazyLoad } from 'lib';
+	import { lazyLoad } from 'lib';
 
-    let isAnimation = true;
-
+	let isAnimation = true;
 </script>
 
 <div
@@ -13,22 +12,27 @@
 		We love <span class="font-light">Tomatoes</span>
 	</h1>
 	<div class="flex flex-col items-center w-full relative">
-        <a href="/catalog" class={`z-10 ${isAnimation ? "animate-pulse" : ""}  
+		<a
+			href="/catalog"
+			class={`z-10 ${isAnimation ? 'animate-pulse' : ''}  
             bg-gray-200 dark:bg-gray-800 sm:h-[15rem] h-[10rem] lg:h-[30rem] min-w-[40%] 
             transition-transform object hover:translate-y-[-5px] hover:translate-x-[-5px]
             rounded-2xl shadow
-            duration-500`}>
-            <img
-                use:lazyLoad={Tomatoes}
-                alt="tomato"
-                on:load={() => isAnimation = false}
+            duration-500`}
+		>
+			<img
+				use:lazyLoad={Tomatoes}
+				alt="tomato"
+				on:load={() => (isAnimation = false)}
 				class="h-full rounded-lg opacity-0 w-full"
-            />
-        </a>
-        <div class="sm:h-[15rem] h-[10rem] lg:h-[30rem] w-fit object absolute blur-[25px] sm:translate-x-20 translate-y-[45px] sm:translate-y-[35px]">
-            <img
-                use:lazyLoad={Tomatoes}
-                alt="tomato"
+			/>
+		</a>
+		<div
+			class="sm:h-[15rem] h-[10rem] lg:h-[30rem] w-fit object absolute blur-[25px] sm:translate-x-20 translate-y-[45px] sm:translate-y-[35px]"
+		>
+			<img
+				use:lazyLoad={Tomatoes}
+				alt="tomato"
 				class="h-full opacity-0 w-full transition-all duration-700"
 			/>
 		</div>
@@ -64,5 +68,4 @@
 		width: calc(100% + 1.3px);
 		height: 135px;
 	}
-
 </style>

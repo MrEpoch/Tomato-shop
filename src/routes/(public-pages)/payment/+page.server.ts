@@ -25,15 +25,15 @@ export const actions = {
 
 		try {
 			const order = await makeOrder(
-                locals,
+				locals,
 				JSON.parse(cart),
 				email,
 				phone,
 				address,
 				country,
 				city,
-                postalcode,
-                name
+				postalcode,
+				name
 			);
 			if (!order) {
 				return fail(400, { message: 'Order failed', failed: true });

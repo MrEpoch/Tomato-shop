@@ -1,40 +1,46 @@
 import isEmpty from 'validator/lib/isEmpty';
 import { prisma } from './db';
-import { cacheProductResponse, cacheResponse, getCachedProductResponse, getCachedProducts, removeFromCachedProducts, setCachedProducts } from './cache';
+import {
+	cacheProductResponse,
+	cacheResponse,
+	getCachedProductResponse,
+	getCachedProducts,
+	removeFromCachedProducts,
+	setCachedProducts
+} from './cache';
 
 export const getProduct = async (id: string, name: string) => {
 	try {
-        const cachedProduct = await getCachedProductResponse(`products:${name}`);
-        if (cachedProduct) {
-            return cachedProduct;
-        }
+		const cachedProduct = await getCachedProductResponse(`products:${name}`);
+		if (cachedProduct) {
+			return cachedProduct;
+		}
 
 		const product = await prisma.product.findUnique({
 			where: {
 				id
 			}
-        });
+		});
 
-        await cacheProductResponse(`products:${product.name}`, product);
+		await cacheProductResponse(`products:${product.name}`, product);
 
 		return product;
 	} catch (err) {
 		console.log(err);
-		throw new Error("Unable to get product");
+		throw new Error('Unable to get product');
 	}
 };
 
 export const getProductCount = async () => {
 	try {
-        
-        const cachedProductCount = await getCachedProductResponse(`count`);
-        if (cachedProductCount) {
-            return cachedProductCount;
-        }
+		const cachedProductCount = await getCachedProductResponse(`count:count`);
+		if (cachedProductCount) {
+			return cachedProductCount;
+		}
 
-        const productCount = await prisma.product.count();
+		const productCount = await prisma.product.count();
 
-        await cacheResponse(`count`, JSON.stringify(productCount), "count");
+		await cacheResponse(`count`, JSON.stringify(productCount), 'count', 60 * 60 * 1);
 
 		return productCount;
 	} catch (err) {
@@ -45,12 +51,17 @@ export const getProductCount = async () => {
 
 export const getProductsForSearch = async (search: string, take = 15) => {
 	try {
+		const cachedProducts = await getCachedProducts(
+			`products`,
+			search.trim() === '' ? '*' : search,
+			take
+		);
+		const productCount = await getProductCount();
+        console.log("c", cachedProducts);
 
-        const cachedProducts = await getCachedProducts(`products`, search.trim() === "" ? "*" : search, take);
-
-        if (cachedProducts && cachedProducts.length > 0) {
-            return cachedProducts;
-        }
+		if (cachedProducts && cachedProducts.length === productCount) {
+			if (typeof cachedProducts[0] !== 'number') return cachedProducts;
+		}
 
 		const products = await prisma.product.findMany({
 			where: {
@@ -68,11 +79,11 @@ export const getProductsForSearch = async (search: string, take = 15) => {
 						}
 					}
 				]
-            },
-            take
-        });
+			},
+			take
+		});
 
-        await setCachedProducts(products, "products");
+		await setCachedProducts(products, 'products');
 
 		return products;
 	} catch (err) {
@@ -82,13 +93,13 @@ export const getProductsForSearch = async (search: string, take = 15) => {
 };
 
 export const getProducts = async (take: number, skip: number) => {
-    try {
-        const cachedProducts = await getCachedProducts(`products`, ``, take + skip);
-        if (cachedProducts && cachedProducts.length > 0 && skip === 0) {
-            return cachedProducts;
-        } else if (cachedProducts && skip + take <= cachedProducts.length) {
-            return cachedProducts;
-        }
+	try {
+		const cachedProducts = await getCachedProducts(`products`, ``, take + skip);
+		if (cachedProducts && cachedProducts.length > 0 && skip === 0) {
+			return cachedProducts;
+		} else if (cachedProducts && skip + take <= cachedProducts.length) {
+			return cachedProducts;
+		}
 
 		const products = await prisma.product.findMany({
 			take,
@@ -98,7 +109,7 @@ export const getProducts = async (take: number, skip: number) => {
 			}
 		});
 
-        await setCachedProducts(products, `products`);
+		await setCachedProducts(products, `products`);
 
 		return products;
 	} catch (err) {
@@ -142,11 +153,12 @@ export const CreateProduct = async (
 			}
 		});
 
-        const productCount = await prisma.product.count();
+		const productCount = await prisma.product.count();
 
-        await cacheProductResponse(`products`, product);
+		await cacheProductResponse(`products`, product);
+        await removeFromCachedProducts(`count:count`);
 
-        await cacheResponse(`products`, JSON.stringify(productCount), "count");
+		await cacheResponse(`products`, JSON.stringify(productCount), 'count');
 
 		return product;
 	} catch (err) {
@@ -156,18 +168,19 @@ export const CreateProduct = async (
 };
 
 export const deleteProduct = async (id: string) => {
-    try {
+	try {
 		const product = await prisma.product.delete({
 			where: {
 				id
 			}
 		});
 
-        const productCount = await prisma.product.count();
+		const productCount = await prisma.product.count();
 
-        await removeFromCachedProducts(`products:${product.name}`);
+		await removeFromCachedProducts(`products:${product.name}`);
+        await removeFromCachedProducts(`count:count`);
 
-        await cacheResponse(`products`, JSON.stringify(productCount), "count");
+		await cacheResponse(`products`, JSON.stringify(productCount), 'count');
 
 		return product;
 	} catch (err) {
@@ -211,10 +224,10 @@ export const updateProduct = async (
 				stripeProductId,
 				image
 			}
-        });
+		});
 
-        await removeFromCachedProducts(`products:${product.name}`);
-        await cacheProductResponse(`products:${product.name}`, product);
+		await removeFromCachedProducts(`products:${product.name}`);
+		await cacheProductResponse(`products:${product.name}`, product);
 
 		return product;
 	} catch (err) {

@@ -5,12 +5,12 @@ import { downLoadFile } from 'lib/storage';
 export async function GET({ url, request, setHeaders }) {
 	try {
 		const searchTerm = url.searchParams.get('search') || '';
-		
+
 		let products_data = await getProductsForSearch(searchTerm);
 
-        products_data = products_data.filter((product) => {
-            if (product && product.image && product.image !== null) return product;
-        })
+		products_data = products_data.filter((product) => {
+			if (product && product.image && product.image !== null) return product;
+		});
 
 		const products = await Promise.all(
 			products_data.map(async (product) => {

@@ -21,7 +21,7 @@ async function mapOverOrders(orders: any) {
 }
 
 export const makeOrder = async (
-    locals: any,
+	locals: any,
 	order: any,
 	email: string,
 	phone: string,
@@ -29,7 +29,7 @@ export const makeOrder = async (
 	country: string,
 	city: string,
 	postalcode: string,
-    name: string
+	name: string
 ) => {
 	try {
 		const products = await mapOverOrders(order);
@@ -64,7 +64,7 @@ export const makeOrder = async (
 				city,
 				postalCode: postalcode,
 				phone,
-                FullName: name,
+				FullName: name,
 				orderItems: {
 					create: products.map((item: any) => {
 						return {
@@ -80,7 +80,7 @@ export const makeOrder = async (
 			}
 		});
 
-        const session_auth = await locals.auth.validate();
+		const session_auth = await locals.auth.validate();
 		if (session_auth) {
 			await prisma.order.update({
 				where: {

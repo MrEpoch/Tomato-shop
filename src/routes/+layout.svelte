@@ -9,19 +9,19 @@
 	export let data;
 	$: dark = data.theme === 'true';
 
-    $: browser && (dark = $preferences.theme === 'dark');
-    preferences.update((items) => {
-        items.theme = data.theme.toString() === 'true' ? 'dark' : '';
-        return items;
-    });
+	$: browser && (dark = $preferences.theme === 'dark');
+	preferences.update((items) => {
+		items.theme = data.theme.toString() === 'true' ? 'dark' : '';
+		return items;
+	});
 </script>
 
 <svelte:head>
-    <meta name="color-scheme" content={dark ? 'dark' : 'light'} />
+	<meta name="color-scheme" content={dark ? 'dark' : 'light'} />
 </svelte:head>
 
 <div class="h-full w-full" class:dark>
-    <NavContainer user={data.session} />
+	<NavContainer user={data.session} />
 	<Header theme={dark} />
 	<slot />
 	<Footer />

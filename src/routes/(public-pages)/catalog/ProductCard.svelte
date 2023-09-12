@@ -2,10 +2,10 @@
 	import { goto } from '$app/navigation';
 	import Card from 'components/card.svelte';
 	import { cart } from 'lib/local_storage';
-    import { lazyLoad } from 'lib';
+	import { lazyLoad } from 'lib';
 
-    let hidden = true;
-    let isAnimating = true;
+	let hidden = true;
+	let isAnimating = true;
 
 	let navigateWith = false;
 	export let product;
@@ -52,7 +52,7 @@
 	class=""
 	type="button"
 >
-    <Card {product} />
+	<Card {product} />
 </button>
 
 {#if !hidden}
@@ -98,9 +98,18 @@
 					</button>
 				</div>
 				<div class="p-6 h-full space-y-6">
-                    <div class={`w-full h-96 object-cover rounded-lg ${isAnimating ? "animate-pulse" : ""} transition-transform bg-gray-200 dark:bg-gray-800`}>
-                        <img class="w-full h-96 opacity-0 object-cover rounded-lg" use:lazyLoad={product.image} on:load={() => isAnimating = false} alt={product.name} />
-                    </div>
+					<div
+						class={`w-full h-96 object-cover rounded-lg ${
+							isAnimating ? 'animate-pulse' : ''
+						} transition-transform bg-gray-200 dark:bg-gray-800`}
+					>
+						<img
+							class="w-full h-96 opacity-0 object-cover rounded-lg"
+							use:lazyLoad={product.image}
+							on:load={() => (isAnimating = false)}
+							alt={product.name}
+						/>
+					</div>
 					<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
 						{product.name}
 					</h3>
@@ -142,18 +151,17 @@
 
 	/* Chrome, Edge, and Safari */
 	.scroll-element-modal::-webkit-scrollbar {
-        width: 9px;
-
+		width: 9px;
 	}
 
-    .scroll-element-modal::-webkit-scrollbar-track {
-        background: #ddd;
-        border-radius: 50px;
-    }
+	.scroll-element-modal::-webkit-scrollbar-track {
+		background: #ddd;
+		border-radius: 50px;
+	}
 
-    .scroll-element-modal::-webkit-scrollbar-thumb {
+	.scroll-element-modal::-webkit-scrollbar-thumb {
 		background-color: black;
 		border: 3px solid var(--primary);
-        border-radius: 50px;
-    }
+		border-radius: 50px;
+	}
 </style>

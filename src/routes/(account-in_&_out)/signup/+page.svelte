@@ -23,8 +23,8 @@
 				class="dark:bg-black/10 outline-none border-[1px] border-gray-600/50 rounded-[10px] p-3"
 				id="name"
 				placeholder="Full Name"
-                required
-                minlength="3"
+				required
+				minlength="3"
 			/>
 		</div>
 		<div class="flex flex-col gap-[1rem]">
@@ -35,7 +35,7 @@
 				class="dark:bg-black/10 outline-none border-[1px] border-gray-600/50 rounded-[10px] p-3"
 				id="password"
 				placeholder="Password"
-                required
+				required
 			/>
 		</div>
 		<div class="flex flex-col gap-[1rem]">
@@ -46,7 +46,7 @@
 				class="dark:bg-black/10 outline-none border-[1px] border-gray-600/50 rounded-[10px] p-3"
 				id="password_confirmation"
 				placeholder="Confirm Password"
-                required
+				required
 			/>
 		</div>
 		<div class="flex justify-center">

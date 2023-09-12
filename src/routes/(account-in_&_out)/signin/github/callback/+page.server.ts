@@ -1,48 +1,47 @@
-import { OAuthRequestError } from "@lucia-auth/oauth";
-import { redirect } from "@sveltejs/kit";
-import { auth, githubAuth } from "lib/lucia";
+import { OAuthRequestError } from '@lucia-auth/oauth';
+import { redirect } from '@sveltejs/kit';
+import { auth, githubAuth } from 'lib/lucia';
 
 export const load = async ({ url, cookies, locals }) => {
-    const storedState = cookies.get("github_oauth_state");
-    const state = url.searchParams.get("state");
-    const code = url.searchParams.get("code");
-             
-    if (!storedState || !state || storedState !== state || !code) {
-        throw new Error("Something is missing"); 
-    }
+	const storedState = cookies.get('github_oauth_state');
+	const state = url.searchParams.get('state');
+	const code = url.searchParams.get('code');
 
-    try {
-        const { getExistingUser, githubUser, createUser } = await githubAuth.validateCallback(code);
+	if (!storedState || !state || storedState !== state || !code) {
+		throw new Error('Something is missing');
+	}
 
-        const getUser = async () => {
-            const existingUser = await getExistingUser();
-            if (existingUser) return existingUser;
-            const user = await createUser({
-                attributes: {
-                    fullName: githubUser.login,
-                    IsPassword: false
-                }
-            })
-            return user;
-        }
+	try {
+		const { getExistingUser, githubUser, createUser } = await githubAuth.validateCallback(code);
 
-        const user = await getUser();
+		const getUser = async () => {
+			const existingUser = await getExistingUser();
+			if (existingUser) return existingUser;
+			const user = await createUser({
+				attributes: {
+					fullName: githubUser.login,
+					IsPassword: false
+				}
+			});
+			return user;
+		};
 
-        const session = await auth.createSession({
-            userId: user.userId,
-            attributes: {}
-        });
+		const user = await getUser();
 
-        locals.auth.setSession(session);
- 
-    } catch (e) {
-        if (e instanceof OAuthRequestError) {
-            throw redirect(302, "/error");
-        }
-        
-        console.log(e);
-        throw redirect(302, "/");
-    }
+		const session = await auth.createSession({
+			userId: user.userId,
+			attributes: {}
+		});
 
-    throw redirect(302, "/account");
-}
+		locals.auth.setSession(session);
+	} catch (e) {
+		if (e instanceof OAuthRequestError) {
+			throw redirect(302, '/error');
+		}
+
+		console.log(e);
+		throw redirect(302, '/');
+	}
+
+	throw redirect(302, '/account');
+};

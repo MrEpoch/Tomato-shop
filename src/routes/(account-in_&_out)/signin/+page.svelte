@@ -19,8 +19,8 @@
 			<label for="username">Username</label>
 			<input
 				type="text"
-                name="username"
-                minlength="3"
+				name="username"
+				minlength="3"
 				class="dark:bg-black/10 outline-none border-[1px] border-gray-600/50 rounded-[10px] p-3"
 				placeholder="Username"
 			/>
@@ -43,7 +43,7 @@
 			>
 		</div>
 	</form>
-    <a href="/signin/github" class="text-black text-lg dark:text-white/90 font-light hover:underline"
+	<a href="/signin/github" class="text-black text-lg dark:text-white/90 font-light hover:underline"
 		>Sign in with GitHub</a
 	>
 	<a href="/signup" class="text-black text-lg dark:text-white/90 font-light hover:underline"

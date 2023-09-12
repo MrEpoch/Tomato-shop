@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { products } from 'lib/local_storage';
 	import ProductCard from './ProductCard.svelte';
-    import { page } from '$app/stores';
+	import { page } from '$app/stores';
 	import CardSkeleton from 'components/CardSkeleton.svelte';
 
 	$: ({ products_search } = $page.data);
 	$: searchTerm = $page.url.searchParams.get('search') || '';
 
-    $: now = 0;
+	$: now = 0;
 
 	function searchChange(evt) {
 		if (now > 3) {
@@ -30,7 +30,6 @@
 			};
 		});
 	}
-
 </script>
 
 <div class="sm:px-[5rem] w-full min-h-screen flex gap-[3rem] flex-col dark:bg-black/10">
@@ -61,7 +60,7 @@
 				</div>
 
 				<input
-			        name="search"
+					name="search"
 					on:change={searchChange}
 					value={searchTerm}
 					id="default-search"
@@ -76,28 +75,28 @@
 			</form>
 		</div>
 	</div>
-		<div class="flex mb-[5rem] justify-center gap-[3rem] flex-wrap">
-            {#each $products_search.data as product}
-                {#await product}
-                    <h1>loading...</h1>
-                    <CardSkeleton />
-                {:then product_data}
-                    <ProductCard product={product_data} />
-                {:catch error}
-                    <p>{error.message}</p>
-                {/await}
-            {/each}
-        </div>
-		<div class="w-full flex justify-center">
-			<button
-				on:click={getMore}
-				class="w-full rounded-3xl max-w-[30px] h-[30px] bg-blue-500 flex items-center justify-center hover:scale-105 duration-500 cursor-pointer transition-transform"
+	<div class="flex mb-[5rem] justify-center gap-[3rem] flex-wrap">
+		{#each $products_search.data as product}
+			{#await product}
+				<h1>loading...</h1>
+				<CardSkeleton />
+			{:then product_data}
+				<ProductCard product={product_data} />
+			{:catch error}
+				<p>{error.message}</p>
+			{/await}
+		{/each}
+	</div>
+	<div class="w-full flex justify-center">
+		<button
+			on:click={getMore}
+			class="w-full rounded-3xl max-w-[30px] h-[30px] bg-blue-500 flex items-center justify-center hover:scale-105 duration-500 cursor-pointer transition-transform"
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+				><title>Load More</title><path
+					d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"
+				/></svg
 			>
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-					><title>Load More</title><path
-						d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"
-					/></svg
-				>
-			</button>
-		</div>
+		</button>
+	</div>
 </div>

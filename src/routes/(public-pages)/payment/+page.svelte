@@ -22,11 +22,12 @@
 
 	if (form?.success) {
 		currentStep = 3;
-    }
-
+	}
 </script>
 
-<div class="flex flex-col gap-[2rem] items-center min-h-screen w-full dark:bg-black/10 px-4 sm:px-10 dark:text-white/90">
+<div
+	class="flex flex-col gap-[2rem] items-center min-h-screen w-full dark:bg-black/10 px-4 sm:px-10 dark:text-white/90"
+>
 	{#if currentStep < 3}
 		<Stepper {currentStep} />
 	{/if}
@@ -36,14 +37,16 @@
 				{#each $cart && $cart.items as order}
 					<CartItems {order} mini={false} />
 				{/each}
-            </div>
-            <div class="flex justify-between w-full p-6">
-                <p class="font-semibold">Subtotal:</p>
-                <p class="font-semibold">${$cart.items.reduce((acc, item) => acc + item.quantity * item.price, 0)}</p>
-            </div>
+			</div>
+			<div class="flex justify-between w-full p-6">
+				<p class="font-semibold">Subtotal:</p>
+				<p class="font-semibold">
+					${$cart.items.reduce((acc, item) => acc + item.quantity * item.price, 0)}
+				</p>
+			</div>
 		</div>
 		<button
-			class="bg-blue-500 w-fit  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+			class="bg-blue-500 w-fit hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
 			on:click={() => (currentStep = 2)}>Next</button
 		>
 	{:else if currentStep === 2}
