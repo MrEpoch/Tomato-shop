@@ -57,7 +57,6 @@ export const getProductsForSearch = async (search: string, take = 15) => {
 			take
 		);
 		const productCount = await getProductCount();
-        console.log("c", cachedProducts);
 
 		if (cachedProducts && cachedProducts.length === productCount) {
 			if (typeof cachedProducts[0] !== 'number') return cachedProducts;
