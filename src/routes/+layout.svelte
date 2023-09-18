@@ -5,6 +5,7 @@
 	import NavContainer from 'components/nav-container.svelte';
 	import { preferences } from 'lib/local_storage';
 	import { browser } from '$app/environment';
+	import Transition from './transition.svelte';
 
 	export let data;
 	$: dark = data.theme === 'true';
@@ -23,7 +24,9 @@
 <div class="h-full w-full" class:dark>
 	<NavContainer user={data.session} />
 	<Header theme={dark} />
-	<slot />
+    <Transition url={data.url}>
+        <slot />
+    </Transition>
 	<Footer />
 </div>
 

@@ -1,6 +1,6 @@
 import { getProductCount } from 'lib/products';
 
-export async function load({ cookies, locals, isDataRequest }) {
+export async function load({ cookies, locals, isDataRequest, url }) {
 	const initialRequest = !isDataRequest;
 
 	const productCache = initialRequest ? +new Date() : cookies.get('product-cache');
@@ -29,7 +29,8 @@ export async function load({ cookies, locals, isDataRequest }) {
 
 	return {
 		session,
-		theme,
+        theme,
+        url: url.pathname,
 		productCount,
 		cacheBust: productCache
 	};

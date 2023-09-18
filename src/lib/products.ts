@@ -155,7 +155,7 @@ export const CreateProduct = async (
 		const productCount = await prisma.product.count();
 
 		await cacheProductResponse(`products`, product);
-        await removeFromCachedProducts(`count:count`);
+		await removeFromCachedProducts(`count:count`);
 
 		await cacheResponse(`products`, JSON.stringify(productCount), 'count');
 
@@ -177,7 +177,7 @@ export const deleteProduct = async (id: string) => {
 		const productCount = await prisma.product.count();
 
 		await removeFromCachedProducts(`products:${product.name}`);
-        await removeFromCachedProducts(`count:count`);
+		await removeFromCachedProducts(`count:count`);
 
 		await cacheResponse(`products`, JSON.stringify(productCount), 'count');
 
