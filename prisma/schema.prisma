@@ -42,19 +42,9 @@ model User {
     IsPassword  Boolean?
     orders      Order[]
 
-    auth_session     Session[]
     key         Key[]
 }
 
-model Session {
-    id              String           @id @unique
-    user_id         String
-    active_expires  BigInt
-    idle_expires    BigInt
-    user            User             @relation(fields: [user_id], references: [id], onDelete: Cascade)
-
-    @@index([user_id])
-}
 
 model Key {
     id              String           @id @unique

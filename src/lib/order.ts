@@ -1,3 +1,4 @@
+import { dev } from '$app/environment';
 import { STRIPE_SECRET_KEY } from '$env/static/private';
 import { prisma } from './db';
 import Stripe from 'stripe';
@@ -48,8 +49,8 @@ export const makeOrder = async (
 			{
 				line_items: orders,
 				mode: 'payment',
-				success_url: 'https://www.tomatodream.store/payment/success',
-				cancel_url: 'https://www.tomatodream.store/payment/cancel'
+                success_url: dev ? 'https://www.tomatodream.store/payment/success' : 'http://localhost:5173/payment/success',
+                cancel_url: dev ? 'https://www.tomatodream.store/payment/cancel' : 'http://localhost:5173/payment/cancel',
 			},
 			{
 				apiKey: STRIPE_SECRET_KEY

@@ -30,6 +30,7 @@
 	"type": "module",
 	"dependencies": {
 		"@lucia-auth/adapter-prisma": "^3.0.1",
+		"@lucia-auth/adapter-session-redis": "^2.1.1",
 		"@lucia-auth/oauth": "^3.0.0",
 		"@prisma/client": "^5.2.0",
 		"autoprefixer": "^10.4.15",
