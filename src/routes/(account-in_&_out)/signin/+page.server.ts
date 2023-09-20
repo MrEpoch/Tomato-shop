@@ -25,11 +25,13 @@ export const actions: Actions = {
 		if (!usernameError.success) {
 			return fail(400, {
 				username,
+                fail: true,
 				error: 'Invalid Username'
 			});
 		} else if (!passwordError.success) {
 			return fail(400, {
-				password,
+                password,
+                fail: true,
 				error: 'Invalid password'
 			});
 		}
@@ -61,6 +63,7 @@ export const actions: Actions = {
 		} catch (error) {
 			console.log(error);
 			return fail(400, {
+                fail: true,
 				error: 'Could not login user'
 			});
 		}

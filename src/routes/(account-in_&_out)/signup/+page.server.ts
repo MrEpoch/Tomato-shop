@@ -23,12 +23,14 @@ export const actions: Actions = {
 
 		if (!passwordError.success) {
 			return fail(400, {
-				password,
+                password,
+                fail: true,
 				error: 'Invalid password'
 			});
 		} else if (!fullNameError.success) {
 			return fail(400, {
-				fullName,
+                fullName,
+                fail: true,
 				error: 'Invalid full name'
 			});
 		}
@@ -54,7 +56,8 @@ export const actions: Actions = {
 			locals.auth.setSession(session);
 		} catch (error) {
 			console.log(error);
-			return fail(500, {
+            return fail(500, {
+                fail: true,
 				error: 'Could not login user'
 			});
 		}

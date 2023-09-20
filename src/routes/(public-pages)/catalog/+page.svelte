@@ -87,16 +87,4 @@
 			{/await}
 		{/each}
 	</div>
-	<div class="w-full flex justify-center">
-		<button
-			on:click={getMore}
-			class="w-full rounded-3xl max-w-[30px] h-[30px] bg-blue-500 flex items-center justify-center hover:scale-105 duration-500 cursor-pointer transition-transform"
-		>
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-				><title>Load More</title><path
-					d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"
-				/></svg
-			>
-		</button>
-	</div>
 </div>
