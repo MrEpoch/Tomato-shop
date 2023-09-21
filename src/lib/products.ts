@@ -49,18 +49,24 @@ export const getProductCount = async () => {
 	}
 };
 
-export const getProductsForSearch = async (search: string, take = 15) => {
+export const getProductsForSearch = async (search: string, skip = 0, take = 15) => {
 	try {
 		const cachedProducts = await getCachedProducts(
 			`products`,
 			search.trim() === '' ? '*' : search,
-			take
-		);
+            (skip > 0 ? take * skip : take),
+        );
+
 		const productCount = await getProductCount();
 
-		if (cachedProducts && cachedProducts.length === productCount) {
-			if (typeof cachedProducts[0] !== 'number') return cachedProducts;
-		}
+        // if (productCount >= take * skip && (cachedProducts && cachedProducts.length === take * skip)) {
+        if (cachedProducts && 
+            (productCount <= 15 ? cachedProducts.length === productCount :
+                cachedProducts.length > 0
+            )
+        ) {
+            if (typeof cachedProducts[0] !== 'number') return cachedProducts;
+        }
 
 		const products = await prisma.product.findMany({
 			where: {
@@ -79,11 +85,11 @@ export const getProductsForSearch = async (search: string, take = 15) => {
 					}
 				]
 			},
-			take
+            take,
+            skip
 		});
 
 		await setCachedProducts(products, 'products');
-
 		return products;
 	} catch (err) {
 		console.log(err);

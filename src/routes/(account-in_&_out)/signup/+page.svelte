@@ -34,12 +34,12 @@
 >
 	<h1 class="text-5xl mt-[5rem] mb-6 font-thin">Sign Up</h1>
 	<form
-		class="max-w-[500px] dark:bg-black/20 w-full shadow bg-white relative rounded p-[5rem] flex flex-col gap-[3rem]"
+		class="max-w-[500px] dark:bg-black/20 w-full shadow bg-white relative rounded p-[3rem] sm:p-[5rem] flex flex-col gap-[3rem]"
 		method="POST"
 	>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
-			class="absolute top-0 dark:text-white/80 left-0 translate-y-[-50px] translate-x-[10px] w-[100px]"
+			class="absolute top-0 dark:text-white/80 left-0 translate-y-[-50px] translate-x-[10px] w-[80px] sm:w-[100px]"
 			viewBox="0 0 24 24"
 			><title>shield-account</title><path
 				fill="currentColor"

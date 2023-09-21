@@ -1,13 +1,14 @@
 <script lang="ts">
-	import { products } from 'lib/local_storage';
 	import ProductCard from './ProductCard.svelte';
 	import { page } from '$app/stores';
 	import CardSkeleton from 'components/CardSkeleton.svelte';
 
-	$: ({ products_search } = $page.data);
+	$: ({ products_search, product_count } = $page.data);
 	$: searchTerm = $page.url.searchParams.get('search') || '';
 
-	$: now = 0;
+    $: current_page = $page.url.searchParams.get('page') || 1;
+    $: now = 0;
+    $: skip = 0;
 
 	function searchChange(evt) {
 		if (now > 3) {
@@ -15,21 +16,15 @@
 		}
 	}
 
-	async function getMore() {
-		const res = await fetch('/catalog/products', {
-			method: 'POST',
-			body: JSON.stringify({
-				skip: $products.items.length
-			})
+    async function getNext() {
+        skip+=1;
+        const res = await fetch(`/catalog?search=${searchTerm}&skip=${skip}`, {
+			method: 'GET'
 		});
 		const json = await res.json();
-		products.update((value) => {
-			return {
-				...value,
-				items: [...value.items, ...json.products]
-			};
-		});
-	}
+        products_search.set(json.data);
+    }
+
 </script>
 
 <div class="sm:px-[5rem] w-full min-h-screen flex gap-[3rem] flex-col dark:bg-black/10">
@@ -75,7 +70,8 @@
 			</form>
 		</div>
 	</div>
-	<div class="flex mb-[5rem] justify-center gap-[3rem] flex-wrap">
+	<div class="flex flex-col mb-[5rem] gap-[3rem]">
+        <div class="justify-center flex flex-wrap gap-[3rem]">
 		{#each $products_search.data as product}
 			{#await product}
 				<h1>loading...</h1>
@@ -85,6 +81,12 @@
 			{:catch error}
 				<p>{error.message}</p>
 			{/await}
-		{/each}
-	</div>
+        {/each}
+        </div> 
+    </div>
+    {#if product_count > 15}
+    <button class="py-2 px-6 text-white bg-blue-700
+        hover:bg-blue-800 focus:ring-4 focus:outline-none 
+        focus:ring-blue-300 font-medium rounded-lg text-sm" on:click={getNext}>Load More</button>
+    {/if}
 </div>

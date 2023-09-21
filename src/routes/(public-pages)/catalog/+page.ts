@@ -8,13 +8,15 @@ export async function load({ fetch, parent, url }) {
 		const cacheBust = getCurrentCookieValue('product-cache') || parentData.cacheBust;
 
 		const search = url.searchParams.get('search') || '';
-		const skip = url.searchParams.get('skip') || 0;
+		const skip = parseInt(url.searchParams.get('skip')) || 0;
 
 		const resp = await fetch(`/api-public/search?search=${search}&cache=${cacheBust}&skip=${skip}`);
-		const products = await resp.json();
+        const products = await resp.json();
 
-		return {
-			products_search: writable(products)
+        const products_search = writable(products);
+
+        return {
+			products_search
 		};
 	} catch (error) {
 		console.log(error);

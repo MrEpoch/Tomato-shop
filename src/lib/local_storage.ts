@@ -16,3 +16,7 @@ export const cart = persisted('cart', {
 export const products = persisted('products', {
 	items: []
 });
+
+export const saved_products = persisted('saved_products', {
+    items: []
+})

@@ -1,4 +1,5 @@
 import { CART_MAIN_INFO } from '$env/static/private';
+import { getProductCount } from 'lib/products';
 
 export const actions = {
 	cartcookie: async ({ cookies, request }) => {
@@ -22,7 +23,14 @@ export const actions = {
 					httpOnly: false,
 					maxAge: 60 * 60 * 24 * 30
 				}
-			);
+            );
+
+            const product_count = await getProductCount();
+
+            return {
+                product_count
+            }
+
 		} catch (e) {
 			console.log(e);
 		}
