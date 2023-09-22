@@ -47,20 +47,6 @@
 	$: file = null;
 </script>
 
-<button
-	on:click={openModal}
-	class="w-full rounded-3xl sm:min-w-[250px] sm:max-w-[250px] sm:max-h-[250px] sm:min-h-[250px] min-w-[200px] max-w-[200px] max-h-[200px] min-h-[200px] flex items-center justify-center from-red-300 to-rose-900 bg-gradient-to-br hover:scale-105 duration-500 cursor-pointer transition-transform"
->
-	<svg
-		class="w-16 dark:text-white/90 text-black"
-		xmlns="http://www.w3.org/2000/svg"
-		viewBox="0 0 24 24"
-		><title>plus</title><path
-			fill="currentColor"
-			d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"
-		/></svg
-	>
-</button>
 
 {#if form?.success}
 	<div

@@ -69,68 +69,7 @@ export const actions = {
 		}
 	},
 
-	update: async ({ request }) => {
-		try {
-			const data = await request.formData();
-			const id = data.get('id');
-			const image = data.get('image');
-
-			const product = await getProduct(id);
-			let newImage = product.image;
-
-			let name = product.name;
-			let description = product.description;
-			let long_description = product.long_description;
-			let price = product.price;
-			let stripeProductId = product.stripeProductId;
-
-			if (image) {
-				const newFileName_ext = image.name.split('.').pop();
-				if (!['jpg', 'jpeg', 'png'].includes(newFileName_ext)) {
-					return fail(400, {
-						error: true,
-						message: 'You must provide a valid image file'
-					});
-				}
-				const newFileName = `${crypto.randomUUID()}.${newFileName_ext}`;
-
-				if (!image.name || image.name === 'undefined') {
-					return fail(400, {
-						error: true,
-						message: 'You must provide a file to upload'
-					});
-				}
-				await writeFile(`src/images/${newFileName}`, new Uint8Array(await image.arrayBuffer()));
-				newImage = 'src/images/' + newFileName;
-			}
-			if (data.get('name') !== product.name) name = data.get('name');
-			if (data.get('description') !== product.description) description = data.get('description');
-			if (data.get('long_description') !== product.long_description)
-				long_description = data.get('long_description');
-			if (data.get('price') !== product.price) price = data.get('price');
-			if (data.get('stripePriceId') !== product.stripeProductId)
-				stripeProductId = data.get('stripePriceId');
-			await unlink(`${product.image}`);
-
-			const product_update = await updateProduct(
-				id,
-				name,
-				description,
-				long_description,
-				price.toString(),
-				stripeProductId,
-				newImage
-			);
-			return { success: true, product: product_update };
-		} catch (error) {
-			console.log(error);
-			return fail(400, {
-				error: true,
-				message: error.message
-			});
-		}
-	},
-
+	
 	delete: async ({ request }) => {
 		const data = await request.formData();
 		const id = data.get('id');

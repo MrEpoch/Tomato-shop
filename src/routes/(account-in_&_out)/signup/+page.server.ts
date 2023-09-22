@@ -35,7 +35,8 @@ export const actions: Actions = {
 			});
 		}
 
-		try {
+        try {
+            console.log(fullNameError.data.toString(), passwordError.data.toString());
 			const user = await auth.createUser({
 				key: {
 					providerId: 'username',

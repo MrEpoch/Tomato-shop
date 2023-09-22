@@ -9,20 +9,13 @@ import {
 	setCachedProducts
 } from './cache';
 
-export const getProduct = async (id: string, name: string) => {
+export const getProduct = async (id: string) => {
 	try {
-		const cachedProduct = await getCachedProductResponse(`products:${name}`);
-		if (cachedProduct) {
-			return cachedProduct;
-		}
-
 		const product = await prisma.product.findUnique({
 			where: {
-				id
+                id
 			}
 		});
-
-		await cacheProductResponse(`products:${product.name}`, product);
 
 		return product;
 	} catch (err) {

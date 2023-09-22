@@ -57,7 +57,7 @@
 
 	<div class="ml-4 flex flex-1 flex-col">
 		<div>
-			<div class="flex justify-between text-base font-medium text-gray-900">
+			<div class="flex justify-between text-base font-medium dark:text-white text-gray-900">
 				<h3>
 					{order.name}
 				</h3>

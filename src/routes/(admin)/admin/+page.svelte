@@ -1,9 +1,9 @@
 <script lang="ts">
 	import CreateModal from './create_modal.svelte';
 	import ProductModal from './product_modal.svelte';
-	import { products } from 'lib/local_storage';
 	import ErrorMessages from './error-messages.svelte';
 	import { page } from '$app/stores';
+	import Card from 'components/card.svelte';
 
 	$: message = '';
 
@@ -22,16 +22,6 @@
 		}
 	}
 
-	async function getMore() {
-		const res = await fetch('/admin/api-product/' + $products.items.length);
-		const json = await res.json();
-		products.update((value) => {
-			return {
-				...value,
-				items: [...value.items, ...json.data]
-			};
-		});
-	}
 </script>
 
 <div class="min-h-screen dark:bg-black/10 p-[4rem]">
@@ -79,9 +69,29 @@
 		</div>
 	</div>
 	<div class="flex justify-center flex-wrap gap-[3rem]">
-		<CreateModal on:loadcards={setEmptySearch} {message} />
-		{#each $products_search.data as product}
-			<ProductModal {product} {message} />
+        <a
+            href="/admin/new-product"
+            class="w-full rounded-3xl sm:min-w-[250px] 
+            sm:max-w-[250px] sm:max-h-[250px] sm:min-h-[250px] 
+            min-w-[200px] max-w-[200px] max-h-[200px] min-h-[200px] flex items-center 
+            justify-center from-red-600 to-rose-600 bg-gradient-to-r hover:scale-105 duration-500 cursor-pointer transition-transform"
+        >
+            <svg
+                class="w-16 dark:text-white/90 text-black"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                ><title>plus</title><path
+                    fill="currentColor"
+                    d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"
+                /></svg
+            >
+        </a>
+		{#each $products_search ? $products_search.data : [] as product}
+            <a
+                href={`/admin/update-product/${product.id}`}
+            >
+                <Card {product} />
+            </a>
 		{/each}
 	</div>
 </div>

@@ -11,12 +11,15 @@ export async function load({ fetch, parent, url, setHeaders, depends }) {
 		const search = url.searchParams.get('search') || '';
 		const skip = url.searchParams.get('skip') || 0;
 
-		const resp = await fetch(`/api-public/search?search=${search}&cache=${cacheBust}&skip=${skip}`);
-		const products = await resp.json();
+        if (search.trim().length > 0) {
+            const resp = await fetch(`/api-public/search?search=${search}&cache=${cacheBust}&skip=${skip}`);
+            const products = await resp.json();
 
-		return {
-			products_search: writable(products)
-		};
+            return {
+                products_search: writable(products)
+            };
+        }
+        return {};
 	} catch (e) {
 		console.log(e);
 	}

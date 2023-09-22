@@ -10,9 +10,6 @@
 	export let message;
 	export let product;
 	let file = product.image;
-	function handleHideModal() {
-		hidden = !hidden;
-	}
 
 	async function handleDelete(event) {
 		try {
@@ -35,46 +32,8 @@
 		}
 	}
 
-	async function handleUpdate(event) {
-		try {
-			const data = new FormData(this);
-
-			const res = await fetch(this.action, {
-				method: 'POST',
-				body: data
-			});
-			const json = await res.json();
-			message = json.type.toString();
-
-			hidden = !hidden;
-			products.set({
-				items: $products.items.map((item) => {
-					if (item.id === product.id) {
-						return json.data;
-					}
-					return item;
-				})
-			});
-			file = null;
-		} catch (e) {
-			console.log(e);
-		}
-	}
-
-	function handleFileInput(event) {
-		file = event.target.files[0];
-	}
 </script>
 
-<button
-	on:click={handleHideModal}
-	data-modal-target="staticModal"
-	data-modal-toggle="staticModal"
-	class=""
-	type="button"
->
-	<Card {product} />
-</button>
 
 {#if !hidden}
 	<div

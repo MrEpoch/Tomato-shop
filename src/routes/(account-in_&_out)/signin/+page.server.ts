@@ -52,7 +52,7 @@ export const actions: Actions = {
 			await wait(load_speed * 1000);
 			const key = await auth.useKey(
 				'username',
-				usernameError.data.toLowerCase(),
+				usernameError.data,
 				passwordError.data
 			);
 			const session = await auth.createSession({

@@ -45,15 +45,13 @@
 	}
 </script>
 
-<button
-	on:click={handleHideModal}
-	data-modal-target="staticModal"
-	data-modal-toggle="staticModal"
+<a
+    href={`/catalog/${product.id}`}
 	class=""
 	type="button"
 >
 	<Card {product} />
-</button>
+</a>
 
 {#if !hidden}
 	<div
