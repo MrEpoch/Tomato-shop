@@ -11,12 +11,19 @@ import {
 
 export const getProduct = async (id: string) => {
 	try {
-		const product = await prisma.product.findUnique({
+        const getCachedProduct = await getCachedProductResponse(`onep:${id}`);
+
+        if (getCachedProduct) {
+            return getCachedProduct;
+        }
+
+        const product = await prisma.product.findUnique({
 			where: {
                 id
 			}
 		});
 
+        await cacheResponse(`onep`, JSON.stringify(product), product.id);
 		return product;
 	} catch (err) {
 		console.log(err);
@@ -51,6 +58,7 @@ export const getProductsForSearch = async (search: string, skip = 0, take = 15) 
         );
 
 		const productCount = await getProductCount();
+        console.log(cachedProducts);
 
         // if (productCount >= take * skip && (cachedProducts && cachedProducts.length === take * skip)) {
         if (cachedProducts && 

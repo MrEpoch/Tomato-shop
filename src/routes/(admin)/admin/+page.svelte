@@ -1,6 +1,4 @@
 <script lang="ts">
-	import CreateModal from './create_modal.svelte';
-	import ProductModal from './product_modal.svelte';
 	import ErrorMessages from './error-messages.svelte';
 	import { page } from '$app/stores';
 	import Card from 'components/card.svelte';
@@ -12,10 +10,6 @@
 
 	$: now = 0;
 
-	function setEmptySearch() {
-		searchTerm = '';
-	}
-
 	function searchChange(evt) {
 		if (now > 3) {
 			searchTerm = evt.target.value;
@@ -26,7 +20,7 @@
 
 <div class="min-h-screen dark:bg-black/10 p-[4rem]">
 	<ErrorMessages bind:message />
-
+    <h3 class="text-3xl font-semibold text-gray-900 dark:text-white">Find Products</h3>
 	<div class="w-full flex justify-center items-center mb-[5rem]">
 		<label
 			for="default-search"
@@ -71,10 +65,10 @@
 	<div class="flex justify-center flex-wrap gap-[3rem]">
         <a
             href="/admin/new-product"
-            class="w-full rounded-3xl sm:min-w-[250px] 
+            class="w-full rounded-lg sm:min-w-[250px] 
             sm:max-w-[250px] sm:max-h-[250px] sm:min-h-[250px] 
             min-w-[200px] max-w-[200px] max-h-[200px] min-h-[200px] flex items-center 
-            justify-center from-red-600 to-rose-600 bg-gradient-to-r hover:scale-105 duration-500 cursor-pointer transition-transform"
+            justify-center from-red-600 to-rose-600 bg-gradient-to-r hover:scale-[1.02] duration-500 cursor-pointer transition-transform"
         >
             <svg
                 class="w-16 dark:text-white/90 text-black"

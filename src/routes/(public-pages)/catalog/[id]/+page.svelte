@@ -42,9 +42,9 @@
 
 </script>
 
-<div class="min-h-screen w-full bg-black/10">
+<div class="min-h-screen w-full dark:bg-black/10">
 <div
-		class="flex justify-center p-4 w-full min-h-full"
+		class="flex justify-center pt-[5rem] p-4 w-full min-h-full"
 	>
 		<div class="relative scroll-element-modal w-full max-w-2xl h-full">
 			<form
@@ -54,18 +54,18 @@
 				class=""
 			>
 				<div class="flex items-start justify-between p-4 ">
-					<h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+					<h3 class="text-3xl font-semibold text-gray-900 dark:text-white">
 						{product_catalog.name}
 					</h3>
 									</div>
 				<div class="p-6 h-full space-y-6">
 					<div
-						class={`w-full h-96 object-cover rounded-lg ${
+						class={`w-full aspect-video object-cover rounded-lg ${
 							isAnimating ? 'animate-pulse' : ''
 						} transition-transform bg-gray-200 dark:bg-gray-800`}
 					>
 						<img
-							class="w-full h-96 opacity-0 object-cover rounded-lg"
+							class="w-full aspect-video opacity-0 object-cover rounded-lg"
 							use:lazyLoad={product_catalog.image}
 							on:load={() => (isAnimating = false)}
 							alt={product_catalog.name}
@@ -85,7 +85,7 @@
 					</p>
 				</div>
 				<div
-					class="flex items-center justify-between p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600"
+					class="flex flex-wrap gap-5 items-center justify-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600"
 				>
 					<button
 						type="submit"
