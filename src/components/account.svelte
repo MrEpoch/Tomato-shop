@@ -2,17 +2,13 @@
 	import { cart, preferences } from 'lib/local_storage';
 	import CartItems from './cart_items.svelte';
 	import { goto } from '$app/navigation';
-	import { browser } from '$app/environment';
-    import { fly, scale } from 'svelte/transition';
+    import { fly } from 'svelte/transition';
 
 	async function handleTheme() {
-		if (browser) {
-			await fetch(`/api-public/theme?theme=${$preferences.theme === 'dark' ? false : true}`);
-			preferences.update((p) => {
-				p.theme = $preferences.theme === 'dark' ? 'light' : 'dark';
-				return p;
-			});
-		}
+        preferences.update((p) => {
+            p.theme = $preferences.theme === 'dark' ? 'light' : 'dark';
+            return p;
+        });
 	}
 
 	export let user;

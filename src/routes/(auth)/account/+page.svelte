@@ -3,7 +3,6 @@
 
 	export let data;
 	let user_data: any = data.user;
-	let user_name: any = user_data.fullName;
 
     console.log(data);
     if (data && data?.errorA) {
@@ -13,27 +12,12 @@
 </script>
 
 <div class="min-h-screen dark:bg-black/10 dark:text-white/90 w-full flex flex-col">
-	<div class="flex flex-col mt-14 items-center gap-[5rem] w-full">
+	<div class="flex flex-col items-center justify-center mt-14 h-full gap-[5rem] w-full">
 		<h2 class="sm:text-5xl text-center text-2xl font-light dark:text-white/90 text-gray-800">
 			Welcome, {user_data.fullName.length < 20
 				? user_data.fullName
 				: user_data.fullName.substring(0, 20 - 3) + '...'}
 		</h2>
-		<div class="flex w-full flex-col items-center gap-4">
-			<label for="name" class="text-2xl dark:text-white/90 font-light text-gray-800"
-				>Full Name</label
-			>
-			<div class="flex p-6 w-full justify-center items-center gap-5">
-				<input
-					value={user_name}
-					type="text"
-					name="full_name"
-					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[80%] sm:w-[40%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-					placeholder="John Doe"
-					required
-				/>
-			</div>
-		</div>
 		{#if user_data.IsPassword}
 			<div class="flex w-full flex-col items-center gap-4">
 				<a

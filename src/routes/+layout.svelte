@@ -4,27 +4,19 @@
 	import Header from './header.svelte';
 	import NavContainer from 'components/nav-container.svelte';
 	import { preferences } from 'lib/local_storage';
-	import { browser } from '$app/environment';
 	import Transition from './transition.svelte';
 	import { globalError } from 'lib/stores';
 
 	export let data;
-	$: dark = data.theme === 'true';
-
-	$: browser && (dark = $preferences.theme === 'dark');
-	preferences.update((items) => {
-		items.theme = data.theme.toString() === 'true' ? 'dark' : '';
-		return items;
-	});
 </script>
 
 <svelte:head>
-	<meta name="color-scheme" content={dark ? 'dark' : 'light'} />
+	<meta name="color-scheme" content={$preferences.theme === "dark" ? 'dark' : 'light'} />
 </svelte:head>
 
-<div class="h-full w-full" class:dark>
+<div class="h-full w-full" class:dark={$preferences.theme === 'dark'}>
 	<NavContainer user={data.session} />
-	<Header theme={dark} />
+	<Header theme={$preferences.theme === "dark"} />
     <Transition url={data.url}>
         <slot />
         {#if $globalError.length > 0}
