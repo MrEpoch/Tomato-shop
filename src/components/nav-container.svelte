@@ -19,7 +19,7 @@
 			class={`w-8 transition-transform duration-300 ${hidden ? '' : 'rotate-180'}`}
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 24 24"
-			><title>menu-left</title><path fill="currentColor" d="M14,7L9,12L14,17V7Z" /></svg
+			><title>Menu</title><path fill="currentColor" d="M14,7L9,12L14,17V7Z" /></svg
 		>
 	</button>
 	{#if !hidden}

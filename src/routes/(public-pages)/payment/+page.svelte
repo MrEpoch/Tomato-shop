@@ -4,9 +4,12 @@
 	import Stepper from './stepper.svelte';
 	import OrderInfo from './order_info.svelte';
 	import { browser } from '$app/environment';
+	import { globalError } from 'lib/stores';
 
 	let currentStep = 1;
 	export let form;
+    export let data;
+
 
 	if (form?.url) {
 		browser && wait(2000).then(() => window.location.replace(form.url));
@@ -23,6 +26,11 @@
 	if (form?.success) {
 		currentStep = 3;
 	}
+
+    if (data && data?.errorC) {
+        $globalError = data?.errorC;
+    }
+
 </script>
 
 <div
@@ -35,7 +43,7 @@
 		<div class="relative flex flex-col rounded-lg h-full shadow w-full dark:bg-black/50 mt-[5rem]">
 			<div class="flex gap-[2rem] flex-col shadow p-6 h-full space-y-6">
 				{#each $cart && $cart.items as order}
-					<CartItems {order} mini={false} />
+					<CartItems {order} />
 				{/each}
 			</div>
 			<div class="flex justify-between w-full p-6">

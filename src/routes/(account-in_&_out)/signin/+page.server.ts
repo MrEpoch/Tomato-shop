@@ -4,15 +4,22 @@ import { z } from 'zod';
 import { auth } from 'lib/lucia';
 import { wait } from 'lib';
 
-export const load: PageServerLoad = async ({ locals }) => {
+export const load: PageServerLoad = async ({ locals, url }) => {
 	const session = await locals.auth.validate();
 	if (session) {
-		throw redirect(302, '/account');
-	}
+		throw redirect(308, '/account');
+    }
+
+    const redirectIs = url.searchParams.get('redirectTo');
+    if (redirectIs) {
+        return {
+            redirectIs
+        }
+    }
 };
 
 export const actions: Actions = {
-	default: async ({ request, locals, cookies }) => {
+	default: async ({ request, locals, cookies, url }) => {
 		const data = await request.formData();
 		const username = data.get('username');
 		const password = data.get('password');
@@ -68,6 +75,11 @@ export const actions: Actions = {
 			});
 		}
 
-		throw redirect(302, '/account');
+        const redirectIs = url.searchParams.get('redirectTo');
+        if (redirectIs) {
+            throw redirect(303, redirectIs);
+        }
+        console.log("here");
+        throw redirect(303, "/account");
 	}
 };

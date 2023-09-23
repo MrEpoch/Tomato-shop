@@ -2,13 +2,19 @@ import { CART_MAIN_INFO } from '$env/static/private';
 import { fail, redirect } from '@sveltejs/kit';
 import { makeOrder } from 'lib/order';
 
-export async function load({ cookies }) {
+export async function load({ cookies, url }) {
+    const errorHappened = url.searchParams.get('error');
 	const cart = cookies.get(CART_MAIN_INFO);
 	if (!cart) throw redirect(302, '/catalog');
 	const cart_data = JSON.parse(cart);
 	if (!cart_data.total_quantity || !(cart_data.total_quantity > 0)) {
 		throw redirect(302, '/catalog');
-	}
+    }
+
+    if (errorHappened) {
+        return { errorC: `Payment Not Found, In case of mistake
+            please contact us` };
+    }
 }
 
 export const actions = {

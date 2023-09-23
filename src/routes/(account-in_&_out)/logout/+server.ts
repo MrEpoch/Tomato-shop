@@ -9,5 +9,11 @@ export async function GET({ locals }) {
 
 	await auth.invalidateSession(session.sessionId);
 	locals.auth.setSession(null);
-	return json({ success: true });
+    
+	return new Response(null, {
+		status: 302,
+		headers: {
+			Location: "/"
+		}
+	});
 }

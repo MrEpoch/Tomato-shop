@@ -21,7 +21,7 @@ export const actions: Actions = {
             const id = data.get('id');
 			const product = await deleteProduct(id);
             await deleteFile(product.image);
-			return { status: 200, body: { message: 'Product deleted' }, success: true };
+            throw redirect(303, "/admin");
 		} catch (error) {
 			console.log(error);
 			return fail(400, {

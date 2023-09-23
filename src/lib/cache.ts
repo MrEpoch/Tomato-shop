@@ -8,6 +8,20 @@ export async function cacheProductResponse(key: string, product: any) {
 	}
 }
 
+export async function getCached(key: string) {
+    try {
+        const cache = await redis.get(key);
+        if (cache) {
+            const parsed = JSON.parse(cache);
+            return parsed;
+        }
+        return;
+    } catch (error) {
+        console.log(error);
+        return;
+}
+}
+
 export async function cacheResponse(
 	key: string,
 	value: string,

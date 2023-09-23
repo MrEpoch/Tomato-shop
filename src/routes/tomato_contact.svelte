@@ -46,8 +46,4 @@
 		width: calc(300% + 1.3px);
 		height: 149px;
 	}
-
-	.custom-shape-divider-top-1692705552 .shape-fill {
-		fill: #ef4444;
-	}
 </style>

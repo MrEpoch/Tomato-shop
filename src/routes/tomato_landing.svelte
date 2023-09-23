@@ -11,7 +11,7 @@
 	<p class="text-2xl font-light dark:text-gray-400 max-[400px]:text-xl text-gray-500">
 		Expert's choice of year
 	</p>
-	<div class="h-[24rem] w-fit mb-[20rem]">
+	<div class="sm:h-[20rem] h-[16rem] w-fit mb-[20rem]">
 		<img src={Tomato} alt="tomate" class="h-full object-cover" />
 	</div>
 	<div class=" custom-shape-divider-bottom-1692700371">

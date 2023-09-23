@@ -58,7 +58,6 @@ export const getProductsForSearch = async (search: string, skip = 0, take = 15) 
         );
 
 		const productCount = await getProductCount();
-        console.log(cachedProducts);
 
         // if (productCount >= take * skip && (cachedProducts && cachedProducts.length === take * skip)) {
         if (cachedProducts && 
@@ -184,8 +183,9 @@ export const deleteProduct = async (id: string) => {
 		const productCount = await prisma.product.count();
 
 		await removeFromCachedProducts(`products:${product.name}`);
+        await removeFromCachedProducts(`products:${product.id}`);
 		await removeFromCachedProducts(`count:count`);
-
+        await removeFromCachedProducts(`products`);
 		await cacheResponse(`products`, JSON.stringify(productCount), 'count');
 
 		return product;

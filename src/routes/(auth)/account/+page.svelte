@@ -1,7 +1,15 @@
 <script lang="ts">
+	import { globalError } from 'lib/stores.js';
+
 	export let data;
 	let user_data: any = data.user;
 	let user_name: any = user_data.fullName;
+
+    console.log(data);
+    if (data && data?.errorA) {
+        $globalError = "You are not admin";
+    }
+
 </script>
 
 <div class="min-h-screen dark:bg-black/10 dark:text-white/90 w-full flex flex-col">
@@ -34,7 +42,7 @@
 				>
 					Change Password
 					<svg class="w-6 dark:text-white/90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-						><title>chevron-right</title><path
+						><title>Right arrow</title><path
 							fill="currentColor"
 							d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
 						/></svg

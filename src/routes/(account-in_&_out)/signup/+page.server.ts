@@ -6,12 +6,12 @@ import { auth } from 'lib/lucia';
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
 	if (session) {
-		throw redirect(302, '/account');
+		throw redirect(308, '/account');
 	}
 };
 
 export const actions: Actions = {
-	default: async ({ request, locals }) => {
+	default: async ({ request, locals, url }) => {
 		const data = await request.formData();
 		const fullName = data.get('fullName');
 		const password = data.get('password');
@@ -36,7 +36,6 @@ export const actions: Actions = {
 		}
 
         try {
-            console.log(fullNameError.data.toString(), passwordError.data.toString());
 			const user = await auth.createUser({
 				key: {
 					providerId: 'username',
@@ -62,6 +61,12 @@ export const actions: Actions = {
 				error: 'Could not login user'
 			});
 		}
-		throw redirect(302, '/account');
+
+        const redirectIs = url.searchParams.get('redirectTo');
+        if (redirectIs) {
+            throw redirect(308, redirectIs);
+        }
+
+		throw redirect(303, '/account');
 	}
 };

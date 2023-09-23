@@ -5,6 +5,9 @@
 	import Hands from 'assets/tomato-hands.webp';
 	import Green from 'assets/tomato-green.webp';
 	import Cherry from 'assets/tomato-cherry.webp';
+	import { globalError } from 'lib/stores';
+
+    export let data;
 
 	const about_cards = [
 		{
@@ -26,6 +29,11 @@
 			image: Hands
 		}
 	];
+
+    if (data && data?.errorA) {
+        $globalError = data?.errorA;
+    }
+
 </script>
 
 <TomatoLanding />
