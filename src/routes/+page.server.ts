@@ -9,4 +9,3 @@ export const load: PageServerLoad = async ({ url }: { url: URL }) => {
         };
     }
 }
-export const prerender = true;
