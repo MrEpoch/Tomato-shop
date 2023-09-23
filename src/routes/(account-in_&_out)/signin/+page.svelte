@@ -103,7 +103,7 @@
                 </svg>
             </a>
         </div>
-        <a href={`/account`} class="text-black text-lg dark:text-white/90 font-light hover:underline"
+        <a href={`/signup`} class="text-black text-lg dark:text-white/90 font-light hover:underline"
             >Don't have an account? Register</a
         >
     </div>
