@@ -24,7 +24,7 @@
 			<button
 				class="max-[500px]:text-sm max-[500px]:px-4 max-[500px]:py-3 dark:bg-red-700 dark:border-red-700 dark:hover:bg-red-800 dark:hover:border-red-800 bg-red-500 border-red-500 border-[2px] duration-500 hover:bg-red-600 transition-all text-white font-bold py-4 px-8 rounded-full"
 			>
-				<a href="/catalog">See Products</a>
+				<a data-sveltekit-preload-data href="/catalog">See Products</a>
 			</button>
 		</div>
 	</div>

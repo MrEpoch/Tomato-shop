@@ -15,7 +15,7 @@
 				>
 					Contact Us
 				</a>
-				<a href="/catalog"
+				<a data-sveltekit-preload-data href="/catalog"
 					class="max-[500px]:text-sm max-[500px]:px-4 max-[500px]:py-3 bg-red-500 dark:hover:bg-red-800 dark:hover:border-red-800 dark:bg-red-700 dark:border-red-700 border-red-500 border-[2px] hover:bg-red-600 transition-all text-white font-bold py-4 px-8 rounded-full"
 				>
 					See Products
