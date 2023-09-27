@@ -29,9 +29,10 @@ export const actions = {
 		const postalcode = data.get('postal_code');
 		const cart = data.get('cart');
 
+        const orderId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
 		try {
 			const order = await makeOrder(
-				locals,
 				JSON.parse(cart),
 				email,
 				phone,
@@ -39,14 +40,15 @@ export const actions = {
 				country,
 				city,
 				postalcode,
-				name
+                name,
+                orderId
 			);
-			if (!order) {
+			if (!order || !order.url) {
 				return fail(400, { message: 'Order failed', failed: true });
-			}
+            }
 
 			return {
-				url: order,
+				url: order.url,
 				failed: false,
 				success: true
 			};

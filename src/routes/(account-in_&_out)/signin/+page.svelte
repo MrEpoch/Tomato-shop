@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { browser } from "$app/environment";
+	import { goto } from "$app/navigation";
 	import { globalError } from "lib/stores";
 
     export let data: any;
@@ -14,7 +16,10 @@
         }, 3000)
     }
 
-    if (data && data.redirectIs) $globalError = "Log In To continue"
+    if (browser && data && data.redirectIs) {
+        $globalError = "Log In To continue"
+        goto("/signin", { replaceState: true });
+    }
 
 </script>
 

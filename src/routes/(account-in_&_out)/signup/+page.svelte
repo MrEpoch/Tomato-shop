@@ -10,7 +10,6 @@
             form.fail = false
         }, 3000)
     }
-
 </script>
 
 {#if form?.fail}

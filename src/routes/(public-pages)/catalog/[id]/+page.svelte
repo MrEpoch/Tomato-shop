@@ -42,9 +42,9 @@
 
 </script>
 
-<div class="min-h-screen w-full dark:bg-black/10">
+<div class="min-h-screen w-full dark:bg-black/10 py-[5rem]">
 <div
-		class="flex justify-center pt-[5rem] p-4 w-full min-h-full"
+		class="flex justify-center p-4 w-full min-h-full"
 	>
 		<div class="relative scroll-element-modal w-full max-w-2xl h-full">
 			<form
@@ -54,7 +54,7 @@
 				class=""
 			>
 				<div class="flex items-start justify-between p-4 ">
-					<h3 class="text-3xl font-semibold text-gray-900 dark:text-white">
+					<h3 class="lg:text-3xl sm:text-2xl text-xl font-semibold text-gray-900 dark:text-white">
 						{product_catalog.name}
 					</h3>
 									</div>
@@ -71,7 +71,7 @@
 							alt={product_catalog.name}
 						/>
 					</div>
-					<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+					<h3 class="sm:text-lg text-md font-semibold text-gray-900 dark:text-white">
 						{product_catalog.name}
 					</h3>
 					<p class="text-gray-700 dark:text-gray-400">

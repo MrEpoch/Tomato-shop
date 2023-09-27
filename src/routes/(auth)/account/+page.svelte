@@ -18,6 +18,8 @@
 				? user_data.fullName
 				: user_data.fullName.substring(0, 20 - 3) + '...'}
 		</h2>
+        <a href="/logout" class="bg-gray-100 text-black dark:text-white dark:bg-gray-800 
+        font-semibold rounded-xl  px-8 py-4">Logout</a>
 		{#if user_data.IsPassword}
 			<div class="flex w-full flex-col items-center gap-4">
 				<a

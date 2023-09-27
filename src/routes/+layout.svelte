@@ -2,12 +2,21 @@
 	import '../app.css';
 	import Footer from './footer.svelte';
 	import Header from './header.svelte';
-	import NavContainer from 'components/nav-container.svelte';
 	import { preferences } from 'lib/local_storage';
 	import Transition from './transition.svelte';
 	import { globalError } from 'lib/stores';
 
 	export let data;
+    let lastErrTimeOut;
+
+    $: lastErrTimeOut;
+
+    $: {if ($globalError.length > 0) {
+        clearTimeout(lastErrTimeOut);
+        lastErrTimeOut = setTimeout(() => {
+            $globalError = '';
+        }, 3000)
+    }}
 </script>
 
 <svelte:head>
@@ -15,7 +24,6 @@
 </svelte:head>
 
 <div class="h-full w-full" class:dark={$preferences.theme === 'dark'}>
-	<NavContainer user={data.session} />
 	<Header theme={$preferences.theme === "dark"} />
     <Transition url={data.url}>
         <slot />
