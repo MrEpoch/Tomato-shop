@@ -11,13 +11,13 @@
 	<h1 class="text-3xl md:text-5xl text-center font-thin mt-[10rem]">
 		We love <span class="font-light">Tomatoes</span>
 	</h1>
-	<div class="flex flex-col items-center w-full relative">
+	<div class="flex flex-col items-center w-full relative p-5">
 		<a
 			href="/catalog"
 			class={`z-10 ${isAnimation ? 'animate-pulse' : ''}  
-            bg-gray-200 dark:bg-gray-800 sm:h-[15rem] h-[10rem] lg:h-[30rem] min-w-[40%] 
+            bg-gray-200 dark:bg-gray-800 max-w-[800px] w-full
             transition-transform object hover:translate-y-[-5px] hover:translate-x-[-5px]
-            rounded-2xl shadow
+            rounded-2xl shadow aspect-video
             duration-500`}
 		>
 			<img
@@ -28,7 +28,7 @@
 			/>
 		</a>
 		<div
-			class="sm:h-[15rem] h-[10rem] lg:h-[30rem] w-fit object absolute blur-[25px] sm:translate-x-20 translate-y-[45px] sm:translate-y-[35px]"
+			class="max-w-[700px] w-full object absolute blur-[25px] lg:translate-x-10 translate-y-[25px] lg:translate-y-[15px]"
 		>
 			<img
 				use:lazyLoad={Tomatoes}

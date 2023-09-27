@@ -1,5 +1,5 @@
 <script>
-	import Tomato from 'assets/tomate-full.png';
+	import Tomato from 'assets/tomate-full.webp';
 </script>
 
 <div

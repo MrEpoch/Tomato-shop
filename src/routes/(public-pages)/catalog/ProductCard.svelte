@@ -46,6 +46,7 @@
 </script>
 
 <a
+    data-sveltekit-preload-data
     href={`/catalog/${product.id}`}
 	class=""
 	type="button"
