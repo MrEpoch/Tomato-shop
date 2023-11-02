@@ -64,7 +64,7 @@
 	</button>
 	<div class={`hidden items-center xl:flex`}>
 		<ul
-			class="flex flex-col w-full mt-4 gap-[2rem] items-center xl:flex-row "
+			class="flex flex-col w-full gap-[2rem] items-center xl:flex-row "
 		>
             <li>
 				<a href="/" data-sveltekit-preload-data>Home</a>

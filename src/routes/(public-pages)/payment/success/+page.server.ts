@@ -2,7 +2,6 @@ import { CART_MAIN_INFO } from '$env/static/private';
 import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from '../$types';
 import { TrueDbOrder } from 'lib/order';
-import { globalError } from 'lib/stores';
 
 export const load: PageServerLoad = async ({ url, locals, cookies }) => {
 	const orderSuccess = url.searchParams.get('order');

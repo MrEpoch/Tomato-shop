@@ -4,7 +4,6 @@
 
 	import { fly } from "svelte/transition";
     export let closeCart;
-
 </script>
 
 	<div class="absolute w-screen h-screen z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">

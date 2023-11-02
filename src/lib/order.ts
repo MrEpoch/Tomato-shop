@@ -50,8 +50,8 @@ export const makeOrder = async (
 			{
 				line_items: orders,
 				mode: 'payment',
-				success_url: !dev ? `https://clothes-shop-ten.vercel.app/payment/success?order=${orderId}` : `http://localhost:5173/payment/success?order=${orderId}`,
-                cancel_url: !dev ? 'https://clothes-shop-ten.vercel.app/payment/cancel' : 'http://localhost:5173/payment/cancel',
+				success_url: !dev ? `https://tomatodream.store/payment/success?order=${orderId}` : `http://localhost:5173/payment/success?order=${orderId}`,
+                cancel_url: !dev ? 'https://tomatodream.store/payment/cancel' : 'http://localhost:5173/payment/cancel',
 			},
 			{
 				apiKey: STRIPE_SECRET_KEY

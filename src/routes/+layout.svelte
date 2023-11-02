@@ -24,7 +24,7 @@
 </svelte:head>
 
 <div class="h-full w-full" class:dark={$preferences.theme === 'dark'}>
-	<Header theme={$preferences.theme === "dark"} />
+    <Header theme={$preferences.theme === "dark"} />
     <Transition url={data.url}>
         <slot />
         {#if $globalError.length > 0}
