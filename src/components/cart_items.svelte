@@ -77,7 +77,7 @@
 				<button
 					on:click={updateCart}
 					type="button"
-					class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button
+					class="font-medium text-rose-600 hover:text-rose-500">Remove</button
 				>
 			</div>
 		</div>

@@ -6,7 +6,7 @@
     export let closeCart;
 </script>
 
-	<div class="absolute w-screen h-screen z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+	<div class="absolute w-screen min-h-screen top-0 right-0 z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
 		<div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
 		<div in:fly out:fly={{ duration: 100 }} class="fixed inset-0 overflow-hidden">
 			<div class="absolute inset-0 overflow-hidden">
@@ -76,7 +76,7 @@
 									<a
 										href="/payment"
 										on:click={closeCart}
-										class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+										class="flex items-center justify-center rounded-md border border-transparent bg-rose-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-rose-700"
 										>Checkout</a
 									>
 								</div>
@@ -86,7 +86,7 @@
 										<button
 											type="button"
 											on:click={closeCart}
-											class="font-medium text-indigo-600 hover:text-indigo-500"
+											class="font-medium text-rose-600  hover:text-rose-500"
 										>
 											Continue Shopping
 											<span aria-hidden="true"> &rarr;</span>

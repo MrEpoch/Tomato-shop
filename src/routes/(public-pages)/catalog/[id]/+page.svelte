@@ -4,10 +4,10 @@
 	import { lazyLoad } from 'lib';
 	import { cart } from 'lib/local_storage.js';
 
-    export let data;
-    let isAnimating = true;
+  export let data;
+  let isAnimating = true;
 
-	let navigateWith = false;
+	$: navigateWith = false;
 
 	async function addToCart(event) {
 		try {

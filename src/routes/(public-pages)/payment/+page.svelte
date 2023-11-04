@@ -54,7 +54,7 @@
 			</div>
 		</div>
 		<button
-			class="bg-blue-500 w-fit hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+			class="bg-rose-500 w-fit hover:bg-rose-700 text-white font-bold py-2 px-4 rounded"
 			on:click={() => (currentStep = 2)}>Next</button
 		>
 	{:else if currentStep === 2}
