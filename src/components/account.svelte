@@ -2,13 +2,13 @@
 	import { cart, preferences } from 'lib/local_storage';
 	import CartItems from './cart_items.svelte';
 	import { goto } from '$app/navigation';
-    import { fly } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
 
 	async function handleTheme() {
-        preferences.update((p) => {
-            p.theme = $preferences.theme === 'dark' ? 'light' : 'dark';
-            return p;
-        });
+		preferences.update((p) => {
+			p.theme = $preferences.theme === 'dark' ? 'light' : 'dark';
+			return p;
+		});
 	}
 
 	export let user;
@@ -72,7 +72,12 @@
 	{/if}
 </button>
 {#if !hiddenCart}
-	<div class="absolute w-screen h-screen z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+	<div
+		class="absolute w-screen h-screen z-10"
+		aria-labelledby="slide-over-title"
+		role="dialog"
+		aria-modal="true"
+	>
 		<div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
 		<div in:fly out:fly={{ duration: 100 }} class="fixed inset-0 overflow-hidden">
 			<div class="absolute inset-0 overflow-hidden">
@@ -183,8 +188,8 @@
 								data-sveltekit-preload-data
 								href="/admin"
 								on:click={handleClick}
-                                class="flex rounded-lg justify-between cursor-pointer dark:text-white/90 
-                                hover:bg-gray-500/10 z-10 bg-gray-500/5 p-5 w-full 
+								class="flex rounded-lg justify-between cursor-pointer dark:text-white/90
+                                hover:bg-gray-500/10 z-10 bg-gray-500/5 p-5 w-full
                                 text-gray-700 font-semibold gap-[1rem] transition-all duration-300"
 							>
 								<span>Admin</span>
@@ -212,8 +217,8 @@
 						</a>
 						<button
 							on:click={handleLogOut}
-                            class="flex justify-between dark:text-white/90 rounded-lg 
-                            cursor-pointer hover:bg-gray-500/10 z-10 bg-gray-500/5 p-5 w-full 
+							class="flex justify-between dark:text-white/90 rounded-lg
+                            cursor-pointer hover:bg-gray-500/10 z-10 bg-gray-500/5 p-5 w-full
                             text-gray-700 font-semibold gap-[1rem] transition-all duration-300"
 						>
 							<span>Log Out</span>

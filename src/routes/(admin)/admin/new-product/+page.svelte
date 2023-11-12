@@ -58,20 +58,16 @@
 	</div>
 {/if}
 <div
-    aria-hidden="true"
-    class={`
+	aria-hidden="true"
+	class={`
      flex justify-center p-4 dark:bg-black/10 min-h-screen`}
 >
-    <div class="relative w-full max-w-3xl min-h-full">
-            <div class="px-6 py-6 lg:px-8">
-                <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Create New Product</h3>
-                <form
-                    method="POST"
-                    class="space-y-6"
-                    enctype="multipart/form-data"
-                >
-                    <CreateModalForm {file} {handleFileInput} />
-                </form>
-            </div>
-    </div>
+	<div class="relative w-full max-w-3xl min-h-full">
+		<div class="px-6 py-6 lg:px-8">
+			<h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Create New Product</h3>
+			<form method="POST" class="space-y-6" enctype="multipart/form-data">
+				<CreateModalForm {file} {handleFileInput} />
+			</form>
+		</div>
+	</div>
 </div>

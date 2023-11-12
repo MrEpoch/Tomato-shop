@@ -8,14 +8,14 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 	const session = await locals.auth.validate();
 	if (session) {
 		throw redirect(308, '/account');
-    }
+	}
 
-    const redirectIs = url.searchParams.get('redirectTo');
-    if (redirectIs) {
-        return {
-            redirectIs
-        }
-    }
+	const redirectIs = url.searchParams.get('redirectTo');
+	if (redirectIs) {
+		return {
+			redirectIs
+		};
+	}
 };
 
 export const actions: Actions = {
@@ -32,13 +32,13 @@ export const actions: Actions = {
 		if (!usernameError.success) {
 			return fail(400, {
 				username,
-                fail: true,
+				fail: true,
 				error: 'Invalid Username'
 			});
 		} else if (!passwordError.success) {
 			return fail(400, {
-                password,
-                fail: true,
+				password,
+				fail: true,
 				error: 'Invalid password'
 			});
 		}
@@ -57,11 +57,7 @@ export const actions: Actions = {
 
 		try {
 			await wait(load_speed * 1000);
-			const key = await auth.useKey(
-				'username',
-				usernameError.data,
-				passwordError.data
-			);
+			const key = await auth.useKey('username', usernameError.data, passwordError.data);
 			const session = await auth.createSession({
 				userId: key.userId,
 				attributes: {}
@@ -70,16 +66,16 @@ export const actions: Actions = {
 		} catch (error) {
 			console.log(error);
 			return fail(400, {
-                fail: true,
+				fail: true,
 				error: 'Could not login user'
 			});
 		}
 
-        const redirectIs = url.searchParams.get('redirectTo');
-        if (redirectIs) {
-            throw redirect(303, redirectIs);
-        }
-        console.log("here");
-        throw redirect(303, "/account");
+		const redirectIs = url.searchParams.get('redirectTo');
+		if (redirectIs) {
+			throw redirect(303, redirectIs);
+		}
+		console.log('here');
+		throw redirect(303, '/account');
 	}
 };

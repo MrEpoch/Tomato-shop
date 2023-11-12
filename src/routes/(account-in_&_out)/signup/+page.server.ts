@@ -23,19 +23,19 @@ export const actions: Actions = {
 
 		if (!passwordError.success) {
 			return fail(400, {
-                password,
-                fail: true,
+				password,
+				fail: true,
 				error: 'Invalid password'
 			});
 		} else if (!fullNameError.success) {
 			return fail(400, {
-                fullName,
-                fail: true,
+				fullName,
+				fail: true,
 				error: 'Invalid full name'
 			});
 		}
 
-        try {
+		try {
 			const user = await auth.createUser({
 				key: {
 					providerId: 'username',
@@ -56,16 +56,16 @@ export const actions: Actions = {
 			locals.auth.setSession(session);
 		} catch (error) {
 			console.log(error);
-            return fail(500, {
-                fail: true,
+			return fail(500, {
+				fail: true,
 				error: 'Could not login user'
 			});
 		}
 
-        const redirectIs = url.searchParams.get('redirectTo');
-        if (redirectIs) {
-            throw redirect(308, redirectIs);
-        }
+		const redirectIs = url.searchParams.get('redirectTo');
+		if (redirectIs) {
+			throw redirect(308, redirectIs);
+		}
 
 		throw redirect(303, '/account');
 	}

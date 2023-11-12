@@ -31,7 +31,8 @@ export const makeOrder = async (
 	city: string,
 	postalcode: string,
 	name: string,
-	orderId: string
+	orderId: string,
+	url: URL
 ) => {
 	try {
 		const products = await mapOverOrders(order);
@@ -50,8 +51,12 @@ export const makeOrder = async (
 			{
 				line_items: orders,
 				mode: 'payment',
-				success_url: !dev ? `https://tomatodream.store/payment/success?order=${orderId}` : `http://localhost:5173/payment/success?order=${orderId}`,
-        cancel_url: !dev ? 'https://tomatodream.store/payment/cancel' : 'http://localhost:5173/payment/cancel',
+				success_url: !url.hostname.includes('localhost')
+					? `https://tomatodream.store/payment/success?order=${orderId}`
+					: `http://localhost:5173/payment/success?order=${orderId}`,
+				cancel_url: !url.hostname.includes('localhost')
+					? 'https://tomatodream.store/payment/cancel'
+					: 'http://localhost:5173/payment/cancel'
 			},
 			{
 				apiKey: STRIPE_SECRET_KEY
@@ -59,8 +64,8 @@ export const makeOrder = async (
 		);
 
 		await cacheResponse(
-            `order`,
-            JSON.stringify({
+			`order`,
+			JSON.stringify({
 				address,
 				country,
 				email,
@@ -70,8 +75,8 @@ export const makeOrder = async (
 				FullName: name,
 				order,
 				products
-            }),
-            orderId,
+			}),
+			orderId,
 			60 * 60 * 12
 		);
 
@@ -85,54 +90,54 @@ export const makeOrder = async (
 };
 
 export const TrueDbOrder = async (orderId: string, locals: any) => {
-    try {
-        const orderCached = await getCached(`order:${orderId}`);
+	try {
+		const orderCached = await getCached(`order:${orderId}`);
 
-        if (!orderCached) {
-            return null;
-        }
+		if (!orderCached) {
+			return null;
+		}
 
-        const order_db = await prisma.order.create({
-            data: {
-                address: orderCached.address,
-                country: orderCached.country,
-                email: orderCached.email,
-                city: orderCached.city,
-                postalCode: orderCached.postalCode,
-                phone: orderCached.phone,
-                FullName: orderCached.FullName,
-                orderItems: {
-                    create: orderCached.products.map((item: any) => {
-                        return {
-                            quantity: orderCached.order.find((order: any) => order.id === item.id).quantity,
-                            Product: {
-                                connect: {
-                                    id: item.id
-                                }
-                            }
-                        };
-                    })
-                }
-            }
-        });
+		const order_db = await prisma.order.create({
+			data: {
+				address: orderCached.address,
+				country: orderCached.country,
+				email: orderCached.email,
+				city: orderCached.city,
+				postalCode: orderCached.postalCode,
+				phone: orderCached.phone,
+				FullName: orderCached.FullName,
+				orderItems: {
+					create: orderCached.products.map((item: any) => {
+						return {
+							quantity: orderCached.order.find((order: any) => order.id === item.id).quantity,
+							Product: {
+								connect: {
+									id: item.id
+								}
+							}
+						};
+					})
+				}
+			}
+		});
 
-        const session_auth = await locals.auth.validate();
-            if (session_auth) {
-                await prisma.order.update({
-                    where: {
-                        id: order_db.id
-                    },
-                    data: {
-                        userId: session_auth.user.userId
-                    }
-            });
-        }
+		const session_auth = await locals.auth.validate();
+		if (session_auth) {
+			await prisma.order.update({
+				where: {
+					id: order_db.id
+				},
+				data: {
+					userId: session_auth.user.userId
+				}
+			});
+		}
 
-        return order_db;
-    } catch (e) {
-        console.log(e);
-        return null;
-    }
+		return order_db;
+	} catch (e) {
+		console.log(e);
+		return null;
+	}
 };
 
 export const deleteOrder = async (orderId: string) => {

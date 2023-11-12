@@ -11,11 +11,11 @@ export async function load({ fetch, parent, url }) {
 		const skip = parseInt(url.searchParams.get('skip')) || 0;
 
 		const resp = await fetch(`/api-public/search?search=${search}&cache=${cacheBust}&skip=${skip}`);
-        const products = await resp.json();
+		const products = await resp.json();
 
-        const products_search = writable(products);
+		const products_search = writable(products);
 
-        return {
+		return {
 			products_search
 		};
 	} catch (error) {

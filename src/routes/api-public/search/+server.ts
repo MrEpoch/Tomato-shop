@@ -5,7 +5,7 @@ import { downLoadFile } from 'lib/storage';
 export async function GET({ url, request, setHeaders }) {
 	try {
 		const searchTerm = url.searchParams.get('search') || '';
-        const skip = parseInt(url.searchParams.get('skip')) || 0;
+		const skip = parseInt(url.searchParams.get('skip')) || 0;
 
 		let products_data = await getProductsForSearch(searchTerm, skip);
 

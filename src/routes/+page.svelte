@@ -7,7 +7,7 @@
 	import Cherry from 'assets/tomato-cherry.webp';
 	import { globalError } from 'lib/stores';
 
-    export let data;
+	export let data;
 
 	const about_cards = [
 		{
@@ -30,10 +30,9 @@
 		}
 	];
 
-    if (data && data?.errorA) {
-        $globalError = data?.errorA;
-    }
-
+	if (data && data?.errorA) {
+		$globalError = data?.errorA;
+	}
 </script>
 
 <TomatoLanding />

@@ -8,8 +8,7 @@
 
 	let currentStep = 1;
 	export let form;
-    export let data;
-
+	export let data;
 
 	if (form?.url) {
 		browser && wait(2000).then(() => window.location.replace(form.url));
@@ -27,20 +26,19 @@
 		currentStep = 3;
 	}
 
-    if (data && data?.errorC) {
-        $globalError = data?.errorC;
-    }
-
+	if (data && data?.errorC) {
+		$globalError = data?.errorC;
+	}
 </script>
 
 <div
 	class="flex flex-col gap-[2rem] py-[5rem] items-center min-h-screen w-full dark:bg-black/10 px-4 sm:px-10 dark:text-white/90"
 >
 	{#if currentStep < 3}
-        <Stepper goNext={() => currentStep = 2} returnToPrev={() => currentStep--} {currentStep} />
+		<Stepper goNext={() => (currentStep = 2)} returnToPrev={() => currentStep--} {currentStep} />
 	{/if}
 	{#if currentStep === 1}
-		<div class="relative flex flex-col rounded-lg h-full shadow w-full dark:bg-black/50 ">
+		<div class="relative flex flex-col rounded-lg h-full shadow w-full dark:bg-black/50">
 			<div class="flex gap-[2rem] flex-col shadow p-6 h-full space-y-6">
 				{#each $cart && $cart.items as order}
 					<CartItems {order} />

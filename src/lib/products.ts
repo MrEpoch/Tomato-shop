@@ -11,19 +11,19 @@ import {
 
 export const getProduct = async (id: string) => {
 	try {
-        const getCachedProduct = await getCachedProductResponse(`onep:${id}`);
+		const getCachedProduct = await getCachedProductResponse(`onep:${id}`);
 
-        if (getCachedProduct) {
-            return getCachedProduct;
-        }
+		if (getCachedProduct) {
+			return getCachedProduct;
+		}
 
-        const product = await prisma.product.findUnique({
+		const product = await prisma.product.findUnique({
 			where: {
-                id
+				id
 			}
 		});
 
-        await cacheResponse(`onep`, JSON.stringify(product), product.id);
+		await cacheResponse(`onep`, JSON.stringify(product), product.id);
 		return product;
 	} catch (err) {
 		console.log(err);
@@ -54,19 +54,18 @@ export const getProductsForSearch = async (search: string, skip = 0, take = 15) 
 		const cachedProducts = await getCachedProducts(
 			`products`,
 			search.trim() === '' ? '*' : search,
-            (skip > 0 ? take * skip : take),
-        );
+			skip > 0 ? take * skip : take
+		);
 
 		const productCount = await getProductCount();
 
-        // if (productCount >= take * skip && (cachedProducts && cachedProducts.length === take * skip)) {
-        if (cachedProducts && 
-            (productCount <= 15 ? cachedProducts.length === productCount :
-                cachedProducts.length > 0
-            )
-        ) {
-            if (typeof cachedProducts[0] !== 'number') return cachedProducts;
-        }
+		// if (productCount >= take * skip && (cachedProducts && cachedProducts.length === take * skip)) {
+		if (
+			cachedProducts &&
+			(productCount <= 15 ? cachedProducts.length === productCount : cachedProducts.length > 0)
+		) {
+			if (typeof cachedProducts[0] !== 'number') return cachedProducts;
+		}
 
 		const products = await prisma.product.findMany({
 			where: {
@@ -85,8 +84,8 @@ export const getProductsForSearch = async (search: string, skip = 0, take = 15) 
 					}
 				]
 			},
-            take,
-            skip
+			take,
+			skip
 		});
 
 		await setCachedProducts(products, 'products');
@@ -183,9 +182,9 @@ export const deleteProduct = async (id: string) => {
 		const productCount = await prisma.product.count();
 
 		await removeFromCachedProducts(`products:${product.name}`);
-        await removeFromCachedProducts(`products:${product.id}`);
+		await removeFromCachedProducts(`products:${product.id}`);
 		await removeFromCachedProducts(`count:count`);
-        await removeFromCachedProducts(`products`);
+		await removeFromCachedProducts(`products`);
 		await cacheResponse(`products`, JSON.stringify(productCount), 'count');
 
 		return product;

@@ -7,10 +7,10 @@ export const load: PageServerLoad = async ({ url, locals, cookies }) => {
 	const orderSuccess = url.searchParams.get('order');
 
 	if (!orderSuccess) {
-       		throw redirect(303, '/payment');
+		throw redirect(303, '/payment');
 	}
 
 	const order = await TrueDbOrder(orderSuccess, locals);
-    if (!order) throw redirect(303, '/payment');
+	if (!order) throw redirect(303, '/payment');
 	cookies.delete(CART_MAIN_INFO);
 };

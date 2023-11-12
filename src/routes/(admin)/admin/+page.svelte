@@ -15,12 +15,11 @@
 			searchTerm = evt.target.value;
 		}
 	}
-
 </script>
 
 <div class="min-h-screen dark:bg-black/10 p-[4rem]">
 	<ErrorMessages bind:message />
-    <h3 class="text-3xl font-semibold text-gray-900 dark:text-white">Find Products</h3>
+	<h3 class="text-3xl font-semibold text-gray-900 dark:text-white">Find Products</h3>
 	<div class="w-full flex justify-center items-center mb-[5rem]">
 		<label
 			for="default-search"
@@ -51,41 +50,39 @@
 					value={searchTerm}
 					type="search"
 					id="default-search"
-					class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+					class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-rose-500 focus:border-rose-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rose-500 dark:focus:border-rose-500"
 					placeholder="Search Tomatoes"
 				/>
 				<button
 					type="submit"
-					class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+					class="text-white absolute right-2.5 bottom-2.5 bg-rose-700 hover:bg-rose-800 focus:ring-4 focus:outline-none focus:ring-rose-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-rose-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800"
 					>Search</button
 				>
 			</form>
 		</div>
 	</div>
 	<div class="flex justify-center flex-wrap gap-[3rem]">
-        <a
-            href="/admin/new-product"
-            class="w-full rounded-lg sm:min-w-[250px] 
-            sm:max-w-[250px] sm:max-h-[250px] sm:min-h-[250px] 
-            min-w-[200px] max-w-[200px] max-h-[200px] min-h-[200px] flex items-center 
+		<a
+			href="/admin/new-product"
+			class="w-full rounded-lg sm:min-w-[250px]
+            sm:max-w-[250px] sm:max-h-[250px] sm:min-h-[250px]
+            min-w-[200px] max-w-[200px] max-h-[200px] min-h-[200px] flex items-center
             justify-center from-red-600 to-rose-600 bg-gradient-to-r hover:scale-[1.02] duration-500 cursor-pointer transition-transform"
-        >
-            <svg
-                class="w-16 dark:text-white/90 text-black"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                ><title>plus</title><path
-                    fill="currentColor"
-                    d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"
-                /></svg
-            >
-        </a>
+		>
+			<svg
+				class="w-16 dark:text-white/90 text-black"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				><title>plus</title><path
+					fill="currentColor"
+					d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"
+				/></svg
+			>
+		</a>
 		{#each $products_search ? $products_search.data : [] as product}
-            <a
-                href={`/admin/update-product/${product.id}`}
-            >
-                <Card {product} />
-            </a>
+			<a href={`/admin/update-product/${product.id}`}>
+				<Card {product} />
+			</a>
 		{/each}
 	</div>
 </div>

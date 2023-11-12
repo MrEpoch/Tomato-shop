@@ -1,9 +1,9 @@
-import { fail, type Actions } from "@sveltejs/kit";
-import { CreateProduct } from "lib/products";
-import { storeFile } from "lib/storage";
+import { fail, type Actions } from '@sveltejs/kit';
+import { CreateProduct } from 'lib/products';
+import { storeFile } from 'lib/storage';
 
 export const actions: Actions = {
-    default: async ({ request }) => {
+	default: async ({ request }) => {
 		try {
 			const data = await request.formData();
 			const name = data.get('name');
@@ -63,9 +63,9 @@ export const actions: Actions = {
 		} catch (error) {
 			console.log(error);
 			return fail(401, {
-                error: true,
+				error: true,
 				message: error.message
 			});
 		}
-	},
-}
+	}
+};

@@ -3,22 +3,24 @@ import { fail, redirect } from '@sveltejs/kit';
 import { makeOrder } from 'lib/order';
 
 export async function load({ cookies, url }) {
-    const errorHappened = url.searchParams.get('error');
+	const errorHappened = url.searchParams.get('error');
 	const cart = cookies.get(CART_MAIN_INFO);
 	if (!cart) throw redirect(302, '/catalog');
 	const cart_data = JSON.parse(cart);
 	if (!cart_data.total_quantity || !(cart_data.total_quantity > 0)) {
 		throw redirect(302, '/catalog');
-    }
+	}
 
-    if (errorHappened) {
-        return { errorC: `Payment Not Found, In case of mistake
-            please contact us` };
-    }
+	if (errorHappened) {
+		return {
+			errorC: `Payment Not Found, In case of mistake
+            please contact us`
+		};
+	}
 }
 
 export const actions = {
-	order: async ({ request, locals }) => {
+	order: async ({ request, locals, url }) => {
 		const data = await request.formData();
 		const email = data.get('email');
 		const phone = data.get('phone');
@@ -29,7 +31,8 @@ export const actions = {
 		const postalcode = data.get('postal_code');
 		const cart = data.get('cart');
 
-        const orderId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+		const orderId =
+			Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
 		try {
 			const order = await makeOrder(
@@ -40,12 +43,13 @@ export const actions = {
 				country,
 				city,
 				postalcode,
-                name,
-                orderId
+				name,
+				orderId,
+				url
 			);
 			if (!order || !order.url) {
 				return fail(400, { message: 'Order failed', failed: true });
-            }
+			}
 
 			return {
 				url: order.url,

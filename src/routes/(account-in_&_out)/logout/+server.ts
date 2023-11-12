@@ -9,11 +9,11 @@ export async function GET({ locals }) {
 
 	await auth.invalidateSession(session.sessionId);
 	locals.auth.setSession(null);
-    
+
 	return new Response(null, {
 		status: 302,
 		headers: {
-			Location: "/"
+			Location: '/'
 		}
 	});
 }

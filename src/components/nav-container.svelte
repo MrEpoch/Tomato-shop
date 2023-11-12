@@ -10,8 +10,8 @@
 >
 	<button
 		on:click={() => (hidden = !hidden)}
-        class="text-white border-2 border-red-900 bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none 
-        focus:ring-red-300 font-medium text-sm p-2 rounded-full text-center inline-flex items-center 
+		class="text-white border-2 border-red-900 bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none
+        focus:ring-red-300 font-medium text-sm p-2 rounded-full text-center inline-flex items-center
         dark:bg-red-700 dark:hover:bg-red-800 dark:focus:ring-red-800"
 		type="button"
 	>

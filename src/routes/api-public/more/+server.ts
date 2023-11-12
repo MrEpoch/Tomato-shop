@@ -5,9 +5,9 @@ import { downLoadFile } from 'lib/storage';
 export async function GET({ url, request, setHeaders }) {
 	try {
 		const searchTerm = url.searchParams.get('search') || '';
-        const skip = parseInt(url.searchParams.get('skip')) || 0;
+		const skip = parseInt(url.searchParams.get('skip')) || 0;
 
-        if (skip === 0) return json({ fail: true, error: "Skip less than or equal 0 or no skip" });
+		if (skip === 0) return json({ fail: true, error: 'Skip less than or equal 0 or no skip' });
 
 		let products_data = await getProductsForSearch(searchTerm, skip);
 
@@ -23,9 +23,9 @@ export async function GET({ url, request, setHeaders }) {
 			})
 		);
 
-        return json({ data: products, fail: false });
+		return json({ data: products, fail: false });
 	} catch (error) {
 		console.log(error);
-        return json({ data: [], error: error.message, fail: true });
+		return json({ data: [], error: error.message, fail: true });
 	}
 }

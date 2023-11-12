@@ -18,5 +18,5 @@ export const products = persisted('products', {
 });
 
 export const saved_products = persisted('saved_products', {
-    items: []
-})
+	items: []
+});
